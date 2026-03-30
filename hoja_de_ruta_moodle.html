@@ -1,0 +1,346 @@
+<!-- ============================================ -->
+<!-- COPIAR DESDE AQUÍ PARA PEGAR EN MOODLE (EDITOR HTML) -->
+<!-- ============================================ -->
+
+<div class="el-bosque-moodle-wrapper">
+    <!-- Importación de Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* SCOPE: Encapsulamiento para Moodle 
+           Usamos la clase contenedora para definir variables y estilos base
+           para no romper el tema visual de Moodle.
+        */
+        .el-bosque-moodle-wrapper {
+            /* Variables Locales */
+            --color-purple-main: #583586;
+            --color-purple-mid: #6d4c94;
+            --color-purple-light: #8f6bb3;
+            --color-purple-dark: #4a276b;
+            --color-green-main: #76b82a;
+            --color-green-lime: #9ccb3b;
+            --color-green-slate: #7a9483;
+            --color-neutral-white: #ffffff;
+            --color-neutral-light: #f4f4f4;
+            --color-neutral-gray: #d1d1d1;
+            --color-neutral-dark: #333333;
+            --color-neutral-black: #1a1a1a;
+            
+            --font-primary: 'Montserrat', Helvetica, Arial, sans-serif;
+            --skew-angle: -40deg;
+
+            /* Base Styles para el contenedor */
+            font-family: var(--font-primary);
+            background-color: var(--color-neutral-white);
+            color: var(--color-neutral-dark);
+            line-height: 1.6;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 1px solid #eee; /* Borde opcional para delimitar en Moodle */
+            border-radius: 8px;
+        }
+
+        /* Reseteo local de box-sizing */
+        .el-bosque-moodle-wrapper *, 
+        .el-bosque-moodle-wrapper *::before, 
+        .el-bosque-moodle-wrapper *::after {
+            box-sizing: border-box;
+        }
+
+        /* Títulos */
+        .el-bosque-moodle-wrapper h1, 
+        .el-bosque-moodle-wrapper h2, 
+        .el-bosque-moodle-wrapper h3 {
+            margin-top: 0;
+        }
+
+        /* HEADER CORPORATIVO */
+        .el-bosque-moodle-wrapper .corp-header {
+            position: relative; 
+            width: 100%; 
+            height: 80px; 
+            display: flex;
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1)); 
+            margin-bottom: 40px;
+            background: transparent; /* Fix para Moodle */
+        }
+        
+        .el-bosque-moodle-wrapper .ch-start {
+            width: 15%; 
+            background-color: var(--color-green-main);
+            clip-path: polygon(0% 0%, calc(100% - 35px) 0%, 100% 50%, calc(100% - 35px) 100%, 0% 100%);
+        }
+        
+        .el-bosque-moodle-wrapper .ch-item {
+            width: 80px; 
+            margin-left: -30px;
+            clip-path: polygon(0% 0%, calc(100% - 35px) 0%, 100% 50%, calc(100% - 35px) 100%, 0% 100%, 35px 50%);
+        }
+        
+        .el-bosque-moodle-wrapper .ch-end {
+            flex-grow: 1; 
+            margin-left: -30px; 
+            background-color: var(--color-purple-main);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 35px 50%);
+            display: flex; 
+            align-items: center; 
+            padding-left: 60px;
+        }
+        
+        .el-bosque-moodle-wrapper .ch-end .title-box h1 {
+            color: white !important; 
+            font-size: 1.8rem; 
+            margin: 0; 
+            text-transform: uppercase; 
+            font-weight: 800; 
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+        
+        .el-bosque-moodle-wrapper .ch-end .title-box h2 {
+            font-size: 1rem; 
+            color: var(--color-green-lime) !important; 
+            font-weight: 500; 
+            margin: 0; 
+            text-transform: uppercase;
+        }
+
+        /* UTILS COLORS */
+        .el-bosque-moodle-wrapper .bg-purple-main { background-color: var(--color-purple-main); }
+        .el-bosque-moodle-wrapper .bg-purple-mid { background-color: var(--color-purple-mid); }
+        .el-bosque-moodle-wrapper .bg-purple-light { background-color: var(--color-purple-light); }
+        .el-bosque-moodle-wrapper .bg-green-main { background-color: var(--color-green-main); }
+        .el-bosque-moodle-wrapper .bg-green-lime { background-color: var(--color-green-lime); }
+        .el-bosque-moodle-wrapper .bg-green-slate { background-color: var(--color-green-slate); }
+        .el-bosque-moodle-wrapper .z-5 { z-index: 5; } 
+        .el-bosque-moodle-wrapper .z-4 { z-index: 4; } 
+        .el-bosque-moodle-wrapper .z-3 { z-index: 3; } 
+        .el-bosque-moodle-wrapper .z-2 { z-index: 2; } 
+        .el-bosque-moodle-wrapper .z-1 { z-index: 1; }
+
+        /* FOOTER DECO STRIP */
+        .el-bosque-moodle-wrapper .deco-strip { 
+            display: flex; 
+            height: 15px; 
+            overflow: hidden; 
+            width: 100%; 
+            margin-top: 40px; 
+        }
+        .el-bosque-moodle-wrapper .segment { 
+            height: 100%; 
+            transform: skewX(var(--skew-angle)); 
+            margin-right: 6px; 
+        }
+        .el-bosque-moodle-wrapper .seg-fill { flex-grow: 1; } 
+        .el-bosque-moodle-wrapper .seg-sm { width: 20px; } 
+        .el-bosque-moodle-wrapper .seg-md { width: 40px; }
+        .el-bosque-moodle-wrapper .seg-start { margin-left: -20px; padding-left: 20px; } 
+        .el-bosque-moodle-wrapper .seg-end { margin-right: -20px; padding-right: 20px; }
+
+        /* TIMELINE / HOJA DE RUTA */
+        .el-bosque-moodle-wrapper .timeline-container { 
+            position: relative; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px 0;
+        }
+        .el-bosque-moodle-wrapper .timeline-line { 
+            position: absolute; 
+            left: 20px; 
+            top: 0; 
+            bottom: 0; 
+            width: 4px; 
+            background: var(--color-neutral-light); 
+            z-index: 0; 
+        }
+        
+        .el-bosque-moodle-wrapper .module-card {
+            position: relative; 
+            margin-bottom: 30px; 
+            padding-left: 60px; 
+            z-index: 1;
+        }
+        
+        .el-bosque-moodle-wrapper .module-marker {
+            position: absolute; 
+            left: 6px; 
+            top: 0; 
+            width: 32px; 
+            height: 32px; 
+            border-radius: 50%;
+            background: var(--color-purple-main); 
+            border: 4px solid #fff; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            font-weight: bold; 
+            font-size: 13px;
+            /* Asegurar que el texto se centre */
+            text-align: center;
+            line-height: normal;
+        }
+        
+        .el-bosque-moodle-wrapper .module-content {
+            background: #fff; 
+            border: 1px solid #eee; 
+            border-radius: 8px; 
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            transition: transform 0.2s;
+        }
+        .el-bosque-moodle-wrapper .module-content:hover { 
+            transform: translateY(-3px); 
+            border-color: var(--color-green-lime); 
+        }
+        
+        .el-bosque-moodle-wrapper .module-title { 
+            color: var(--color-purple-main); 
+            margin: 0 0 5px 0; 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+        }
+        .el-bosque-moodle-wrapper .module-desc { 
+            color: var(--color-green-slate); 
+            font-size: 0.9rem; 
+            margin-bottom: 15px; 
+            font-weight: 500; 
+        }
+        
+        .el-bosque-moodle-wrapper .topic-list { 
+            list-style: none; 
+            padding: 0; 
+            margin: 0; 
+        }
+        .el-bosque-moodle-wrapper .topic-list li { 
+            margin-bottom: 8px; 
+            font-size: 0.9rem; 
+            position: relative; 
+            padding-left: 20px; 
+            color: var(--color-neutral-dark); 
+        }
+        .el-bosque-moodle-wrapper .topic-list li::before { 
+            content: "•"; 
+            color: var(--color-green-main); 
+            font-weight: bold; 
+            position: absolute; 
+            left: 0; 
+        }
+    </style>
+
+    <!-- CONTENT BODY START -->
+    <header class="corp-header">
+        <div class="ch-start"></div>
+        <div class="ch-item bg-green-lime z-4"></div>
+        <div class="ch-item bg-green-slate z-3"></div>
+        <div class="ch-end">
+            <div class="title-box">
+                <h1>Hoja de Ruta</h1>
+                <h2>Tu camino hacia la Maestría Digital</h2>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-inner">
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+
+            <div class="module-card">
+                <div class="module-marker">1</div>
+                <div class="module-content">
+                    <h3 class="module-title">Identidad Digital</h3>
+                    <div class="module-desc">Outlook, Gmail y Gestión de Tiempo</div>
+                    <ul class="topic-list">
+                        <li>Configuración de Firma Profesional</li>
+                        <li>Redacción de correos con IA (Copilot)</li>
+                        <li>Gestión de Calendario y Seguridad</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-marker">2</div>
+                <div class="module-content">
+                    <h3 class="module-title">Documentos de Impacto</h3>
+                    <div class="module-desc">Word: Creación, Edición y Formato</div>
+                    <ul class="topic-list">
+                        <li>Estructura de documentos asistida por IA</li>
+                        <li>Tablas y Diseño visual avanzado</li>
+                        <li>Plantillas y documentos comerciales</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-marker">3</div>
+                <div class="module-content">
+                    <h3 class="module-title">Datos que Hablan</h3>
+                    <div class="module-desc">Excel: Listas, Fórmulas y Análisis</div>
+                    <ul class="topic-list">
+                        <li>Tablas Inteligentes y Fórmulas básicas</li>
+                        <li>Formato Condicional y Filtros</li>
+                        <li>Creación de Reportes Profesionales</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-marker">4</div>
+                <div class="module-content">
+                    <h3 class="module-title">Historias Visuales</h3>
+                    <div class="module-desc">PowerPoint: Diseño y Oratoria</div>
+                    <ul class="topic-list">
+                        <li>Estructura y "Diseñador" inteligente</li>
+                        <li>Transiciones y Animaciones elegantes</li>
+                        <li>Herramientas de presentador</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-marker">5</div>
+                <div class="module-content">
+                    <h3 class="module-title">Oficina en la Nube</h3>
+                    <div class="module-desc">Colaboración y Movilidad</div>
+                    <ul class="topic-list">
+                        <li>OneDrive y Trabajo Colaborativo en tiempo real</li>
+                        <li>Microsoft Teams y App Móvil</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-marker" style="background: var(--color-green-main);">6</div>
+                <div class="module-content" style="border-left: 4px solid var(--color-green-main);">
+                    <h3 class="module-title" style="color: var(--color-green-main);">Proyecto Final Integrado</h3>
+                    <div class="module-desc">La Gran Integración</div>
+                    <ul class="topic-list">
+                        <li>Conectar Excel + Word + PowerPoint en un sistema vivo</li>
+                        <li>Análisis de datos reales y automatización</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer style="margin-top: 40px;">
+        <div class="deco-strip">
+            <div class="segment seg-fill seg-start bg-purple-main"></div>
+            <div class="segment seg-sm bg-purple-light"></div>
+            <div class="segment seg-sm bg-green-slate"></div>
+            <div class="segment seg-md bg-green-lime"></div>
+            <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+        </div>
+        <div style="text-align: right; font-size: 11px; color: var(--color-green-slate); margin-top: 5px; padding-right: 20px;">
+            Hoja de Ruta del Estudiante
+        </div>
+    </footer>
+
+</div>
+<!-- ============================================ -->
+<!-- FIN BLOQUE MOODLE -->
+<!-- ============================================ -->

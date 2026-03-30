@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guion Técnico - Cápsula 2.2: Formato Básico Profesional</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           TOKENS DE DISEÑO (SISTEMA ATÓMICO)
+           ========================================= */
+        :root {
+            --color-purple-main: #583586;
+            --color-purple-mid: #6d4c94;
+            --color-purple-light: #8f6bb3;
+            --color-purple-dark: #4a276b;
+            
+            --color-green-main: #76b82a;
+            --color-green-lime: #9ccb3b;
+            --color-green-slate: #7a9483;
+            
+            --color-neutral-white: #ffffff;
+            --color-neutral-light: #f4f4f4;
+            --color-neutral-gray: #d1d1d1;
+            --color-neutral-dark: #333333;
+
+            --font-primary: 'Montserrat', sans-serif;
+            --skew-angle: -40deg;
+        }
+
+        /* =========================================
+           CONFIGURACIÓN DE PÁGINA (IMPRIMIBLE)
+           ========================================= */
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: #525659;
+            font-family: var(--font-primary);
+            margin: 0;
+            padding: 20px;
+            color: var(--color-neutral-dark);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px auto;
+            padding: 15mm 20mm;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media print {
+            body { background: none; padding: 0; }
+            .page { width: 100%; margin: 0; box-shadow: none; border: none; min-height: auto; page-break-after: always; }
+            .page:last-child { page-break-after: auto; }
+        }
+
+        /* =========================================
+           COMPONENTES
+           ========================================= */
+        
+        /* Header */
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--color-green-main);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .header-info h1 {
+            font-size: 18pt;
+            color: var(--color-purple-main);
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .header-info h2 {
+            font-size: 10pt;
+            color: var(--color-green-slate);
+            margin: 5px 0 0 0;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .logo-simple {
+            width: 100px;
+            height: auto;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+        
+        .deco-strip {
+            display: flex;
+            height: 15px;
+            overflow: hidden;
+            width: 100%;
+        }
+        .deco-strip .segment {
+            height: 100%;
+            transform: skewX(var(--skew-angle));
+            margin-right: 4px;
+        }
+        .deco-strip .seg-fill { flex-grow: 1; }
+        .deco-strip .seg-sm { width: 15px; }
+        .deco-strip .seg-md { width: 30px; }
+        .deco-strip .seg-start { margin-left: -10px; padding-left: 10px; }
+        .deco-strip .seg-end { margin-right: -10px; padding-right: 10px; }
+
+        .footer-text {
+            text-align: right;
+            font-size: 8pt;
+            color: var(--color-green-slate);
+            margin-top: 5px;
+        }
+
+        /* Contenido */
+        .script-meta {
+            background-color: var(--color-neutral-light);
+            border-left: 4px solid var(--color-purple-main);
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 10pt;
+        }
+
+        .script-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 12pt;
+            color: var(--color-purple-main);
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--color-neutral-gray);
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cue-block {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            font-size: 10pt;
+        }
+
+        .cue-tech {
+            flex: 0 0 120px;
+            font-size: 8pt;
+            font-weight: 600;
+            color: var(--color-green-slate);
+            text-transform: uppercase;
+            padding-top: 3px;
+        }
+
+        .cue-tech strong {
+            display: block;
+            color: var(--color-purple-mid);
+            margin-bottom: 2px;
+        }
+
+        .cue-dialogue {
+            flex: 1;
+            line-height: 1.5;
+            color: var(--color-neutral-dark);
+        }
+
+        .cue-dialogue p { margin: 0 0 10px 0; }
+
+        /* Prompt Box */
+        .prompt-box {
+            background-color: #f0f7ff;
+            border: 1px dashed var(--color-purple-light);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 9pt;
+            color: var(--color-purple-dark);
+        }
+        .prompt-label {
+            font-weight: bold;
+            color: var(--color-purple-main);
+            display: block;
+            margin-bottom: 5px;
+            font-family: var(--font-primary);
+            font-size: 8pt;
+            text-transform: uppercase;
+        }
+
+        /* Listas */
+        ul { margin: 0 0 10px 20px; padding: 0; }
+        li { margin-bottom: 4px; }
+
+    </style>
+</head>
+<body>
+
+    <!-- PÁGINA 1 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <div class="script-meta">
+                <h3 style="margin: 0 0 10px 0; color: var(--color-purple-main);">🎥 CÁPSULA 2.2 – Formato Básico Profesional en Word</h3>
+                <div><strong>Duración estimada:</strong> 10–12 minutos</div>
+                <div><strong>Herramientas:</strong> Microsoft Word</div>
+                <div><strong>Objetivo:</strong> Aplicar estilos, alineación, tipografía y estructura visual profesional.</div>
+            </div>
+
+            <!-- SECCIÓN 0 -->
+            <div class="script-section">
+                <div class="section-title">🎬 0. Apertura (00:00 – 01:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Plano Medio<br>
+                        Tono Amable
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>¡Hola de nuevo! En nuestra sesión anterior, logramos algo importante: vencimos a la hoja en blanco y generamos un borrador sólido con ayuda de la Inteligencia Artificial. Pero si miras ese documento ahora, notarás que le falta algo vital: personalidad y orden.</p>
+                        <p>Hoy daremos el siguiente gran paso: <strong>aplicar formato profesional en Word</strong>. Y quiero ser muy claro en esto: formatear no es simplemente "decorar" o hacer que se vea bonito. Formatear es estructurar la información para que el cerebro del lector la procese sin esfuerzo.</p>
+                        <p>En esta cápsula, dominaremos los Estilos (la herramienta más poderosa de Word), aprenderemos sobre alineación, interlineado y las reglas de oro de la tipografía. Transformaremos ese texto plano en un documento ejecutivo de alto nivel.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 1 -->
+            <div class="script-section">
+                <div class="section-title">📘 1. ¿Por qué es importante el formato? (01:00 – 02:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Apoyo Visual
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>¿Alguna vez has abierto un documento y te has sentido abrumado por un muro de texto denso y sin espacios? Eso es lo que queremos evitar. El formato tiene una función psicológica: invita a la lectura.</p>
+                        <p>Un documento bien formateado actúa como un guía turístico: le dice al lector dónde empezar, qué es lo más importante y dónde están las conclusiones. Un mal formato, por el contrario, grita desorden y falta de atención al detalle.</p>
+                        <p>En el mundo profesional, tu documento es tu embajador. Si envías una propuesta desalineada y con fuentes mezcladas, el cliente asumirá que así es tu trabajo. Si envías un documento impecable, proyectarás competencia y seriedad antes de que lean la primera palabra.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2 -->
+            <div class="script-section">
+                <div class="section-title">🧱 2. La barra de Estilos (02:00 – 05:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Word: Inicio
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>El secreto mejor guardado de los expertos en Word es la barra de <strong>Estilos</strong>. Muchos usuarios cometen el error de cambiar el tamaño y la negrita manualmente para cada título. ¡No lo hagas!</p>
+                        <p>Los Estilos (ubicados en la pestaña Inicio) son etiquetas inteligentes. Cuando marcas un texto como "Título 1", no solo le cambias el aspecto, sino que le dices a Word: "Esto es importante".</p>
+                        <p><strong>Hagamos un ejercicio práctico:</strong></p>
+                        <ol>
+                            <li>Selecciona el título principal de tu borrador y haz clic en el estilo <strong>"Título 1"</strong>.</li>
+                            <li>Selecciona los subtítulos (como "Nuestros Servicios" o "Beneficios") y aplícales <strong>"Título 2"</strong>.</li>
+                            <li>Asegúrate de que el resto del texto tenga el estilo <strong>"Normal"</strong>.</li>
+                        </ol>
+                        <p>¿La ventaja mágica? Si luego quieres que todos los subtítulos sean azules y más grandes, solo modificas el estilo "Título 2" y se actualizarán todos automáticamente en todo el documento. Ahorrarás horas de trabajo.</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 1 de 3 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+    <!-- PÁGINA 2 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <!-- SECCIÓN 3 -->
+            <div class="script-section">
+                <div class="section-title">↔️ 3. Alineación del texto (05:00 – 06:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Demo
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Hablemos de la alineación. Word nos ofrece cuatro opciones, pero no todas son iguales para un entorno profesional.</p>
+                        <ul>
+                            <li><strong>Alineación a la Izquierda:</strong> Es el estándar de oro para la legibilidad en occidente. El ojo siempre sabe dónde empieza la siguiente línea. Úsala para el cuerpo del texto.</li>
+                            <li><strong>Centrada:</strong> Úsala con moderación, exclusivamente para títulos principales o portadas. Un párrafo entero centrado es muy difícil de leer.</li>
+                            <li><strong>Justificada:</strong> Hace que los bordes se vean rectos a ambos lados. Se ve "ordenado" de lejos, pero cuidado: puede crear "ríos" de espacio en blanco entre palabras que dificultan la lectura. Úsala solo si es un requisito formal estricto.</li>
+                            <li><strong>Derecha:</strong> Solo para datos específicos como fechas o firmas al final de una carta.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 4 -->
+            <div class="script-section">
+                <div class="section-title">📏 4. Darle aire al texto (06:00 – 08:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Menú Párrafo
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>A veces las letras quedan muy apretadas y cuesta leer. Para eso usamos el "Interlineado", que es el espacio entre renglón y renglón.</p>
+                        <p>Busquen el botón con unas flechitas azules hacia arriba y abajo. Si eligen 1.15 o 1.5, el texto "respira" mejor y no cansa la vista.</p>
+                        <p><strong>Un truco importante:</strong> Mucha gente aprieta la tecla "Enter" dos veces para separar párrafos. ¡No hace falta! Word puede hacerlo solo si le decimos que deje un "Espaciado" automático. Así nos queda todo parejito sin esfuerzo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 5 -->
+            <div class="script-section">
+                <div class="section-title">🔠 5. Elegir la letra correcta (08:00 – 10:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Ejemplos
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>La "Fuente" o "Tipografía" es simplemente el tipo de letra que usamos. Elegir una letra rara es como ir a una reunión formal en pijama: no se ve bien.</p>
+                        <p>Para no equivocarse, usen letras claras y sencillas como <strong>Arial, Calibri o Verdana</strong>. Son fáciles de leer en la pantalla.</p>
+                        <p><strong>Consejo de oro:</strong> No mezclen muchos tipos de letra. Usen una sola para todo el documento, o máximo dos (una para títulos y otra para el texto). Y sobre el tamaño: 11 o 12 es perfecto para leer sin forzar la vista.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 6 -->
+            <div class="script-section">
+                <div class="section-title">🧩 6. Ponerle nombre y número a las hojas (10:00 – 12:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Insertar
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>¿Han visto que los libros tienen el título arriba y el número de página abajo en todas las hojas? Eso se llama "Encabezado" y "Pie de Página".</p>
+                        <p>Es muy útil para que, si se nos desordenan las hojas impresas, sepamos cuál va primero y cuál después.</p>
+                        <p>Para ponerlo, vamos a la pestaña <strong>Insertar</strong> y buscamos "Número de página". Elijan "Final de la página" y listo. Word le pondrá el número a todas las hojas automáticamente, aunque escriban 100 páginas.</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 2 de 3 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+    <!-- PÁGINA 3 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <!-- SECCIÓN 7 -->
+            <div class="script-section">
+                <div class="section-title">🖼️ 7. Imágenes y Separadores (12:00 – 15:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Insertar
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Vamos a romper la monotonía del texto con elementos visuales. Si tienes un logo, es hora de insertarlo.</p>
+                        <p>El problema clásico con las imágenes en Word es que, al insertarlas, rompen todo el texto. El truco está en el botón que aparece al lado de la imagen seleccionada: <strong>Opciones de Diseño</strong>. Cambia de "En línea con el texto" a <strong>"Cuadrado"</strong> o <strong>"Estrecho"</strong>. Esto liberará la imagen y podrás moverla con el mouse a donde quieras, mientras el texto fluye alrededor de ella.</p>
+                        <p>También puedes usar líneas separadoras sutiles (Insertar > Formas > Línea) para dividir secciones importantes. Un consejo pro: mantén presionada la tecla <strong>Shift</strong> mientras dibujas la línea para que salga perfectamente recta.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 9 -->
+            <div class="script-section">
+                <div class="section-title">🧹 9. Errores comunes a evitar (15:00 – 16:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Lista
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Antes de terminar, repasemos los "pecados capitales" del formato que debes evitar a toda costa:</p>
+                        <ul>
+                            <li><strong>La ensalada de fuentes:</strong> Usar 4 o 5 tipos de letra distintos marea al lector. Mantente en 2 máximo.</li>
+                            <li><strong>El arcoíris:</strong> Evita textos en rojo, verde o amarillo brillante. Usa negro o gris oscuro para el texto, y un color corporativo solo para títulos.</li>
+                            <li><strong>El abuso de la Negrita:</strong> Si todo es importante, nada es importante. Usa la negrita solo para palabras clave, no para párrafos enteros.</li>
+                            <li><strong>Imágenes deformadas:</strong> Nunca estires una imagen solo de un lado. Usa siempre las esquinas para mantener la proporción.</li>
+                            <li><strong>Miedo al espacio en blanco:</strong> No llenes cada centímetro de la hoja. Los márgenes amplios hacen que la lectura sea más cómoda.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 10 -->
+            <div class="script-section">
+                <div class="section-title">🎯 10. IA + Word para formato (16:00 – 17:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Copilot Web
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>¿No estás seguro de qué colores o fuentes combinan bien? Pregúntale a tu asistente de diseño: Copilot.</p>
+                        <p>Puedes usar un prompt como este para obtener inspiración:</p>
+                        <div class="prompt-box">
+                            <span class="prompt-label">🎨 PROMPT: ASESORÍA DE DISEÑO</span>
+                            Actúa como un diseñador gráfico editorial. Tengo un documento sobre [tema del documento] para un público [tipo de público].<br>
+                            Sugiéreme una paleta de 2 colores profesionales (dame los códigos Hex), una combinación de tipografías (título y cuerpo) y un estilo visual (minimalista, clásico, moderno) que transmita confianza.
+                        </div>
+                        <p>Copilot te dará una guía de estilo que luego tú puedes aplicar usando las herramientas de Word que acabamos de ver. Es como tener un director de arte a tu lado.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 11 -->
+            <div class="script-section">
+                <div class="section-title">🔚 11. Cierre de la Cápsula 2.2 (17:30 – 18:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Cierre
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>¡Felicidades! Mira tu documento ahora. Compáralo con el texto plano con el que empezamos. La diferencia es abismal, ¿verdad? Ahora tiene estructura, jerarquía y una apariencia que invita a leerlo.</p>
+                        <p>Ya dominas los fundamentos del formato profesional. Pero Word tiene aún más potencia visual por ofrecer.</p>
+                        <p>En la próxima cápsula, subiremos el nivel: aprenderemos a insertar y diseñar Tablas profesionales para presentar datos, manejaremos imágenes avanzadas y configuraremos el diseño de página final. ¡Nos vemos en la siguiente clase!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 20px; background: var(--color-green-main); color: white; text-align: center; font-weight: bold; border-radius: 8px;">
+                📦 FIN DEL BLOQUE 2 (MÓDULO 2)
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 3 de 3 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+</body>
+</html>

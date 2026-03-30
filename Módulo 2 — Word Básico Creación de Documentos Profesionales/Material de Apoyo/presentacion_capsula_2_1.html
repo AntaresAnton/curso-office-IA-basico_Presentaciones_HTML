@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Cápsula 3.1 - Introducción a Word + IA</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Consolas&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos Corporativos -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="presentation-container">
+        <!-- Logo Institucional -->
+        <img src="../../../tu puedes logo.png" class="logo-overlay" alt="Logo Institucional">
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide cover-layout active" id="slide-1">
+            <div class="bg-pattern-dots"></div>
+            <!-- Top Bar -->
+            <div class="deco-strip" style="position: absolute; top: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-pill">Cápsula 3.1</div>
+            <h1 class="cover-title">Alfabetización Digital:<br><span>Word Básico + IA</span></h1>
+            <div class="cover-subtitle">Tu Primer Documento Profesional</div>
+            
+            <div style="margin-top: 30px; font-weight: 600; color: var(--color-neutral-dark);">
+                Programa Tú Puedes - 2026
+            </div>
+
+            <div class="logo-wrapper-cover">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: SEPARADOR 1 -->
+        <div class="slide slide-section" id="slide-2">
+            <div class="bg-pattern-dots" style="opacity: 0.1;"></div>
+            <div class="deco-circle"></div>
+             <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 01</span>
+                    <div class="section-title-text">¿Qué es Word?</div>
+                    <div style="margin-top: 20px;">
+                        <span class="material-icons mi-lg anim-bounce-right" style="color: var(--color-green-lime);">description</span>
+                    </div>
+                </div>
+                <div class="section-number-giant">01</div>
+            </div>
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: WORD COMO IMPRENTA -->
+        <div class="slide" id="slide-3">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Tu Imprenta Personal</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="margin-bottom: 30px; font-size: 1.3rem;">Mucho más que una máquina de escribir.</p>
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple"><span class="material-icons">assignment</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Cartas y Solicitudes:</strong> Comunicación formal clara y elegante.</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green"><span class="material-icons">badge</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Currículum Vitae:</strong> Tu presentación profesional al mundo.</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-slate"><span class="material-icons">summarize</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Informes:</strong> Reportes de trabajo y tareas escolares.</div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <!-- Simulación Ventana Word Detallada -->
+                        <div class="app-window app-word" style="height: 500px;">
+                            <div class="app-header">
+                                <div class="app-controls">
+                                    <div class="win-btn close"></div><div class="win-btn min"></div><div class="win-btn max"></div>
+                                </div>
+                                <div class="app-title">CV_Profesional.docx - Word</div>
+                            </div>
+                            
+                            <!-- CINTA DE OPCIONES REALISTA -->
+                            <div class="ribbon-bar">
+                                <span class="ribbon-tab active">Inicio</span>
+                                <span class="ribbon-tab">Insertar</span>
+                                <span class="ribbon-tab">Diseño</span>
+                                <span class="ribbon-tab">Disposición</span>
+                                <span class="ribbon-tab">Referencias</span>
+                            </div>
+                            <div class="ribbon-toolbar">
+                                <!-- Portapapeles -->
+                                <div class="ribbon-group">
+                                    <div class="ribbon-btn" title="Pegar"><span class="material-icons" style="color:#2B579A;">content_paste</span></div>
+                                </div>
+                                <!-- Fuente -->
+                                <div class="ribbon-group">
+                                    <div class="ribbon-select" style="width: 90px;">Calibri <span class="material-icons" style="font-size:14px; margin-left:auto;">arrow_drop_down</span></div>
+                                    <div class="ribbon-select" style="width: 40px;">11 <span class="material-icons" style="font-size:14px; margin-left:auto;">arrow_drop_down</span></div>
+                                    <div class="ribbon-btn active"><span class="material-icons">format_bold</span></div>
+                                    <div class="ribbon-btn"><span class="material-icons">format_italic</span></div>
+                                    <div class="ribbon-btn"><span class="material-icons">format_underlined</span></div>
+                                </div>
+                                <!-- Párrafo -->
+                                <div class="ribbon-group">
+                                    <div class="ribbon-btn active"><span class="material-icons">format_align_left</span></div>
+                                    <div class="ribbon-btn"><span class="material-icons">format_align_center</span></div>
+                                    <div class="ribbon-btn"><span class="material-icons">format_align_right</span></div>
+                                    <div class="ribbon-btn"><span class="material-icons">format_list_bulleted</span></div>
+                                </div>
+                                <!-- Estilos -->
+                                <div class="ribbon-group" style="padding-left: 5px;">
+                                    <div style="font-size: 0.8rem; border:1px solid #ddd; padding: 2px 8px; border-radius:3px; background:#fff;">Normal</div>
+                                    <div style="font-size: 0.8rem; border:1px solid #ddd; padding: 2px 8px; border-radius:3px; color:#2B579A; font-weight:bold;">Título 1</div>
+                                </div>
+                            </div>
+
+                            <div class="app-body" style="background: #e6e6e6; display:flex; justify-content:center; padding-top:20px; overflow:hidden;">
+                                <div class="doc-sheet">
+                                    <div class="doc-line title" style="width: 40%;"></div>
+                                    <br>
+                                    <div style="display:flex; gap: 15px; margin-bottom: 15px;">
+                                        <div style="width: 60px; height: 60px; background:#ddd; border-radius:50%;"></div>
+                                        <div style="flex:1;">
+                                            <div class="doc-line" style="width: 50%;"></div>
+                                            <div class="doc-line" style="width: 30%;"></div>
+                                            <div class="doc-line" style="width: 40%;"></div>
+                                        </div>
+                                    </div>
+                                    <hr style="border: 0; border-top: 2px solid #333; margin: 10px 0;">
+                                    <div class="doc-line title" style="height: 10px; width: 25%;"></div>
+                                    <div class="doc-line"></div>
+                                    <div class="doc-line"></div>
+                                    <div class="doc-line short"></div>
+                                    <br>
+                                    <div class="doc-line title" style="height: 10px; width: 25%;"></div>
+                                    <div class="doc-line"></div>
+                                    <div class="doc-line"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: SEPARADOR 2 -->
+        <div class="slide slide-section" id="slide-4">
+            <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 02</span>
+                    <div class="section-title-text">Estructura del<br>Documento</div>
+                </div>
+                <div class="section-number-giant">02</div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: METAFORA CASA -->
+        <div class="slide" id="slide-5">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>La Casa del Texto</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p style="margin-bottom: 20px; font-size: 1.3rem;">Piensa en un documento como si fuera una casa:</p>
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-blue"><span class="material-icons">roofing</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>1. Título (Techo):</strong> Grande y visible desde lejos. Protege y define lo que hay dentro.</div>
+                            </div>
+                            <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green"><span class="material-icons">meeting_room</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>2. Subtítulos (Habitaciones):</strong> Dividen el espacio. Cocina, Baño, Dormitorio (Introducción, Desarrollo, Cierre).</div>
+                            </div>
+                            <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-slate"><span class="material-icons">chair</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>3. Párrafos (Muebles):</strong> El contenido real. Debe estar ordenado para poder caminar.</div>
+                            </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple"><span class="material-icons">wallpaper</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>4. Imágenes (Cuadros):</strong> Dan vida y hacen la estancia más agradable.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: SEPARADOR 3 -->
+        <div class="slide slide-section" id="slide-6">
+            <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 03</span>
+                    <div class="section-title-text">Creando con IA</div>
+                </div>
+                <div class="section-number-giant">03</div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: PROMPT BORRADOR -->
+        <div class="slide" id="slide-7">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Tu Primer Borrador</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                         <p style="font-size: 1.2rem;">¿Hoja en blanco? Nunca más. Pide ayuda a Gemini.</p>
+                         <div class="highlight-box">
+                             <strong>Tip de Oro:</strong> Sé específico. Dile qué vendes y a quién le hablas.
+                         </div>
+                    </div>
+                    <div class="col-media" style="flex: 2;">
+                        <div class="app-window app-copilot">
+                            <div class="app-header">
+                                <div class="app-controls">
+                                    <div class="win-btn close"></div><div class="win-btn min"></div><div class="win-btn max"></div>
+                                </div>
+                                <div class="app-title">Chat con Gemini</div>
+                            </div>
+                            <div class="app-body">
+                                <div class="prompt-display" style="border:none; box-shadow:none; margin:0; background:transparent;">
+                                    "Hola, necesito escribir una presentación para mi negocio de <strong>[Tu Rubro, ej: Pastelería]</strong>.<br>
+                                    Por favor escribe un borrador que tenga:<br>
+                                    1. Un título bonito.<br>
+                                    2. Un saludo a los vecinos.<br>
+                                    3. Una lista de lo que vendo.<br>
+                                    4. Un cierre invitando a comprar.<br>
+                                    Usa palabras sencillas y amables."
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-badge">⚡ Actividad: Abre Copilot y prueba este prompt</div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: AJUSTANDO EL TONO -->
+        <div class="slide" id="slide-8">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Tú eres el Jefe</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p style="margin-bottom: 30px; font-size: 1.3rem;">Si el resultado no te gusta, pide cambios.</p>
+                
+                <div style="display: flex; gap: 30px; justify-content: center;">
+                    <!-- Card 1 -->
+                    <div class="concept-card bullet-point" style="width: 45%;">
+                        <div class="card-top-strip bg-green-main"></div>
+                        <div class="card-body">
+                            <span class="material-icons" style="font-size: 4rem; color: var(--color-green-main); margin-bottom: 15px;">sentiment_satisfied_alt</span>
+                            <h3>Opción A: Amable</h3>
+                            <div class="prompt-display" style="font-size: 1rem; margin-top: 15px;">
+                                "Está bueno, pero escríbelo de nuevo con más cariño, como para mis vecinos de confianza."
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 2 -->
+                    <div class="concept-card bullet-point" style="width: 45%;">
+                        <div class="card-top-strip bg-purple-main"></div>
+                        <div class="card-body">
+                            <span class="material-icons" style="font-size: 4rem; color: var(--color-purple-main); margin-bottom: 15px;">business_center</span>
+                            <h3>Opción B: Formal</h3>
+                            <div class="prompt-display" style="font-size: 1rem; margin-top: 15px;">
+                                "Hazlo más serio y profesional, es para enviarlo a una empresa grande."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: DE APP A WORD -->
+        <div class="slide" id="slide-9">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>De Internet a Word</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                 <div class="h-timeline">
+                    <div class="h-item bullet-point">
+                        <div class="h-badge">1</div>
+                        <div class="h-line"></div>
+                        <h3 style="margin: 15px 0 5px;">Seleccionar</h3>
+                        <p>Pinta el texto azul con el mouse.</p>
+                        <span class="material-icons mi-lg" style="color: #ccc;">mouse</span>
+                    </div>
+                    <div class="h-item bullet-point">
+                        <div class="h-badge">2</div>
+                        <div class="h-line"></div>
+                        <h3 style="margin: 15px 0 5px;">Copiar</h3>
+                        <p>Clic derecho > Copiar.</p>
+                        <span class="material-icons mi-lg" style="color: #0078D4;">content_copy</span>
+                    </div>
+                    <div class="h-item bullet-point">
+                        <div class="h-badge">3</div>
+                        <div class="h-line"></div>
+                        <h3 style="margin: 15px 0 5px;">Pegar (Solo Texto)</h3>
+                        <p>Clic derecho > Icono con la letra 'A'.</p>
+                        <span class="material-icons mi-lg" style="color: var(--color-green-main);">content_paste</span>
+                    </div>
+                    <div class="h-item bullet-point">
+                        <div class="h-badge" style="border-color: #d32f2f; color: #d32f2f;">4</div>
+                        <h3 style="margin: 15px 0 5px; color: #d32f2f;">¡GUARDAR!</h3>
+                        <p>Icono del disquete (o Ctrl + G).</p>
+                        <span class="material-icons mi-lg anim-pulse" style="color: #d32f2f;">save</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: CONSEJOS FINALES (RESUMEN DE CÁPSULA) -->
+        <div class="slide" id="slide-10">
+             <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Qué Aprendimos Hoy</h1></div>
+            </header>
+             <div class="content-body slide-content">
+                 <h2 style="text-align:center; color: #555; margin-bottom: 30px;">Resumen de la Cápsula 3.1</h2>
+                 <div class="timeline-container">
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-green"><span class="material-icons">print</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Word es tu Imprenta:</strong> Úsalo para crear documentos formales (CVs, Cartas) con calidad profesional.</div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-purple"><span class="material-icons">psychology</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>IA como Asistente:</strong> Gemini te ayuda a vencer la "hoja en blanco" creando borradores al instante.</div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-lime"><span class="material-icons">visibility</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Revisión Humana:</strong> Tú eres el jefe. Siempre verifica los datos y ajusta el tono.</div>
+                    </div>
+                     <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-slate"><span class="material-icons">save</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Hábito de Oro:</strong> Guarda tu archivo cada 10 minutos para no perder tu trabajo.</div>
+                    </div>
+                 </div>
+             </div>
+        </div>
+
+        <!-- SLIDE 11: CIERRE -->
+         <div class="slide cover-layout" id="slide-11">
+             <div class="bg-pattern-dots"></div>
+             
+             <div class="logo-wrapper-cover" style="bottom: auto; top: -50px; right: -50px; transform: rotate(20deg);">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+             <div class="section-icon" style="font-size:6rem; margin-bottom:20px;">🎉</div>
+             <h1 class="cover-title">¡Primer Borrador Listo!</h1>
+             <div class="cover-subtitle" style="margin-bottom: 20px;"> Tarea: Crea tu primer documento word con ayuda de la IA y guárdalo.</div>
+             <div class="cover-pill" style="background: var(--color-purple-main); color: white;">Fin de la Cápsula 3.1</div>
+             
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="nav-btn" onclick="prevSlide()" hidden>❮ Anterior</button>
+            <button class="nav-btn" onclick="nextSlide()" hidden>Siguiente ❯</button>
+        </div>
+        <div class="progress-bar" id="progressBar"></div>
+
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>

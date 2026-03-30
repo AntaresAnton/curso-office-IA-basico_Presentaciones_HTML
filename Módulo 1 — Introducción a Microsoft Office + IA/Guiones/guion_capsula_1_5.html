@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guion Técnico - Cápsula 1.5: Seguridad Digital Básica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           TOKENS DE DISEÑO (SISTEMA ATÓMICO)
+           ========================================= */
+        :root {
+            --color-purple-main: #583586;
+            --color-purple-mid: #6d4c94;
+            --color-purple-light: #8f6bb3;
+            --color-purple-dark: #4a276b;
+            
+            --color-green-main: #76b82a;
+            --color-green-lime: #9ccb3b;
+            --color-green-slate: #7a9483;
+            
+            --color-neutral-white: #ffffff;
+            --color-neutral-light: #f4f4f4;
+            --color-neutral-gray: #d1d1d1;
+            --color-neutral-dark: #333333;
+
+            --font-primary: 'Montserrat', sans-serif;
+            --skew-angle: -40deg;
+        }
+
+        /* =========================================
+           CONFIGURACIÓN DE PÁGINA (IMPRIMIBLE)
+           ========================================= */
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: #525659;
+            font-family: var(--font-primary);
+            margin: 0;
+            padding: 20px;
+            color: var(--color-neutral-dark);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px auto;
+            padding: 15mm 20mm;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media print {
+            body { background: none; padding: 0; }
+            .page { width: 100%; margin: 0; box-shadow: none; border: none; min-height: auto; page-break-after: always; }
+            .page:last-child { page-break-after: auto; }
+        }
+
+        /* =========================================
+           COMPONENTES
+           ========================================= */
+        
+        /* Header */
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--color-green-main);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .header-info h1 {
+            font-size: 18pt;
+            color: var(--color-purple-main);
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .header-info h2 {
+            font-size: 10pt;
+            color: var(--color-green-slate);
+            margin: 5px 0 0 0;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .logo-simple {
+            width: 100px;
+            height: auto;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+        
+        .deco-strip {
+            display: flex;
+            height: 15px;
+            overflow: hidden;
+            width: 100%;
+        }
+        .deco-strip .segment {
+            height: 100%;
+            transform: skewX(var(--skew-angle));
+            margin-right: 4px;
+        }
+        .deco-strip .seg-fill { flex-grow: 1; }
+        .deco-strip .seg-sm { width: 15px; }
+        .deco-strip .seg-md { width: 30px; }
+        .deco-strip .seg-start { margin-left: -10px; padding-left: 10px; }
+        .deco-strip .seg-end { margin-right: -10px; padding-right: 10px; }
+
+        .footer-text {
+            text-align: right;
+            font-size: 8pt;
+            color: var(--color-green-slate);
+            margin-top: 5px;
+        }
+
+        /* Contenido */
+        .script-meta {
+            background-color: var(--color-neutral-light);
+            border-left: 4px solid var(--color-purple-main);
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 10pt;
+        }
+
+        .script-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 12pt;
+            color: var(--color-purple-main);
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--color-neutral-gray);
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cue-block {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            font-size: 10pt;
+        }
+
+        .cue-tech {
+            flex: 0 0 120px;
+            font-size: 8pt;
+            font-weight: 600;
+            color: var(--color-green-slate);
+            text-transform: uppercase;
+            padding-top: 3px;
+        }
+
+        .cue-tech strong {
+            display: block;
+            color: var(--color-purple-mid);
+            margin-bottom: 2px;
+        }
+
+        .cue-dialogue {
+            flex: 1;
+            line-height: 1.5;
+            color: var(--color-neutral-dark);
+        }
+
+        .cue-dialogue p { margin: 0 0 10px 0; }
+
+        /* Prompt Box */
+        .prompt-box {
+            background-color: #f0f7ff;
+            border: 1px dashed var(--color-purple-light);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 9pt;
+            color: var(--color-purple-dark);
+        }
+        .prompt-label {
+            font-weight: bold;
+            color: var(--color-purple-main);
+            display: block;
+            margin-bottom: 5px;
+            font-family: var(--font-primary);
+            font-size: 8pt;
+            text-transform: uppercase;
+        }
+
+        /* Listas */
+        ul { margin: 0 0 10px 20px; padding: 0; }
+        li { margin-bottom: 4px; }
+
+        /* Cajas de Resumen/Tarea */
+        .box-summary {
+            background-color: #f9f9f9;
+            border-left: 4px solid var(--color-green-main);
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .box-summary h4 {
+            margin: 0 0 10px 0;
+            color: var(--color-green-main);
+            text-transform: uppercase;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- PÁGINA 1 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <div class="script-meta">
+                <h3 style="margin: 0 0 10px 0; color: var(--color-purple-main);">🎥 CÁPSULA 1.5 – Seguridad Digital Básica para Emprendedores</h3>
+                <div><strong>Duración estimada:</strong> 10 minutos</div>
+                <div><strong>Objetivo:</strong> Proteger información crítica, cuentas y dispositivos utilizando prácticas de higiene digital y herramientas de IA para detección de fraudes.</div>
+                <div><strong>Contexto:</strong> Cierre del Módulo 1. Integración de seguridad en Outlook y Gmail.</div>
+            </div>
+
+            <!-- SECCIÓN 0 -->
+            <div class="script-section">
+                <div class="section-title">🎬 0. Introducción: Tu negocio es tu fortaleza (00:00 – 01:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Plano Medio<br>
+                        Tono Serio pero Cercano
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Bienvenidas y bienvenidos. Mi nombre es <strong>Patricio Quintanilla</strong> y seré su Relator del Curso: <strong>Alfabetización Digital: Microsoft Office Básico con Inteligencia Artificial (Copilot)</strong>.</p>
+                        <p>Este curso es ejecutado por el <strong>Programa Tú Puedes</strong> del <strong>OTEC Municipal</strong>, a través del Campus Virtual de la Dirección de Desarrollo, Innovación y Emprendimiento Territorial.</p>
+                        <p>Ha sido un viaje intenso: configuramos nuestra identidad, aprendimos a redactar con IA, dominamos el calendario y gestionamos nuestra bandeja de entrada.</p>
+                        <p><em>(Mostrar breve resumen del Módulo 1 con animaciones e iconos).</em></p>
+                        <p>Pero todo ese esfuerzo no sirve de nada si dejamos la puerta abierta. Hoy hablaremos de <strong>Seguridad Digital Básica</strong>.</p>
+                        <p>No necesitas ser un experto en informática ni un hacker. Solo necesitas entender que, en el mundo digital, tu correo electrónico es la llave maestra de tu negocio. Si alguien entra ahí, tiene acceso a tus clientes, tus facturas y tu identidad. Hoy aprenderemos a ponerle un candado de alta seguridad, tanto en Microsoft como en Google.</p>
+                    </div>
+                </div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>[NOTA TÉCNICA]</strong>
+                        PRECAUCIÓN MOUSE
+                    </div>
+                        <div class="cue-dialogue">
+                            <p><em>(Asegurar movimientos de mouse suaves y fluidos. Evitar sacudidas o movimientos erráticos del cursor durante la grabación).</em></p>
+                        </div>
+                    </div>
+            </div>
+
+            <!-- SECCIÓN 1 -->
+            <div class="script-section">
+                <div class="section-title">🔐 1. ¿Qué protegemos realmente? (01:30 – 02:45)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Apoyo Visual:<br>Iconos de candado, nube, dinero
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Cuando hablamos de "Seguridad Digital", suena a película de espías, pero es algo muy cotidiano. Es como ponerle llave a la puerta de su casa o de su negocio.</p>
+                        <p>En el mundo del computador, protegemos tres cosas importantes:</p>
+                        <ul>
+                            <li><strong>Su Identidad:</strong> Que nadie se haga pasar por ustedes enviando correos falsos.</li>
+                            <li><strong>Su Información:</strong> Sus fotos, los datos de sus clientes, sus contratos.</li>
+                            <li><strong>Su Dinero:</strong> Porque hoy en día, el correo suele estar conectado al banco o a las tarjetas.</li>
+                        </ul>
+                        <p>La mayoría de las veces, los problemas no ocurren porque un "hacker" nos ataque, sino porque nosotros dejamos la puerta abierta por descuido. Vamos a aprender a cerrarla bien.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2 -->
+            <div class="script-section">
+                <div class="section-title">🔑 2. La Primera Línea: Contraseñas Robustas (02:45 – 05:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Muestra ejemplos de claves malas vs buenas
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>El error más común es usar claves fáciles como "123456", su fecha de nacimiento o el nombre de su mascota. Eso es como dejar la llave puesta en la puerta.</p>
+                        <p><strong>Un consejo simple: Usen Frases, no palabras.</strong></p>
+                        <p>En vez de inventar una palabra rara que se les va a olvidar, usen una frase larga que solo ustedes entiendan. Por ejemplo:</p>
+                        <div class="prompt-box" style="text-align: center; font-size: 11pt;">
+                            MeGustaElCafeCon2Azucar!<br>
+                            (Es larga, fácil de recordar para ustedes, pero muy difícil de adivinar para un extraño)
+                        </div>
+                        <p><strong>¿Y si se me olvida?</strong></p>
+                        <p>No se preocupen. Su navegador de internet (Chrome o Edge) tiene un "llavero" seguro. Cuando entren a una página y les pregunte "¿Quieres guardar la contraseña?", digan que <strong>SÍ</strong>. Así, la próxima vez, el computador la escribirá por ustedes. Es más seguro que anotarla en un papelito que se puede perder.</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 1 de 4 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+    <!-- PÁGINA 2 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <!-- SECCIÓN 3 -->
+            <div class="script-section">
+                <div class="section-title">📲 3. El Candado Doble: Autenticación en Dos Pasos (05:00 – 07:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Screencast: Configuración de seguridad
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Si alguien adivina tu contraseña, ¿entra directo a tu casa? No si tienes el "cerrojo doble" o 2FA (Autenticación de Dos Factores).</p>
+                        <p>Esto significa que para entrar necesitas: <strong>Algo que sabes</strong> (tu contraseña) + <strong>Algo que tienes</strong> (tu celular).</p>
+                        <p><strong>Cómo activarlo:</strong></p>
+                        <ul>
+                            <li><strong>En Google (Gmail):</strong> Ve a <em>Cuenta de Google > Seguridad > Verificación en 2 pasos</em>. Sigue los pasos para vincular tu teléfono.</li>
+                            <li><strong>En Microsoft (Outlook):</strong> Ve a <em>Cuenta de Microsoft > Seguridad > Opciones de seguridad avanzada > Verificación en dos pasos</em>.</li>
+                        </ul>
+                        <p>Recomendación: Usa aplicaciones como <strong>Microsoft Authenticator</strong> o <strong>Google Authenticator</strong> en lugar de SMS, son más seguras y rápidas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 4 -->
+            <div class="script-section">
+                <div class="section-title">🎣 4. Phishing: No muerdas el anzuelo (07:00 – 09:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Ejemplo de correo falso de banco o Netflix
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>El "Phishing" es cuando un estafador se disfraza de una empresa confiable (tu banco, Netflix, Correos de Chile) para robarte datos.</p>
+                        <p><strong>Anatomía de una estafa:</strong></p>
+                        <ol>
+                            <li><strong>Urgencia Falsa:</strong> "¡Tu cuenta será bloqueada en 24 horas!" (Buscan que actúes sin pensar).</li>
+                            <li><strong>Remitente Extraño:</strong> Dice "Banco Estado" pero el correo es <code>admin@banco-seguro-chile.xyz</code>.</li>
+                            <li><strong>Enlaces Trampa:</strong> Si pasas el mouse sobre el botón (sin hacer clic), verás que la dirección web es extraña.</li>
+                        </ol>
+                        <p><strong>Regla de Oro:</strong> Los bancos NUNCA te pedirán claves por correo ni incluirán enlaces directos para iniciar sesión.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 5 -->
+            <div class="script-section">
+                <div class="section-title">🛡️ 5. Navegación Segura: Dónde haces clic (09:00 – 10:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Navegador Web
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Internet es una calle pública. Para caminar seguro:</p>
+                        <ul>
+                            <li><strong>El Candado (HTTPS):</strong> Mira siempre a la izquierda de la dirección web. Si ves un candado, la conexión es privada. Si dice "No seguro", no ingreses datos personales.</li>
+                            <li><strong>WiFi Público:</strong> Cuidado con el WiFi gratis de cafeterías o aeropuertos. Son redes abiertas donde es fácil espiar. Si debes usarlas, no entres al banco ni a tu correo corporativo. Usa los datos de tu celular para eso.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 2 de 4 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+    <!-- PÁGINA 3 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <!-- SECCIÓN 6 -->
+            <div class="script-section">
+                <div class="section-title">☁️ 6. El Salvavidas: Copias de Seguridad (10:30 – 12:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Gráfico de Nube
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Imagina que hoy tu computador no enciende. ¿Pierdes todo tu negocio? Si la respuesta es "sí", tenemos un problema.</p>
+                        <p>La solución es la Nube. No dependas solo de tu disco duro.</p>
+                        <ul>
+                            <li><strong>Usuarios Microsoft:</strong> Usen <strong>OneDrive</strong>. Configura la carpeta "Mis Documentos" para que se sincronice automáticamente.</li>
+                            <li><strong>Usuarios Google:</strong> Usen <strong>Google Drive</strong>. Instala la aplicación de escritorio para tener respaldo automático.</li>
+                        </ul>
+                        <p>Así, si te roban el computador o se rompe, tus archivos siguen vivos en internet, listos para descargarse en otro equipo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 7 -->
+            <div class="script-section">
+                <div class="section-title">🧠 7. Tu Analista de Seguridad: IA (12:00 – 13:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Copilot / Gemini
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Si tienes dudas sobre un correo, no estás solo. Usa la IA como tu consultor de seguridad.</p>
+                        <p><strong>Paso 1:</strong> Copia el texto del correo sospechoso (¡OJO! Nunca copies tus contraseñas ni datos bancarios reales, solo el texto del mensaje).</p>
+                        <p><strong>Paso 2:</strong> Pregúntale a Copilot:</p>
+                        <div class="prompt-box">
+                            <span class="prompt-label">🧩 PROMPT: DETECTIVE DE PHISHING</span>
+                            "Actúa como un experto en ciberseguridad. Analiza el siguiente texto de un correo electrónico que recibí. Identifica señales de alerta de phishing (urgencia, errores gramaticales, remitente sospechoso). Dime si es seguro hacer clic en los enlaces. Texto del correo: [PEGAR TEXTO AQUÍ]"
+                        </div>
+                        <p>La IA analizará el lenguaje y te dirá: "Cuidado, este correo usa tácticas de presión psicológica típicas de estafas".</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CIERRE MÓDULO -->
+            <div class="script-section">
+                <div class="section-title">📦 Cierre del Módulo 1: Misión Cumplida (13:30 – 15:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Plano Medio<br>
+                        Música de cierre inspiradora
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>¡Felicitaciones! Has completado el Módulo 1. Hemos construido los cimientos digitales de tu negocio:</p>
+                        <ul>
+                            <li>Tienes una <strong>Identidad Digital</strong> profesional.</li>
+                            <li>Escribes correos perfectos con <strong>IA</strong>.</li>
+                            <li>Dominas tu tiempo con el <strong>Calendario</strong>.</li>
+                            <li>Gestionas tu bandeja de entrada sin estrés.</li>
+                            <li>Y ahora, sabes cómo proteger todo esto con <strong>Seguridad</strong>.</li>
+                        </ul>
+                        <p>Estás listo para el siguiente nivel. En el Módulo 2, dejaremos el correo y entraremos al mundo de los documentos. Aprenderemos a crear cotizaciones, contratos y cartas en minutos con <strong>Word + IA</strong>.</p>
+                        <p>¡Nos vemos en la próxima clase!</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 3 de 4 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+    <!-- PÁGINA 4 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <!-- RESUMEN FINAL -->
+            <div class="box-summary">
+                <h4>📝 Resumen Final del Módulo (18:00 – 19:00)</h4>
+                <div style="display: flex; gap: 20px;">
+                    <div style="flex: 1;">
+                        <strong>Aprendizajes:</strong>
+                        <ul>
+                            <li>Identidad Digital & Firma</li>
+                            <li>Redacción & Tono con IA</li>
+                            <li>Calendario Inteligente</li>
+                            <li>Resumen de Correos</li>
+                            <li>Seguridad Digital</li>
+                        </ul>
+                    </div>
+                    <div style="flex: 1;">
+                        <strong>Habilidades:</strong>
+                        <ul>
+                            <li>Escritura profesional</li>
+                            <li>Síntesis con IA</li>
+                            <li>Organización semanal</li>
+                            <li>Prevención de riesgos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAREA INTEGRATIVA -->
+            <div class="script-section">
+                <div class="section-title">🎓 Tarea Integrativa del Módulo (19:00 – 20:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Estudiante</strong>
+                        Actividad
+                    </div>
+                    <div class="cue-dialogue">
+                        <ol>
+                            <li>Redactar un correo profesional real usando IA (con firma y asunto claro).</li>
+                            <li>Crear 3 eventos reales en su calendario (producción, reunión, etc.).</li>
+                            <li>Resumir un correo largo real en Copilot.</li>
+                            <li>Activar autenticación en dos pasos (2FA) en su correo.</li>
+                            <li>Registrar la realización con capturas de pantalla.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EVALUACIÓN -->
+            <div class="script-section">
+                <div class="section-title">🧪 Indicaciones para Evaluación</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Evaluación</strong>
+                    </div>
+                    <div class="cue-dialogue">
+                        <ul>
+                            <li><strong>Selección Múltiple:</strong> Seguridad, redacción y calendario.</li>
+                            <li><strong>Práctico:</strong> Resumir correo con IA y redactar respuesta.</li>
+                            <li><strong>Registro:</strong> Enviar captura de calendario con 3 eventos.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CIERRE ABSOLUTO -->
+            <div class="script-section">
+                <div class="section-title">🎬 Cierre Absoluto (20:00 – 21:00)</div>
+                    <div class="cue-dialogue">
+                        <p>Excelente trabajo. Tienes habilidades digitales para toda la vida. Has aprendido a usar la IA como una herramienta que multiplica tu capacidad.</p>
+                        <p>En el próximo módulo trabajaremos con <strong>Word + IA</strong> para crear documentos profesionales. ¡Nos vemos allí!</p>
+                        <div class="cue-tech">
+                            <strong>[VISUAL]</strong>
+                            PPT CIERRE
+                        </div>
+                        <p><em>(Mostrar diapositiva de cierre con el logo del <strong>Programa Tú Puedes</strong>).</em></p>
+                    </div>ano Final
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Excelente trabajo. Tienes habilidades digitales para toda la vida. Has aprendido a usar la IA como una herramienta que multiplica tu capacidad.</p>
+                        <p>En el próximo módulo trabajaremos con <strong>Word + IA</strong> para crear documentos profesionales. ¡Nos vemos allí!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 20px; background: var(--color-green-main); color: white; text-align: center; font-weight: bold; border-radius: 8px;">
+                📦 FIN DEL BLOQUE 5 (y fin del MÓDULO 1)
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 4 de 4 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+</body>
+</html>

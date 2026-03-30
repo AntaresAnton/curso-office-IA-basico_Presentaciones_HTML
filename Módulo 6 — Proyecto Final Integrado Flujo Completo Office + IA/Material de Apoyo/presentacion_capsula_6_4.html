@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Cápsula 6.4 - PowerPoint y Presentación Final</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Links Corporativos -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Ajustes específicos locales para PowerPoint Brand */
+        .brand-ppt-bg {
+            background-color: #C43E1C; 
+            color: white;
+        }
+        .slide-layout-preview {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+            height: 100%;
+        }
+        .layout-thumb {
+            background: #eee;
+            border: 1px solid #ddd;
+            display: flex; flex-direction: column;
+            padding: 10px;
+            gap: 5px;
+            transition: transform 0.2s;
+        }
+        .layout-thumb:hover { transform: scale(1.05); border-color: #C43E1C; }
+        
+        /* Speaker Notes Panel Simulation */
+        .speaker-notes-ui {
+            background: #2b2b2b;
+            color: white;
+            padding: 15px;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.9rem;
+            margin-top: -5px;
+            border-top: 1px solid #444;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container">
+        
+        <img src="../../../tu puedes logo.png" class="logo-overlay" alt="Logo Institucional">
+
+        <div class="advanced-controls">
+            <button class="control-btn" onclick="toggleTheme()" aria-label="Alternar tema oscuro"><span class="material-icons">dark_mode</span></button>
+            <button class="control-btn" onclick="toggleFullscreen()" aria-label="Pantalla completa"><span class="material-icons">fullscreen</span></button>
+            <button class="control-btn" onclick="resetPresentation()" aria-label="Reiniciar presentación"><span class="material-icons">restart_alt</span></button>
+        </div>
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide slide-cover active" id="slide-1">
+            <div class="bg-pattern-dots"></div>
+            
+            <!-- Top Bar -->
+            <div class="deco-strip">
+                <div class="segment seg-start bg-green-main"></div>
+                <div class="segment seg-mini bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-purple-main"></div>
+                <div class="segment seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-content slide-content" style="justify-content: center; align-items: center; text-align: center;">
+                <div class="cover-pill">Cápsula 6.4</div>
+                <h1 class="cover-title">PowerPoint <br><span>Visualiza tus Ideas</span></h1>
+                
+                <div class="hero-apps">
+                    <!-- Visual Connection Word -> PPT -->
+                    <div class="app-icon-card word scale-in"><span class="material-icons">description</span></div>
+                    <div class="flow-arrow pulse"><span class="material-icons">arrow_forward</span></div>
+                    <div class="app-icon-card ppt scale-in"><span class="material-icons">pie_chart</span></div>
+                </div>
+
+                <div style="margin-top: 50px;">
+                    <span style="background: var(--color-purple-main); color: white; padding: 8px 20px; border-radius: 50px; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(88, 53, 134, 0.3);">Programa Tú Puedes | El Bosque</span>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip bottom">
+                <div class="segment seg-start bg-purple-main"></div>
+                <div class="segment seg-mini bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Importar Esquema (Timeline Vertical) -->
+        <div class="slide" id="slide-2">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-mid bg-green-lime"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>De Word a PowerPoint</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="split-layout">
+                    <div class="split-text">
+                        <p class="slide-intro">No copies y pegues diapositiva por diapositiva.</p>
+                        
+                        <!-- Timeline Vertical -->
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-badge t-blue"><i class="fas fa-file-word"></i></div>
+                                <div class="timeline-content">
+                                    <strong>Prepara el Word</strong>
+                                    <p style="margin:5px 0 0 0; font-size:0.9rem; color:#666;">Asegúrate de haber usado Estilos (Título 1, Título 2).</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-badge t-orange"><i class="fas fa-file-import"></i></div>
+                                <div class="timeline-content">
+                                    <strong>Importar Esquema</strong>
+                                    <p style="margin:5px 0 0 0; font-size:0.9rem; color:#666;">En PPT: Nueva Diapositiva > Diapositivas del esquema.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-badge t-green"><i class="fas fa-magic"></i></div>
+                                <div class="timeline-content">
+                                    <strong>Resultado Instantáneo</strong>
+                                    <p style="margin:5px 0 0 0; font-size:0.9rem; color:#666;">PowerPoint crea una slide por cada título automáticamente.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="split-visual">
+                         <!-- Visual Metaphor Import -->
+                         <div class="app-window app-ppt" style="border: 1px solid #C43E1C;">
+                            <div class="app-header ppt">
+                                <div class="app-controls">
+                                    <div class="win-btn close"></div><div class="win-btn min"></div>
+                                </div>
+                                <div class="app-title">Presentación1 - PowerPoint</div>
+                            </div>
+                            
+                            <div class="app-body" style="padding:20px; background:#f0eff1; display:flex; gap:10px;">
+                                <!-- Sidebar Thumbnails -->
+                                <div style="width:25%; display:flex; flex-direction:column; gap:10px;">
+                                    <div class="layout-thumb" style="border:2px solid #C43E1C;">
+                                        <div style="height:5px; width:80%; background:#aaa;"></div>
+                                        <div style="height:20px; width:40%; background:#C43E1C; align-self:center;"></div>
+                                    </div>
+                                    <div class="layout-thumb"><div style="height:5px; width:60%; background:#ccc;"></div></div>
+                                    <div class="layout-thumb"><div style="height:5px; width:60%; background:#ccc;"></div></div>
+                                </div>
+                                
+                                <!-- Main Slide Area -->
+                                <div style="flex-grow:1; background:white; box-shadow:0 2px 5px rgba(0,0,0,0.1); padding:30px; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                                    <div style="font-size:2rem; color:#333; font-weight:bold;">Introducción</div>
+                                    <div style="width:50%; height:2px; background:#C43E1C; margin:15px 0;"></div>
+                                    <div style="color:#666; font-size:0.9rem;">(Texto importado desde Word)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Strip -->
+            <div class="deco-strip bottom small-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Diseñador y SmartArt (Horizontal) -->
+        <div class="slide" id="slide-3">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-mid bg-green-lime"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Diseño Profesional</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p class="slide-intro">Transforma listas aburridas en gráficos visuales.</p>
+                
+                <div class="h-timeline">
+                    <div class="h-item bullet-point" data-step="1">
+                        <div class="h-line"></div>
+                        <div class="h-badge t-orange" style="color:white; border:none;"><i class="material-icons">list</i></div>
+                        <div style="margin-top:10px; font-weight:600;">Selecciona el Texto</div>
+                    </div>
+
+                    <div class="h-item bullet-point" data-step="2">
+                        <div class="h-line"></div>
+                        <div class="h-badge t-blue" style="color:white; border:none;"><i class="material-icons">transform</i></div>
+                        <div style="margin-top:10px; font-weight:600;">Convertir a SmartArt</div>
+                        <p style="font-size:0.9rem; color:#666;">Clic derecho o Pestaña Inicio</p>
+                    </div>
+
+                    <div class="h-item bullet-point" data-step="3">
+                        <div class="h-line"></div>
+                        <div class="h-badge t-purple" style="color:white; border:none;"><i class="material-icons">auto_awesome</i></div>
+                        <div style="margin-top:10px; font-weight:600;">Ideas de Diseño</div>
+                        <p style="font-size:0.9rem; color:#666;">Usa la IA de diseño integrada</p>
+                    </div>
+                </div>
+
+                <!-- Visual Example SmartArt -->
+                <div style="margin-top:40px; display:flex; justify-content:center; gap:20px;" class="bounce-in" data-step="4">
+                    <div style="background:#C43E1C; color:white; padding:15px; width:150px; text-align:center; clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);">Paso 1</div>
+                    <div style="background:#d96041; color:white; padding:15px; width:150px; text-align:center; clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);">Paso 2</div>
+                    <div style="background:#eb866d; color:white; padding:15px; width:150px; text-align:center; clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);">Paso 3</div>
+                </div>
+            </div>
+
+            <!-- Footer Strip -->
+            <div class="deco-strip bottom small-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Asesor de Presentaciones (Speaker Coach) -->
+        <div class="slide" id="slide-4">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-mid bg-green-lime"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Asesor de Presentaciones</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="split-layout">
+                    <!-- Left: Text (Timeline) -->
+                    <div class="split-text">
+                        <p class="slide-intro">¿Nervioso? La IA te escucha y te entrena.</p>
+                        
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-badge t-purple"><i class="fas fa-chalkboard-teacher"></i></div>
+                                <div class="timeline-content">
+                                    <strong>Ensayar con el Asesor</strong>
+                                    <div style="font-size:0.9rem; color:#666;">Pestaña <em>Presentación con diapositivas</em> > <em>Ensayar con el Asesor</em>.</div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-badge t-orange"><i class="fas fa-microphone-alt"></i></div>
+                                <div class="timeline-content">
+                                    <strong>Habla con naturalidad</strong>
+                                    <div style="font-size:0.9rem; color:#666;">Comienza a hablar. La IA analiza tu ritmo, tono y lenguaje inclusivo.</div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-badge t-green"><i class="fas fa-file-contract"></i></div>
+                                <div class="timeline-content">
+                                    <strong>Informe de Desempeño</strong>
+                                    <div style="font-size:0.9rem; color:#666;">Recibe un reporte privado con consejos para mejorar antes de exponer.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Speaker Coach Report Simulation (Interface) -->
+                    <div class="split-visual">
+                        <div class="app-window app-ppt scale-in" style="height: 350px; border-color: #C43E1C;">
+                            <div class="app-header ppt">
+                                <div class="app-title">Informe de ensayo - PowerPoint</div>
+                            </div>
+                            <div class="app-body" style="padding:20px; background:white; display:flex; flex-direction:column; gap:15px; align-items:center;">
+                                <div style="font-size:1.2rem; font-weight:bold; color:#333;">¡Buen trabajo!</div>
+                                
+                                <div style="display:flex; gap:15px; width:100%;">
+                                    <!-- Card 1: Ritmo -->
+                                    <div style="flex:1; background:#f8f9fa; padding:15px; border-radius:8px; border-left:4px solid #107c10; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+                                        <div style="display:flex; align-items:center; gap:5px; margin-bottom:5px;">
+                                            <i class="material-icons" style="color:#107c10; font-size:1.2rem;">speed</i>
+                                            <strong style="font-size:0.9rem;">Ritmo</strong>
+                                        </div>
+                                        <div style="font-size:1.5rem; font-weight:bold; color:#333;">130 <span style="font-size:0.8rem; font-weight:normal;">pal/min</span></div>
+                                        <div style="font-size:0.7rem; color:#666; margin-top:5px;">Tu velocidad es adecuada.</div>
+                                    </div>
+                                    
+                                    <!-- Card 2: Muletillas -->
+                                    <div style="flex:1; background:#f8f9fa; padding:15px; border-radius:8px; border-left:4px solid #C43E1C; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+                                        <div style="display:flex; align-items:center; gap:5px; margin-bottom:5px;">
+                                            <i class="material-icons" style="color:#C43E1C; font-size:1.2rem;">mic_off</i>
+                                            <strong style="font-size:0.9rem;">Muletillas</strong>
+                                        </div>
+                                        <div style="font-size:0.8rem; color:#333; margin-top:5px;">Intentaste evitar:<br> <em>"eh", "este..."</em></div>
+                                    </div>
+                                </div>
+
+                                <!-- Chart Simulation -->
+                                <div style="width:100%; height:80px; background:#f0eff1; border-radius:4px; position:relative; overflow:hidden;">
+                                    <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                        <path d="M0,80 Q25,20 50,60 T100,40" fill="none" stroke="#C43E1C" stroke-width="3" />
+                                        <area />
+                                    </svg>
+                                    <div style="position:absolute; bottom:5px; left:10px; font-size:0.7rem; color:#666;">Variación del tono</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Strip -->
+            <div class="deco-strip bottom small-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: CIERRE -->
+        <div class="slide slide-cover" id="slide-5">
+            <div class="bg-pattern-dots"></div>
+            
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-content slide-content" style="justify-content: center; align-items: center; text-align: center;">
+                <h1 class="cover-title">¡Flujo Completado!</h1>
+                <div class="cover-subtitle">Excel ➔ Word ➔ PowerPoint + IA</div>
+                
+                <div class="next-capsule-box pulse" style="margin-top: 40px; border: 2px solid rgba(255,255,255,0.2); padding: 20px; border-radius: 12px; background: rgba(255,255,255,0.1);">
+                    <small style="text-transform: uppercase; letter-spacing: 2px; color: var(--color-green-lime);">Programa Tú Puedes</small>
+                    <div style="font-size: 1.5rem; font-weight: 700; margin-top: 10px;">¡Gracias por tu particiación!</div>
+                </div>
+            </div>
+
+            <div class="deco-strip bottom">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-md bg-green-slate"></div>
+                <div class="segment seg-sm bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- CONTROLES -->
+        <div class="controls" role="navigation" aria-label="Controles de navegación">
+            <button class="nav-btn" onclick="prevSlide()" aria-label="Diapositiva anterior"><span class="material-icons">arrow_back_ios</span></button>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+            </div>
+            <button class="nav-btn" onclick="nextSlide()" aria-label="Diapositiva siguiente"><span class="material-icons">arrow_forward_ios</span></button>
+        </div>
+
+    </div>
+
+    <!-- Script Principal -->
+    <script src="main.js"></script>
+</body>
+</html>

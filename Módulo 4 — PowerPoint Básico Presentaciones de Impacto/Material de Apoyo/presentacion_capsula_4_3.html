@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Cápsula 5.3 - Movimiento y Transiciones</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* PPT UI Simulation */
+        .ppt-app-window {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #d0d0d0;
+            font-family: 'Segoe UI', sans-serif;
+            position: relative;
+        }
+
+        .ppt-header {
+            background: #D04423; /* PPT Brand Color */
+            color: white;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            justify-content: space-between;
+        }
+
+        .ppt-sub-header {
+           font-size: 0.75rem;
+           color: #666;
+           padding: 5px 10px;
+           background: #f0f0f0;
+           border-bottom: 1px solid #e0e0e0;
+           display: flex;
+           justify-content: flex-end;
+           gap: 15px;
+        }
+
+        .ppt-ribbon {
+            background: #f3f2f1;
+            border-bottom: 1px solid #e1dfdd;
+        }
+
+        .ppt-ribbon-tabs {
+            display: flex;
+            background: white;
+            padding: 0 10px;
+        }
+
+        .ppt-tab {
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            color: #252423;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+
+        .ppt-tab.active {
+            border-bottom-color: #D04423;
+            color: #D04423;
+            font-weight: 600;
+        }
+
+        .ppt-toolbar {
+            display: flex;
+            padding: 10px 15px;
+            gap: 20px;
+            min-height: 80px;
+            align-items: flex-start;
+            overflow-x: auto;
+        }
+
+        .ppt-group {
+            display: flex;
+            gap: 5px;
+            padding-right: 15px;
+            border-right: 1px solid #e1dfdd;
+            flex-direction: row;
+        }
+        
+        .ppt-group:last-child {
+            border-right: none;
+        }
+
+        .ppt-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            color: #252423;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .ppt-btn:hover {
+            background: #e1dfdd;
+        }
+        
+        .ppt-btn.active {
+            background: #c8e6c9;
+            box-shadow: inset 0 0 0 1px #81c784;
+        }
+
+        .ppt-btn-label {
+            font-size: 0.75rem;
+        }
+
+        .ppt-icon {
+            font-size: 24px;
+            color: #444;
+        }
+
+        /* Rule Cards */
+        .rule-card {
+            flex: 1;
+            padding: 25px;
+            border-radius: 12px;
+            position: relative;
+            transition: transform 0.3s;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .rule-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .rule-card.warning {
+             border-top: 5px solid #ff9800;
+             background: #fff8f0;
+        }
+        
+        .rule-card.danger {
+            border-top: 5px solid #f44336;
+            background: #fff5f5;
+        }
+        
+        .rule-card.success {
+             border-top: 5px solid #2ecc71;
+             background: #f0fdf4;
+        }
+
+        .rule-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .rule-title {
+             font-weight: 700;
+             font-size: 1.1rem;
+             margin-bottom: 10px;
+             text-transform: uppercase;
+             letter-spacing: 1px;
+        }
+
+        .rule-desc {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        /* Animation Pane Simulation */
+        .anim-pane-row {
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            border-bottom: 1px solid #eee;
+        }
+        .anim-pane-row:hover {
+            background: #f5f5f5;
+        }
+        .anim-bar-track {
+            flex-grow: 1;
+            margin-left: 10px;
+            height: 12px;
+            background: #f0f0f0;
+            border-radius: 2px;
+            position: relative;
+        }
+        .anim-bar {
+            height: 100%;
+            border-radius: 2px;
+            position: absolute;
+            left: 0;
+            animation: loadBar 1.5s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes loadBar {
+            from { width: 0 !important; }
+        }
+        
+        @keyframes morphDemo {
+            0%, 100% {
+                left: 55px;
+                top: 115px;
+                width: 30px;
+                height: 30px;
+                background: #583586; /* Purple */
+                border-radius: 0;
+                transform: rotate(0deg);
+            }
+            50% {
+                left: calc(100% - 95px);
+                top: 105px;
+                width: 50px;
+                height: 50px;
+                background: #76b82a; /* Green */
+                border-radius: 50%;
+                transform: rotate(180deg);
+            }
+        }
+
+        /* Step Animations */
+        [data-step] {
+            opacity: 0; 
+            transition: opacity 0.5s;
+        }
+        [data-step].active {
+            opacity: 1;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div id="presentation-container">
+        
+        <img src="../../../tu puedes logo.png" class="logo-overlay" alt="Logo Institucional">
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide cover-layout active" id="slide-1">
+             <div class="bg-pattern-dots"></div>
+            <!-- Top Bar -->
+            <div class="deco-strip" style="position: absolute; top: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-pill">Cápsula 5.3</div>
+            <h1 class="cover-title">Movimiento y<br><span>Transiciones</span></h1>
+            <div class="cover-subtitle">Dando Vida a tu Presentación</div>
+            
+            <div style="margin-top: 30px; font-weight: 600; color: var(--color-neutral-dark);">
+                Programa Tú Puedes - 2026
+            </div>
+
+            <div class="logo-wrapper-cover">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: El Problema -->
+        <div class="slide" id="slide-2">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>El Problema: Diapositivas Estáticas</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-badge t-red"><span class="material-icons">block</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <strong>El "Efecto PDF":</strong><br>
+                                    Si nada se mueve, parece un documento para leer, no una presentación.
+                                </div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="2">
+                                 <div class="timeline-badge t-orange"><span class="material-icons">timer_off</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <strong>Pérdida de Ritmo:</strong><br>
+                                    Sin transiciones, los cambios pueden sentirse bruscos y desconectados.
+                                </div>
+                            </div>
+                        </div>
+                         <div class="highlight-box bullet-point" data-step="3" style="border-left-color: var(--color-green-main);">
+                            <span class="material-icons" style="color: var(--color-green-main); vertical-align: middle;">play_circle</span> <strong>La Solución:</strong> Usar movimiento para <em>conectar</em> ideas.
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <!-- Static vs Dynamic Visual -->
+                        <div style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
+                            <div style="background: white; border: 2px solid #ddd; padding: 20px; width: 200px; text-align: center; opacity: 0.6;">
+                                <div style="font-size: 3rem;">📄</div>
+                                <div style="font-weight: bold; color: #999;">Aburrido</div>
+                            </div>
+                            <div class="arrow-down" style="font-size: 2rem; color: var(--color-purple-main);">⬇️</div>
+                            <div style="background: white; border: 2px solid var(--color-purple-main); padding: 20px; width: 220px; text-align: center; box-shadow: 0 10px 20px rgba(106, 27, 154, 0.2); animation: float 3s ease-in-out infinite;">
+                                <div style="font-size: 3rem;">🎬</div>
+                                <div style="font-weight: bold; color: var(--color-purple-main);">Dinámico</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Transiciones -->
+        <div class="slide" id="slide-3">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>1. Transiciones vs Animaciones</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p style="text-align: center; margin-bottom: 25px; font-size: 1.2rem;">¿Cuál es la diferencia? Es fácil confundirlos.</p>
+
+                <div class="content-row">
+                    <div class="col-text" style="flex: 1;">
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-badge t-purple"><span class="material-icons">layers</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <strong>Transición:</strong><br>
+                                    Lo que pasa <em>entre</em> diapositivas.<br>
+                                    <span style="font-size: 0.9rem; color: #666;">(Ej: De Portada a Slide 2)</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-badge t-green"><span class="material-icons">stars</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <strong>Animación:</strong><br>
+                                    Lo que pasa <em>dentro</em> de una diapositiva.<br>
+                                    <span style="font-size: 0.9rem; color: #666;">(Ej: Aparece un texto, rebota una imagen)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-media" style="flex: 1.5;">
+                        <!-- UI Emulation: Transitions Ribbon -->
+                        <div class="ppt-app-window" style="height: auto;">
+                             <div class="ppt-header">
+                                <div>Presentación1 - PowerPoint</div>
+                                <div><span class="material-icons" style="font-size: 16px;">remove</span> <span class="material-icons" style="font-size: 16px;">check_box_outline_blank</span> <span class="material-icons" style="font-size: 16px;">close</span></div>
+                            </div>
+                            <div class="ppt-ribbon">
+                                <div class="ppt-ribbon-tabs">
+                                    <div class="ppt-tab">Inicio</div>
+                                    <div class="ppt-tab">Insertar</div>
+                                    <div class="ppt-tab">Diseño</div>
+                                    <div class="ppt-tab active">Transiciones</div>
+                                    <div class="ppt-tab">Animaciones</div>
+                                </div>
+                                <div class="ppt-toolbar">
+                                    <div class="ppt-group">
+                                        <div class="ppt-btn">
+                                            <span class="material-icons ppt-icon">preview</span>
+                                            <span class="ppt-btn-label">Vista Previa</span>
+                                        </div>
+                                    </div>
+                                    <div class="ppt-group">
+                                        <div class="ppt-btn">
+                                            <span class="material-icons ppt-icon">block</span>
+                                            <span class="ppt-btn-label">Ninguna</span>
+                                        </div>
+                                        <div class="ppt-btn">
+                                             <span class="material-icons ppt-icon">auto_fix_high</span>
+                                             <span class="ppt-btn-label">Transf.</span>
+                                        </div>
+                                        <div class="ppt-btn active">
+                                             <span class="material-icons ppt-icon">blur_on</span>
+                                             <span class="ppt-btn-label">Desvanecer</span>
+                                        </div>
+                                        <div class="ppt-btn">
+                                            <span class="material-icons ppt-icon">arrow_forward</span>
+                                            <span class="ppt-btn-label">Empuje</span>
+                                        </div>
+                                        <div class="ppt-btn">
+                                            <span class="material-icons ppt-icon">splitscreen</span>
+                                            <span class="ppt-btn-label">Barrido</span>
+                                        </div>
+                                    </div>
+                                    <div class="ppt-group" style="margin-left: auto;">
+                                         <div class="ppt-btn" style="background: #e8f5e9; border: 1px solid #c8e6c9;">
+                                             <span class="material-icons ppt-icon" style="color: #2e7d32; font-size: 18px;">done_all</span>
+                                             <span class="ppt-btn-label" style="font-weight: bold; color: #2e7d32;">Aplicar a<br>todas</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="background: #e6e6e6; flex: 1; min-height: 80px; display: flex; align-items: center; justify-content: center; color: #666; font-size: 0.9rem;">
+                                <span><i class="fas fa-magic"></i> Selección actual: <strong>Desvanecer</strong></span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; font-size: 0.9rem; color: #555; text-align: center;">
+                            Recomendación: Usa <strong>"Desvanecer"</strong> y <strong>"Aplicar a todas"</strong> para un look profesional.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Guiones de Animación -->
+        <div class="slide" id="slide-4">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>2. Guiones (Panel de Animación)</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="margin-bottom: 20px;">No animes por animar. Crea una secuencia lógica.</p>
+                        
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-badge t-green"><span class="material-icons">login</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <strong>Entrada (Verde):</strong><br>
+                                    Para que algo aparezca. <em>(Ej: "Desvanecer")</em>
+                                </div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-badge t-yellow"><span class="material-icons">priority_high</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <strong>Énfasis (Amarillo):</strong><br>
+                                    Para destacar algo que ya está. <em>(Ej: "Impulso")</em>
+                                </div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-badge t-red"><span class="material-icons">logout</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <strong>Salida (Rojo):</strong><br>
+                                    Para que algo se vaya. <em>(Úsalo poco)</em>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-media">
+                        <!-- UI Emulation: Animation Pane -->
+                        <div class="ppt-app-window" style="height: 300px; width: 280px; margin-left: auto;">
+                            <div class="ppt-header" style="justify-content: flex-start; gap: 10px;">
+                                <span>Panel de Animación</span>
+                            </div>
+                            <div class="ppt-toolbar" style="min-height: auto; padding: 5px; border-bottom: 1px solid #ddd; gap: 5px;">
+                                <div style="font-size: 0.75rem; background: #e0e0e0; padding: 3px 8px; border-radius: 2px;">Reproducir desde</div>
+                            </div>
+                            
+                            <div style="flex: 1; background: white; overflow-y: auto;">
+                                <!-- Item 1 -->
+                                <div class="anim-pane-row">
+                                    <span style="background: #e0e0e0; padding: 2px 5px; font-size: 0.7rem; margin-right: 5px; border: 1px solid #ccc;">1</span>
+                                    <span class="material-icons" style="font-size: 14px; color: #4caf50; margin-right: 5px;">star</span>
+                                    <span>Título 1</span>
+                                    <div class="anim-bar-track">
+                                        <div class="anim-bar" style="background: #66bb6a; width: 40%; left: 0;"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Item 2 -->
+                                <div class="anim-pane-row">
+                                    <span style="background: #e0e0e0; padding: 2px 5px; font-size: 0.7rem; margin-right: 5px; border: 1px solid #ccc;">2</span>
+                                    <span class="material-icons" style="font-size: 14px; color: #fdd835; margin-right: 5px;">star</span>
+                                    <span>Gráfico Ventas</span>
+                                    <div class="anim-bar-track">
+                                        <div class="anim-bar" style="background: #fdd835; width: 30%; left: 40%;"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Item 3 -->
+                                <div class="anim-pane-row" style="opacity: 0.7;">
+                                    <span style="background: #e0e0e0; padding: 2px 5px; font-size: 0.7rem; margin-right: 5px; border: 1px solid #ccc;">3</span>
+                                    <span class="material-icons" style="font-size: 14px; color: #ef5350; margin-right: 5px;">star</span>
+                                    <span>Texto Final</span>
+                                    <div class="anim-bar-track">
+                                        <div class="anim-bar" style="background: #ef5350; width: 20%; left: 70%;"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Empty Lines for realism -->
+                                <div class="anim-pane-row" style="border-bottom: none;"></div>
+                                <div class="anim-pane-row" style="border-bottom: none;"></div>
+                            </div>
+                            
+                            <div style="background: #f5f5f5; padding: 5px; font-size: 0.7rem; border-top: 1px solid #ddd; text-align: center; color: #666;">
+                                <i class="fas fa-mouse-pointer"></i> Reordenar: Arrastrar y soltar
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                 <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Transformación -->
+        <div class="slide" id="slide-5">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>3. El Truco Pro: Transformación (Morph)</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p style="text-align: center; margin-bottom: 30px;">La forma más fácil de parecer un experto en video.</p>
+                
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="timeline-container">
+                            <div class="timeline-step" data-step="1">
+                                <div class="step-number">1</div>
+                                <div class="step-content"><strong>Duplica</strong> la diapositiva.</div>
+                            </div>
+                            <div class="timeline-step" data-step="2">
+                                <div class="step-number">2</div>
+                                <div class="step-content"><strong>Mueve</strong> los objetos en la segunda copia.</div>
+                            </div>
+                            <div class="timeline-step" data-step="3">
+                                <div class="step-number">3</div>
+                                <div class="step-content">Aplica Transición <strong>"Transformación"</strong>.</div>
+                            </div>
+                        </div>
+                         <div class="highlight-box bullet-point" data-step="4" style="margin-top: 20px;">
+                            <span class="bullet-icon">✨</span> <strong>Resultado:</strong> PowerPoint calcula el movimiento intermedio automáticamente.
+                        </div>
+                    </div>
+                    
+                    <div class="col-media">
+                        <!-- Morph Visualization -->
+                        <div style="position: relative; height: 300px; width: 100%; border: 1px dashed #ccc; border-radius: 10px; background: #f9f9f9; overflow: hidden;">
+                            <div style="position: absolute; top: 10px; left: 10px; font-size: 0.8rem; color: #999;">Visualización del Efecto:</div>
+                            
+                            <!-- Ghost A -->
+                            <div style="position: absolute; left: 40px; top: 100px; width: 60px; height: 60px; border: 1px solid #ddd; background: rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center;">
+                                <div style="width: 30px; height: 30px; background: var(--color-purple-main); opacity: 0.3;"></div>
+                            </div>
+
+                            <!-- Ghost B -->
+                            <div style="position: absolute; right: 40px; top: 100px; width: 60px; height: 60px; border: 1px solid #ddd; background: rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center;">
+                                <div style="width: 50px; height: 50px; background: var(--color-green-main); border-radius: 50%; opacity: 0.3;"></div>
+                            </div>
+
+                            <!-- Active Morphing Element -->
+                            <div style="position: absolute; animation: morphDemo 4s ease-in-out infinite; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 10;"></div>
+                            
+                            <div style="position: absolute; bottom: 20px; width: 100%; text-align: center; color: #666; font-size: 0.8rem;">
+                                El objeto viaja y cambia de forma fluidamente.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+                <!-- SLIDE 6: Errores Comunes -->
+        <div class="slide" id="slide-6">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>⚠️ Errores Comunes (Por favor, evita esto)</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.2rem;">La línea entre "Dinámico" y "Mareante" es muy fina. Evita estos vicios:</p>
+
+                <div class="content-row" style="gap: 20px; align-items: stretch;">
+                    <!-- Mistake Card 1: Sonidos -->
+                    <div class="rule-card danger">
+                         <div style="height: 60px; margin-bottom: 15px; position: relative; display: flex; align-items: center; justify-content: center;">
+                             <span class="material-icons" style="font-size: 3.5rem; color: #d32f2f;">campaign</span>
+                             <div style="position: absolute; font-size: 5rem; color: rgba(255,0,0,0.5); font-weight: bold; line-height: 0.8; top: -10px;">×</div>
+                         </div>
+                         <div class="rule-title" style="color: #c62828;">Sonidos Ridículos</div>
+                         <div class="rule-desc">
+                             Nada de aplausos, explosiones o frenazos pregrabados. Restan seriedad inmediata.
+                         </div>
+                    </div>
+
+                    <!-- Mistake Card 2: Lento -->
+                    <div class="rule-card warning">
+                         <div style="height: 60px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center;">
+                             <span class="material-icons" style="font-size: 3.5rem; color: #ef6c00;">hourglass_bottom</span>
+                         </div>
+                         <div class="rule-title" style="color: #ef6c00;">Lentitud Extrema</div>
+                         <div class="rule-desc">
+                             El texto que aparece "letra por letra" a baja velocidad (efecto máquina escribir) desespera a la audiencia.
+                         </div>
+                    </div>
+
+                    <!-- Mistake Card 3: Mareo/Exceso -->
+                    <div class="rule-card danger">
+                         <div style="height: 60px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center;">
+                             <span class="material-icons" style="font-size: 3.5rem; color: #c62828;">motion_photos_off</span>
+                         </div>
+                         <div class="rule-title" style="color: #c62828;">Exceso de Animación</div>
+                         <div class="rule-desc">
+                             No animes todo. El título puede estar fijo. Anima solo lo que va apareciendo para no saturar.
+                         </div>
+                    </div>
+                </div>
+                
+                 <div class="highlight-box" style="margin-top: 30px; text-align: center; border-left-color: var(--color-green-main); display: flex; align-items: center; justify-content: center; gap: 15px;">
+                    <span class="material-icons" style="color: var(--color-green-main); font-size: 2rem;">verified</span>
+                    <div>
+                        <strong>Regla de Oro:</strong> <br>
+                        Si la animación distrae del mensaje, <strong>elimínala</strong>. Menos es más.
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Resumen -->
+        <div class="slide" id="slide-7">
+             <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Resumen de la Lección</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="summary-card" style="max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+                    <h2 style="color: var(--color-purple-main); border-bottom: 2px solid var(--color-green-lime); padding-bottom: 15px; margin-bottom: 30px; text-align: center; font-size: 1.8rem;">
+                        <span class="material-icons" style="vertical-align: middle; margin-right: 10px; font-size: 2rem;">school</span>
+                        ¿Qué hemos aprendido hoy?
+                    </h2>
+                    
+                    <div class="timeline-container">
+                        <!-- Item 1 -->
+                        <div class="timeline-item bullet-point" data-step="1">
+                            <div class="timeline-badge t-purple"><span class="material-icons">layers</span></div>
+                            <div class="timeline-line"></div>
+                            <div class="timeline-content">
+                                <strong>Transiciones:</strong><br>
+                                Suavizan el cambio <em>entre</em> diapositivas (Recomendada: Desvanecer).
+                            </div>
+                        </div>
+                        
+                        <!-- Item 2 -->
+                        <div class="timeline-item bullet-point" data-step="2">
+                            <div class="timeline-badge t-green"><span class="material-icons">stars</span></div>
+                            <div class="timeline-line"></div>
+                            <div class="timeline-content">
+                                <strong>Animaciones:</strong><br>
+                                Controlan objetos <em>dentro</em> de la diapositiva (Entrada, Énfasis, Salida).
+                            </div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="timeline-item bullet-point" data-step="3">
+                            <div class="timeline-badge t-green"><span class="material-icons">playlist_play</span></div>
+                            <div class="timeline-line"></div>
+                            <div class="timeline-content">
+                                <strong>Panel de Animación:</strong><br>
+                                La herramienta clave para ordenar y temporizar tu secuencia.
+                            </div>
+                        </div>
+
+                         <!-- Item 4 -->
+                        <div class="timeline-item bullet-point" data-step="4">
+                            <div class="timeline-badge t-purple"><span class="material-icons">auto_awesome</span></div>
+                            <div class="timeline-line"></div>
+                            <div class="timeline-content">
+                                <strong>Transformación (Morph):</strong><br>
+                                El truco "pro" para efectos de movimiento cinematográfico sin esfuerzo.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: CIERRE -->
+        <div class="slide cover-layout" id="slide-8">
+             <div class="bg-pattern-dots"></div>
+            
+            <div class="logo-wrapper-cover" style="bottom: auto; top: -50px; right: -50px; transform: rotate(20deg);">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+             <div class="section-icon" style="font-size:6rem; margin-bottom:20px;">🎬</div>
+             <h1 class="cover-title">¡Animación Lista!</h1>
+             <div class="cover-subtitle" style="margin-bottom: 20px;">Tu presentación ahora tiene vida y ritmo.</div>
+             <div class="cover-pill" style="background: var(--color-purple-main); color: white;">Próxima Cápsula: Ensayar y Presentar</div>
+             
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- CONTROLES -->
+        <div class="controls">
+            <button class="nav-btn" onclick="prevSlide()" hidden>❮ Anterior</button>
+            <button class="nav-btn" onclick="nextSlide()" hidden>Siguiente ❯</button>
+        </div>
+        <div class="progress-bar" id="progressBar"></div>
+
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

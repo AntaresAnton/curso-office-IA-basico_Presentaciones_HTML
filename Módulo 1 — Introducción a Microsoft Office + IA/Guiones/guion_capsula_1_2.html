@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guion Técnico - Cápsula 1.2: Redacción Profesional</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           TOKENS DE DISEÑO (SISTEMA ATÓMICO)
+           ========================================= */
+        :root {
+            --color-purple-main: #583586;
+            --color-purple-mid: #6d4c94;
+            --color-purple-light: #8f6bb3;
+            --color-purple-dark: #4a276b;
+            
+            --color-green-main: #76b82a;
+            --color-green-lime: #9ccb3b;
+            --color-green-slate: #7a9483;
+            
+            --color-neutral-white: #ffffff;
+            --color-neutral-light: #f4f4f4;
+            --color-neutral-gray: #d1d1d1;
+            --color-neutral-dark: #333333;
+
+            --font-primary: 'Montserrat', sans-serif;
+            --skew-angle: -40deg;
+        }
+
+        /* =========================================
+           CONFIGURACIÓN DE PÁGINA (IMPRIMIBLE)
+           ========================================= */
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: #525659; /* Fondo oscuro para visualización en pantalla */
+            font-family: var(--font-primary);
+            margin: 0;
+            padding: 20px;
+            color: var(--color-neutral-dark);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .page {
+            background: white;
+            width: 210mm; /* A4 Width */
+            min-height: 297mm; /* A4 Height */
+            margin: 0 auto 20px auto;
+            padding: 15mm 20mm;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media print {
+            body { background: none; padding: 0; }
+            .page { width: 100%; margin: 0; box-shadow: none; border: none; min-height: auto; page-break-after: always; }
+            .page:last-child { page-break-after: auto; }
+        }
+
+        /* =========================================
+           COMPONENTES (MOLECULES & ORGANISMS)
+           ========================================= */
+        
+        /* Header */
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--color-green-main);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .header-info h1 {
+            font-size: 18pt;
+            color: var(--color-purple-main);
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .header-info h2 {
+            font-size: 10pt;
+            color: var(--color-green-slate);
+            margin: 5px 0 0 0;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .logo-simple {
+            width: 100px;
+            height: auto;
+        }
+
+        /* Footer Decorativo (Atomic Design) */
+        .doc-footer {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+        
+        .deco-strip {
+            display: flex;
+            height: 15px;
+            overflow: hidden;
+            width: 100%;
+        }
+        .deco-strip .segment {
+            height: 100%;
+            transform: skewX(var(--skew-angle));
+            margin-right: 4px;
+        }
+        .deco-strip .seg-fill { flex-grow: 1; }
+        .deco-strip .seg-sm { width: 15px; }
+        .deco-strip .seg-md { width: 30px; }
+        .deco-strip .seg-start { margin-left: -10px; padding-left: 10px; }
+        .deco-strip .seg-end { margin-right: -10px; padding-right: 10px; }
+
+        .footer-text {
+            text-align: right;
+            font-size: 8pt;
+            color: var(--color-green-slate);
+            margin-top: 5px;
+        }
+
+        /* Contenido del Guion */
+        .script-meta {
+            background-color: var(--color-neutral-light);
+            border-left: 4px solid var(--color-purple-main);
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 10pt;
+        }
+
+        .script-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 12pt;
+            color: var(--color-purple-main);
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--color-neutral-gray);
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title span { margin-right: 10px; }
+
+        /* Bloques de Guion */
+        .cue-block {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            font-size: 10pt;
+        }
+
+        .cue-tech {
+            flex: 0 0 120px;
+            font-size: 8pt;
+            font-weight: 600;
+            color: var(--color-green-slate);
+            text-transform: uppercase;
+            padding-top: 3px;
+        }
+
+        .cue-tech strong {
+            display: block;
+            color: var(--color-purple-mid);
+            margin-bottom: 2px;
+        }
+
+        .cue-dialogue {
+            flex: 1;
+            line-height: 1.5;
+            color: var(--color-neutral-dark);
+        }
+
+        .cue-dialogue p { margin: 0 0 10px 0; }
+
+        /* Prompt Box */
+        .prompt-box {
+            background-color: #f0f7ff;
+            border: 1px dashed var(--color-purple-light);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 9pt;
+            color: var(--color-purple-dark);
+        }
+        .prompt-label {
+            font-weight: bold;
+            color: var(--color-purple-main);
+            display: block;
+            margin-bottom: 5px;
+            font-family: var(--font-primary);
+            font-size: 8pt;
+            text-transform: uppercase;
+        }
+
+        /* Listas */
+        ul { margin: 0 0 10px 20px; padding: 0; }
+        li { margin-bottom: 4px; }
+
+    </style>
+</head>
+<body>
+
+    <!-- PÁGINA 1 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <div class="script-meta">
+                <h3 style="margin: 0 0 10px 0; color: var(--color-purple-main);">🎥 CÁPSULA 1.2 – Redacción Profesional de Correos con IA</h3>
+                <div><strong>Duración estimada:</strong> 10 minutos</div>
+                <div><strong>Herramientas:</strong> Outlook Web / Gmail, Copilot Web</div>
+                <div><strong>Objetivo:</strong> Aprender a redactar, ajustar tono y gestionar correos difíciles con IA.</div>
+            </div>
+
+            <!-- SECCIÓN 0 -->
+            <div class="script-section">
+                <div class="section-title">🎬 0. Apertura de la Cápsula (00:00 – 01:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Plano Medio<br>
+                        Tono Docente
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Bienvenidas y bienvenidos. Mi nombre es <strong>Patricio Quintanilla</strong> y seré su Relator del Curso: <strong>Alfabetización Digital: Microsoft Office Básico con Inteligencia Artificial (Copilot)</strong>.</p>
+                        <p>Este curso es ejecutado por el <strong>Programa Tú Puedes</strong> del <strong>OTEC Municipal</strong>, a través del Campus Virtual de la Dirección de Desarrollo, Innovación y Emprendimiento Territorial.</p>
+                        <p>En esta cápsula vamos a abordar un tema que, para muchos, suele ser un verdadero dolor de cabeza: la redacción profesional de correos electrónicos.</p>
+                        <p><em>(Mostrar breve resumen del Módulo 1 con animaciones e iconos).</em></p>
+                        <p>Seguramente te ha pasado: tienes que enviar un correo importante, abres tu bandeja de entrada —ya sea en <strong>Outlook</strong> o en <strong>Gmail</strong>— y te quedas mirando la pantalla en blanco, sin saber cómo empezar. O quizás escribes algo, lo borras, lo vuelves a escribir y sientes que suena muy agresivo, o demasiado informal.</p>
+                        <p>No te preocupes, es algo muy común. Pero aquí es donde la Inteligencia Artificial se convierte en tu mejor aliado. Hoy aprenderemos a usar Copilot para superar ese bloqueo, crear borradores efectivos y manejar situaciones comunicacionales complejas sin estrés.</p>
+                    </div>
+                </div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>[NOTA TÉCNICA]</strong>
+                        PRECAUCIÓN MOUSE
+                    </div>
+                    <div class="cue-dialogue">
+                        <p><em>(Asegurar movimientos de mouse suaves y fluidos. Evitar sacudidas o movimientos erráticos del cursor durante la grabación).</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 1 -->
+            <div class="script-section">
+                <div class="section-title">📌 1. El correo como herramienta profesional (01:00 – 02:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Plano Medio
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Primero, entendamos qué es el correo electrónico. Piensen en él como una carta formal, pero digital. Aunque hoy usamos mucho el WhatsApp para cosas rápidas, en el trabajo el correo es lo que vale.</p>
+                        <p>Un correo bien escrito es como ir bien vestido a una reunión: demuestra respeto y profesionalismo. Además, sirve como prueba de lo que se dijo o se acordó.</p>
+                        <p>En este curso veremos dos programas principales: <strong>Outlook</strong> (que es de Microsoft) y <strong>Gmail</strong> (que es de Google). Ambos funcionan igual: son como buzones donde recibimos y enviamos estas cartas digitales. Hoy usaremos la Inteligencia Artificial para que nos ayude a escribir estas cartas de manera perfecta, sin faltas de ortografía y con las palabras justas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2 -->
+            <div class="script-section">
+                <div class="section-title">✉️ 2. Estructura de un buen correo (02:30 – 04:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Gráfico</strong>
+                        Estructura Visual
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Antes de usar la tecnología, debemos saber qué le vamos a pedir. Un buen correo se parece mucho a una conversación educada. Tiene partes que no pueden faltar:</p>
+                        <ul>
+                            <li><strong>El Saludo:</strong> Es como decir "Buenos días" al entrar. Debe ser amable.</li>
+                            <li><strong>El Motivo:</strong> Decir rápidamente para qué escribimos.</li>
+                            <li><strong>El Mensaje:</strong> La información importante (precios, fechas, dudas).</li>
+                            <li><strong>La Despedida:</strong> Un cierre cordial, como "Quedo atento".</li>
+                            <li><strong>La Firma:</strong> Poner nuestro nombre al final, para que sepan quién escribió.</li>
+                        </ul>
+                        <p>Por ejemplo: <em>"Hola María, te escribo para pedirte los precios del pan... Necesito 50 unidades... Gracias, Patricio."</em>. Si tenemos esto claro, la Inteligencia Artificial podrá escribirlo bonito por nosotros.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3 -->
+            <div class="script-section">
+                <div class="section-title">🤖 3. Preparando el entorno (04:00 – 05:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Captura</strong>
+                        Copilot Web
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>¡Vamos a practicar! Necesito que preparen su computador. Vamos a trabajar con dos ventanas de internet abiertas al mismo tiempo.</p>
+                        <p>Primero, abran su correo electrónico, ya sea <strong>Outlook</strong> o <strong>Gmail</strong>, el que usen siempre.</p>
+                        <div class="cue-tech">
+                            <strong>[NOTA TÉCNICA]</strong>
+                            MOSTRAR AMBOS
+                        </div>
+                        <p><em>(Mostrar en pantalla cómo se ve Outlook y cómo se ve Gmail. Señalar con el mouse dónde está el botón de "Correo Nuevo").</em></p>
+                        <p>Ahora, sin cerrar el correo, vamos a abrir una pestaña nueva. Busquen el signo más (+) arriba en su navegador. En esa nueva hoja en blanco, escriban la dirección: <strong>copilot.microsoft.com</strong> y presionen la tecla Enter.</p>
+                        <p>Si les pide clave, ingresen la misma de su correo. La idea es tener el correo en una pestaña y a nuestro ayudante inteligente (Copilot) en la otra, para pasar información de un lado a otro.</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 1 de 3 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+    <!-- PÁGINA 2 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <!-- SECCIÓN 4 -->
+            <div class="script-section">
+                <div class="section-title">📫 4. Redactando el primer borrador (05:30 – 08:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Demostración
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Vamos a simular una situación real. Imagina que trabajas en una panadería industrial y necesitas cotizar harina urgentemente. En lugar de escribir desde cero y luchar con las palabras, le daremos instrucciones precisas a Copilot.</p>
+                        <p>Observa el prompt que usaré. No le digo solo "escribe un correo". Le doy contexto: "harina premium", "producción especial". Le pido "2 versiones" para tener opciones.</p>
+                        <div class="prompt-box">
+                            <span class="prompt-label">🧩 PROMPT: COTIZACIÓN</span>
+                            Redacta un correo profesional y cordial solicitando una cotización de harina premium 000 para una producción especial. Incluye un saludo apropiado, contexto breve, solicitud clara y un cierre amable. No escribas demasiado largo. Entrega 2 versiones.
+                        </div>
+                        <p>Una vez que Copilot genera el texto, lee ambas opciones. ¿Cuál te gusta más? Simplemente selecciónala, cópiala, ve a tu pestaña de <strong>Gmail</strong> o <strong>Outlook</strong>, haz clic en "Redactar" o "Nuevo Correo", y pega el texto en el cuerpo del mensaje. ¡Así de simple! Solo te queda agregar el destinatario y tu firma.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 5 -->
+            <div class="script-section">
+                <div class="section-title">🎚️ 5. Ajustando el tono con IA (08:00 – 11:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Copilot Web
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>El tono es clave en la comunicación escrita. Un correo para un proveedor de confianza de años no puede sonar igual que un correo para un cliente nuevo o el Gerente General. A veces escribimos muy rápido y sonamos bruscos sin querer, o demasiado relajados.</p>
+                        <p>Aquí es donde la IA brilla. Puedes tomar ese borrador que acabamos de hacer y decirle: "Esto suena muy robótico, hazlo más cercano". O al revés: "Esto es muy informal, hazlo más ejecutivo".</p>
+                        <div class="prompt-box">
+                            <span class="prompt-label">🧩 PROMPT: AJUSTE DE TONO</span>
+                            Mejora este correo para que tenga un tono más cercano pero profesional. Mantén el mensaje corto. [pegar correo aquí]
+                        </div>
+                        <p>Copilot reescribirá el mismo mensaje, manteniendo la información intacta, pero cambiando completamente la "música" de las palabras. Es como tener un editor de estilo personal a tu lado.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 6 -->
+            <div class="script-section">
+                <div class="section-title">📨 6. Asuntos efectivos (Subject) (11:00 – 13:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Copilot Web
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>El "Asunto" o "Subject" es la primera impresión de tu correo. Si pones algo vago como "Consulta", "Duda" o simplemente "Hola", es muy probable que tu correo sea ignorado, se pierda en la bandeja de entrada o, peor aún, termine en Spam.</p>
+                        <p>Un buen asunto resume el contenido y la urgencia. Pero a veces, después de escribir todo el cuerpo del correo, ya no nos queda creatividad para el título.</p>
+                        <div class="prompt-box">
+                            <span class="prompt-label">🧩 PROMPT: ASUNTOS</span>
+                            Genera 5 asuntos profesionales y claros para este correo: [pegar cuerpo del correo]
+                        </div>
+                        <p>Verás cómo te ofrece alternativas precisas que quizás no se te habrían ocurrido, como "Urgente: Cotización Harina Premium" o "Solicitud de Presupuesto - Panadería El Bosque". Elige la opción más clara y pégala en la línea de asunto de tu <strong>Gmail</strong> o <strong>Outlook</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 7 -->
+            <div class="script-section">
+                <div class="section-title">⚠️ 7. Correos difíciles (13:00 – 16:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara + Pantalla</strong>
+                        Reclamos/Disculpas
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Esta es, quizás, la utilidad más valiosa de la IA en la oficina. Todos tenemos que enviar correos difíciles en algún momento: cobrar una factura atrasada, reclamar por un servicio deficiente o disculparnos por un error que cometimos.</p>
+                        <p>Escribir estos correos cuando estamos enojados, frustrados o asustados es peligroso. Podemos sonar agresivos, pasivo-agresivos o demasiado defensivos sin darnos cuenta.</p>
+                        <p>La IA actúa como un filtro emocional. Tú le dices al prompt: "Estoy molesto porque no llegó el pedido, escribe un reclamo formal pero respetuoso". Copilot redactará el reclamo con las palabras justas, firme pero educado, evitando que tu emoción del momento arruine una relación comercial a largo plazo. Es, esencialmente, una herramienta de inteligencia emocional digital.</p>
+                        <div class="prompt-box">
+                            <span class="prompt-label">🧩 PROMPT: RECLAMO</span>
+                            Redacta un correo formal y respetuoso para presentar un reclamo por un retraso en una entrega. Explica brevemente el problema, solicita una solución y mantén un tono colaborativo.
+                        </div>
+                        <div class="prompt-box">
+                            <span class="prompt-label">🧩 PROMPT: DISCULPA</span>
+                            Redacta un correo breve para pedir disculpas por un error en un pedido. Tono cordial, profesional y responsable. Propón una solución.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 2 de 3 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+    <!-- PÁGINA 3 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <!-- SECCIÓN 8 -->
+            <div class="script-section">
+                <div class="section-title">🧹 8. Reducir y clarificar (16:00 – 18:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Resumen
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>A veces el problema no es que no sepamos qué decir, sino que decimos demasiado. Escribimos "ladrillos" de texto interminables que nadie quiere leer, y que a menudo confunden más de lo que aclaran.</p>
+                        <p>Si tienes un borrador muy extenso y desordenado, pégalo en Copilot y dile: "Resume esto". O mejor aún: "Reescribe esto para que sea más corto, usa viñetas para los puntos clave y resalta lo importante".</p>
+                        <div class="prompt-box">
+                            <span class="prompt-label">🧩 PROMPT: RESUMIR</span>
+                            Reescribe este correo para que sea más corto, ordenado y fácil de leer. Mantén un tono profesional. [pegar correo]
+                        </div>
+                        <p>La IA transformará tu texto confuso en una comunicación ejecutiva, ordenada y fácil de digerir. Tu destinatario te lo agradecerá, porque estás valorando su tiempo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 9 -->
+            <div class="script-section">
+                <div class="section-title">🎯 9. Adaptar a públicos (18:30 – 20:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Adaptación
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>La adaptabilidad es una habilidad blanda crucial en el mundo moderno. No le hablas igual a tu jefe que a tu colega, ni igual a un cliente enojado que a uno feliz.</p>
+                        <p>Copilot te permite tomar un mismo mensaje base y "traducirlo" a diferentes audiencias. Puedes pedirle: "Adapta este correo para un cliente que no sabe nada de tecnología" (usará lenguaje simple y didáctico) o "Adapta esto para el departamento legal" (usará términos más precisos y formales).</p>
+                        <div class="prompt-box">
+                            <span class="prompt-label">🧩 PROMPT: ADAPTACIÓN</span>
+                            Adapta este correo para un cliente nuevo. Debe sonar más cordial, detallado y explicativo.
+                        </div>
+                        <p>Esto te ahorra el esfuerzo mental de tener que reescribir y reformular todo cada vez que cambia el perfil de tu destinatario.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 10 -->
+            <div class="script-section">
+                <div class="section-title">🔚 10. Cierre de la cápsula (20:30 – 22:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Cierre
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Excelente trabajo. Hemos recorrido un largo camino en solo unos minutos. Ahora tienes en tu poder una herramienta que no solo te ahorra tiempo, sino que mejora tu imagen profesional y te protege de errores emocionales al redactar.</p>
+                        <p>Tu tarea ahora es practicar. La próxima vez que tengas que enviar un correo importante —ya sea desde <strong>Outlook</strong> o <strong>Gmail</strong>— no lo hagas solo. Abre Copilot, pídele un borrador, ajusta el tono y revisa el asunto.</p>
+                        <p>Recuerda siempre: la IA propone, pero tú dispones. Tú eres el profesional, Copilot es tu asistente.</p>
+                        <p>Nos vemos en la siguiente cápsula.</p>
+                        <div class="cue-tech">
+                            <strong>[VISUAL]</strong>
+                            PPT CIERRE
+                        </div>
+                        <p><em>(Mostrar diapositiva de cierre con el logo del <strong>Programa Tú Puedes</strong>).</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 20px; background: var(--color-green-main); color: white; text-align: center; font-weight: bold; border-radius: 8px;">
+                📦 FIN DEL BLOQUE 2
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 3 de 3 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+</body>
+</html>

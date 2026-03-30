@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Cápsula 2.3 - Agenda y Calendario</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Consolas&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos Corporativos -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="presentation-container">
+        <!-- Logo Institucional -->
+        <img src="../../../tu puedes logo.png" class="logo-overlay" alt="Logo Institucional">
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide cover-layout active" id="slide-1">
+            <div class="bg-pattern-dots"></div>
+            
+            <!-- Top Bar -->
+            <div class="deco-strip" style="position: absolute; top: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-pill">Cápsula 2.3</div>
+            <h1 class="cover-title">Alfabetización Digital <br><span>Office Básico + IA</span></h1>
+            <div class="cover-subtitle">Agenda y Calendario Inteligente</div>
+            
+            <div style="margin-top: 30px; font-weight: 600; color: var(--color-neutral-dark);">
+                Programa Tú Puedes - 2026
+            </div>
+
+            <div class="logo-wrapper-cover">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: SEPARADOR 1 -->
+        <div class="slide slide-section" id="slide-2">
+            <div class="bg-pattern-dots" style="opacity: 0.1;"></div>
+            <div class="deco-circle"></div>
+            
+            <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 01</span>
+                    <div class="section-title-text">Conociendo el<br>Calendario</div>
+                </div>
+                <div class="section-number-giant">01</div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: OUTLOOK VS GMAIL -->
+        <div class="slide" id="slide-3">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Tu Agenda Digital</h1>
+                </div>
+            </header>
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <!-- Columna Outlook -->
+                    <div class="col-media">
+                        <div class="app-window app-outlook" style="height: 380px; width: 100%;">
+                            <div class="app-header">
+                                <div class="app-controls"><div class="win-btn close"></div><div class="win-btn min"></div><div class="win-btn max"></div></div>
+                                <div class="app-title">Calendario Outlook</div>
+                            </div>
+                            <div class="app-body" style="padding: 10px; display: flex; flex-direction: column;">
+                                <!-- Barra lateral simulada -->
+                                <div style="display: flex; height: 100%; gap: 10px;">
+                                    <div style="width: 40px; background: #f0f0f0; display: flex; flex-direction: column; gap: 15px; align-items: center; padding-top: 10px;">
+                                        <i class="fa-solid fa-envelope" style="color: #666;"></i>
+                                        <i class="fa-solid fa-calendar-days" style="color: #0078D4;"></i>
+                                        <i class="fa-solid fa-user-group" style="color: #666;"></i>
+                                    </div>
+                                    <!-- Grid Calendario -->
+                                    <div style="flex-grow: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto repeat(3, 1fr); gap: 2px; background: #e0e0e0; border: 1px solid #ddd;">
+                                        <div style="background:white; padding:5px; font-size: 0.7rem; font-weight:bold; text-align:center;">Lunes</div>
+                                        <div style="background:white; padding:5px; font-size: 0.7rem; font-weight:bold; text-align:center;">Martes</div>
+                                        <div style="background:white; padding:5px; font-size: 0.7rem; font-weight:bold; text-align:center;">Miércoles</div>
+                                        
+                                        <div style="background:white;"></div>
+                                        <div style="background:white; position:relative;">
+                                            <div style="position: absolute; top:5px; left:5px; right:5px; height: 40px; background: #dae9f8; border-left: 3px solid #0078D4; padding: 2px; font-size:0.6rem;">Reunión...</div>
+                                        </div>
+                                        <div style="background:white;"></div>
+                                        <div style="background:white;"></div>
+                                        <div style="background:white;"></div>
+                                        <div style="background:white; position:relative;">
+                                            <div style="position: absolute; top:30px; left:5px; right:5px; height: 20px; background: #dae9f8; border-left: 3px solid #0078D4; padding: 2px; font-size:0.6rem;">Call</div>
+                                        </div>
+                                        <div style="background:white;"></div>
+                                        <div style="background:white;"></div>
+                                        <div style="background:white;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="font-size: 3rem; font-weight:800; color: #ccc;">VS</div>
+
+                    <!-- Columna Gmail -->
+                    <div class="col-media">
+                        <div class="app-window app-gmail" style="height: 380px; width: 100%;">
+                            <div class="app-header">
+                                <div class="app-controls"><div class="win-btn close"></div><div class="win-btn min"></div><div class="win-btn max"></div></div>
+                                <div class="app-title">Google Calendar</div>
+                            </div>
+                             <div class="app-body" style="padding: 10px;">
+                                <!-- Header Google -->
+                                <div style="display:flex; justify-content: space-between; margin-bottom: 10px; align-items:center;">
+                                    <div style="display:flex; gap:5px;"><div style="width:20px; height:2px; background:#666; margin:3px 0;"></div></div>
+                                    <div style="font-weight:bold; color:#555;">Septiembre</div>
+                                    <i class="fa-solid fa-grip" style="color:#555;"></i>
+                                </div>
+                                <!-- Grid Google -->
+                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto repeat(3, 1fr); gap: 1px; background: #eee;">
+                                    <div style="background:white; text-align:center; font-size:0.7rem; padding:5px;">21</div>
+                                    <div style="background:#e8f0fe; text-align:center; font-size:0.7rem; padding:5px; color:#1967d2; font-weight:bold;">22</div>
+                                    <div style="background:white; text-align:center; font-size:0.7rem; padding:5px;">23</div>
+
+                                    <div style="background:white; height: 40px;"></div>
+                                    <div style="background:white; height: 40px;"></div>
+                                    <div style="background:white; height: 40px; position:relative;">
+                                        <div style="position:absolute; top:2px; left:2px; right:2px; bottom:2px; background:#aaa; border-radius:4px; font-size:0.6rem; color:white; padding:2px;">Gym</div>
+                                    </div>
+
+                                    <div style="background:white; height: 40px; position:relative;">
+                                         <div style="position:absolute; top:5px; left:2px; right:2px; height:30px; background:#039be5; border-radius:4px; font-size:0.6rem; color:white; padding:2px;">Dentista</div>
+                                    </div>
+                                    <div style="background:white; height: 40px;"></div>
+                                    <div style="background:white; height: 40px;"></div>
+                                    
+                                    <div style="background:white; height: 40px;"></div>
+                                    <div style="background:white; height: 40px;"></div>
+                                    <div style="background:white; height: 40px;"></div>
+                                </div>
+                                <div style="position:absolute; bottom:20px; right:20px; width:40px; height:40px; background:white; box-shadow:0 2px 5px rgba(0,0,0,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                                    <span style="font-size:2rem; color:#34a853; font-weight:300; margin-top:-5px;">+</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box bullet-point visible" style="margin-top:20px; text-align:center;">
+                    💡 <strong>Tip Pro:</strong> Usa la vista "Semana" para visualizar de Lunes a Domingo.
+                </div>
+            </div>
+             <div class="deco-strip"><div class="segment seg-fill bg-purple-main"></div></div>
+        </div>
+
+        <!-- SLIDE 4: SEPARADOR 2 -->
+        <div class="slide slide-section" id="slide-4">
+            <div class="bg-pattern-dots" style="opacity: 0.1;"></div>
+            <div class="deco-circle"></div>
+             
+             <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 02</span>
+                    <div class="section-title-text">Crear un Evento</div>
+                </div>
+                <div class="section-number-giant">02</div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: PASOS EVENTO (Interface) -->
+        <div class="slide" id="slide-5">
+            <header class="corp-header"><div class="ch-end bg-purple-main"><h1>Creando un Evento</h1></div></header>
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <!-- Instrucciones -->
+                    <div class="col-text" style="flex: 0.4;">
+                        <h3 style="color:var(--color-purple-main); margin-bottom: 20px;">Pasos Clave:</h3>
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point"><div class="timeline-badge t-purple">1</div><div class="timeline-line"></div><div class="timeline-content" style="padding:10px;">Doble Clic</div></div>
+                            <div class="timeline-item bullet-point"><div class="timeline-badge t-purple">2</div><div class="timeline-line"></div><div class="timeline-content" style="padding:10px;">Título & Hora</div></div>
+                            <div class="timeline-item bullet-point"><div class="timeline-badge t-green">3</div><div class="timeline-content" style="padding:10px;">Guardar</div></div>
+                        </div>
+                    </div>
+
+                    <!-- Interface "Nuevo Evento" -->
+                    <div class="col-media" style="flex: 0.6;">
+                        <div class="app-window" style="width: 100%; max-width: 500px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+                            <div class="app-header" style="background: #f0f0f0; border-bottom: 1px solid #ccc;">
+                                <div class="app-title" style="text-align: left; padding-left: 10px;">Nuevo evento</div>
+                                <div class="win-btn close"></div>
+                            </div>
+                            <div class="app-body" style="padding: 30px; display: flex; flex-direction: column; gap: 20px;">
+                                <!-- Título -->
+                                <div>
+                                    <div style="background: #f0f0f0; height: 40px; border-radius: 4px; border-bottom: 2px solid var(--color-purple-main); padding: 10px; color: #333; font-size: 1.1rem;">Reunión Kick-off Proyecto</div>
+                                </div>
+                                
+                                <!-- Fecha y Hora -->
+                                <div style="display: flex; gap: 10px;">
+                                    <div style="background: #fff; border: 1px solid #ccc; padding: 8px; border-radius: 4px; flex: 1; display:flex; align-items:center; gap:5px;">
+                                        <i class="fa-regular fa-clock" style="color:#666;"></i> 10:00 AM
+                                    </div>
+                                    <div style="background: #fff; border: 1px solid #ccc; padding: 8px; border-radius: 4px; flex: 1; display:flex; align-items:center; gap:5px;">
+                                        <i class="fa-solid fa-arrow-right" style="color:#666;"></i> 11:00 AM
+                                    </div>
+                                </div>
+
+                                <!-- Ubicación -->
+                                <div style="background: #fff; border: 1px solid #ccc; padding: 10px; border-radius: 4px; color: #666; display:flex; align-items:center; gap:10px;">
+                                    <i class="fa-solid fa-location-dot"></i> Sala de Conferencias A
+                                </div>
+                                
+                                <!-- Descripción -->
+                                <div style="background: #f9f9f9; height: 80px; border: 1px solid #eee; border-radius: 4px; padding: 10px; color: #888; font-size: 0.9rem;">
+                                    Agregar una descripción...
+                                </div>
+
+                                <!-- Botones -->
+                                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+                                    <div style="padding: 8px 15px; color: #666; font-weight: bold;">Descartar</div>
+                                    <div style="padding: 8px 25px; background: var(--color-purple-main); color: white; border-radius: 4px; font-weight: bold; box-shadow: 0 4px 10px rgba(88, 53, 134, 0.3);">Guardar</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: RECORDATORIOS timeline vertical upgrade -->
+        <div class="slide" id="slide-6">
+             <header class="corp-header"><div class="ch-end bg-purple-main"><h1>Línea de Tiempo de Alertas</h1></div></header>
+             <div class="content-body slide-content">
+                 <div class="timeline-container">
+                     <div class="timeline-item bullet-point">
+                         <div class="timeline-badge t-purple" style="width:60px; height:60px; font-size:1.5rem;"><i class="fa-solid fa-file-contract"></i></div>
+                         <div class="timeline-line"></div>
+                         <div class="timeline-content">
+                             <div style="display:flex; justify-content:space-between;">
+                                <strong>1 Día Antes</strong>
+                                <span style="background:#eee; padding:2px 8px; border-radius:4px;">Preparación</span>
+                             </div>
+                             <p>Preparar documentos y presentación.</p>
+                         </div>
+                     </div>
+
+                     <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-green" style="width:60px; height:60px; font-size:1.5rem;"><i class="fa-solid fa-car"></i></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content">
+                            <div style="display:flex; justify-content:space-between;">
+                               <strong>1 Hora Antes</strong>
+                               <span style="background:#eee; padding:2px 8px; border-radius:4px;">Logística</span>
+                            </div>
+                            <p>Inicio de desplazamiento o setup técnico.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge" style="background:#e91e63; width:60px; height:60px; font-size:1.5rem;"><i class="fa-solid fa-wifi"></i></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content">
+                            <div style="display:flex; justify-content:space-between;">
+                               <strong>15 Min Antes</strong>
+                               <span style="background:#eee; padding:2px 8px; border-radius:4px;">Conexión</span>
+                            </div>
+                            <p>Conectarse a la sala o llegar a recepción.</p>
+                        </div>
+                    </div>
+
+                     <div class="timeline-item bullet-point">
+                        <div class="timeline-badge" style="background:#333; width:60px; height:60px; font-size:1.5rem;"><i class="fa-solid fa-flag-checkered"></i></div>
+                        <div class="timeline-content" style="background:var(--color-green-lime); color:white;">
+                            <strong>🏁 REUNIÓN</strong>
+                        </div>
+                    </div>
+                 </div>
+             </div>
+        </div>
+        
+        <!-- SLIDE 7: RECURRENCIA -->
+        <div class="slide" id="slide-7">
+            <header class="corp-header"><div class="ch-end bg-purple-main"><h1>Eventos Recurrentes</h1></div></header>
+            <div class="content-body slide-content">
+                 <p style="margin-bottom: 20px; font-size: 1.2rem; text-align:center;"><em>"Configúralo una vez, úsalo siempre."</em></p>
+                 
+                 <div class="timeline-container">
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-purple"><i class="fa-solid fa-arrows-rotate"></i></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content">
+                            <h4>Reuniones Semanales</h4>
+                            <p>Comités de equipo o seguimiento de proyectos.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-green"><i class="fa-solid fa-sack-dollar"></i></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content">
+                            <h4>Pagos Mensuales</h4>
+                            <p>IVA, Sueldos, Facturas de servicios.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-lime"><i class="fa-solid fa-cake-candles"></i></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content">
+                            <h4>Anualidades</h4>
+                            <p>Cumpleaños, Renovación de licencias.</p>
+                        </div>
+                    </div>
+                 </div>
+
+                 <div class="highlight-box bullet-point" style="margin-top:20px;">
+                    Busca la opción <strong>"Repetir"</strong> o <strong>"Recurrencia"</strong> al crear el evento.
+                 </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: SEPARADOR 3 -->
+        <div class="slide slide-section" id="slide-8">
+            <div class="bg-pattern-dots" style="opacity: 0.1;"></div>
+            <div class="deco-circle"></div>
+
+             <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 03</span>
+                    <div class="section-title-text">Planificación con<br>Gemini</div>
+                </div>
+                <div class="section-number-giant">03</div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: PROMPT PLANIFICACION -->
+        <div class="slide" id="slide-9">
+             <header class="corp-header"><div class="ch-end bg-purple-main"><h1>Organiza tu Semana</h1></div></header>
+             <div class="content-body slide-content">
+                <div class="timeline-container">
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-purple">1</div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content">
+                            <strong>El Desafío:</strong> Organizar visitas, inventario y administrativo.
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-green"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content" style="padding:0; overflow:hidden;">
+                            <!-- Gemini Prompt Window -->
+                             <div class="app-window app-copilot">
+                                <div class="app-header">
+                                    <div class="app-title">Gemini</div>
+                                </div>
+                                <div class="app-body" style="background:#f0f4f9; padding:20px;">
+                                    <div class="prompt-display" style="box-shadow:none; border: 1px solid #ccc; margin:0;">
+                                        Ayúdame a organizar mi semana laboral. Tengo que visitar 3 clientes (Lunes, Miércoles, Viernes por la mañana), hacer inventario el Martes y pagar sueldos el Jueves.<br><br>
+                                        Crea una tabla con horarios sugeridos, dejando tiempo para almuerzo y trabajo administrativo.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+
+        <!-- SLIDE 10: RESULTADO -->
+        <div class="slide" id="slide-10">
+            <header class="corp-header"><div class="ch-end bg-purple-main"><h1>Tu Asistente Personal</h1></div></header>
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <h3 style="color: var(--color-purple-main); margin-bottom: 20px;">Beneficios de usar Gemini:</h3>
+                         <div class="timeline-container">
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple" style="width:30px; height:30px; font-size:1rem;">✓</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content" style="padding:10px 20px;">Evita conflictos de horario.</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple" style="width:30px; height:30px; font-size:1rem;">✓</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content" style="padding:10px 20px;">Asegura tiempos de descanso.</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple" style="width:30px; height:30px; font-size:1rem;">✓</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content" style="padding:10px 20px;">Estructura visualmente tu carga.</div>
+                             </div>
+                         </div>
+                    </div>
+                    <div class="col-media">
+                         <div class="app-window app-copilot">
+                            <div class="app-header"><div class="app-title">Respuesta de Gemini</div></div>
+                            <div class="app-body">
+                                <table style="width:100%; border-collapse:collapse; font-size:0.8rem;">
+                                    <tr style="background:#ddd;"><th>Día</th><th>AM</th><th>PM</th></tr>
+                                    <tr><td>Lun</td><td>Cliente 1</td><td>Admin</td></tr>
+                                    <tr><td>Mar</td><td>Inventario</td><td>Inventario</td></tr>
+                                    <tr><td>Mié</td><td>Cliente 2</td><td>Admin</td></tr>
+                                    <tr><td>Jue</td><td>Admin</td><td>Pago Sueldos</td></tr>
+                                    <tr><td>Vie</td><td>Cliente 3</td><td>Cierre</td></tr>
+                                </table>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: SEPARADOR 4 -->
+        <div class="slide slide-section" id="slide-11">
+            <div class="bg-pattern-dots" style="opacity: 0.1;"></div>
+            <div class="deco-circle"></div>
+
+             <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 04</span>
+                    <div class="section-title-text">Más allá del<br>Escritorio</div>
+                </div>
+                <div class="section-number-giant">04</div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: SINCRONIZACION -->
+        <div class="slide" id="slide-12">
+             <header class="corp-header"><div class="ch-end bg-purple-main"><h1>Sincronización Móvil</h1></div></header>
+             <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple"><i class="fa-solid fa-mobile-screen"></i></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <h4>Instala la App</h4>
+                                    <p>Descarga Outlook o Google Calendar en tu celular.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green"><i class="fa-solid fa-cloud"></i></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <h4>Nube Automática</h4>
+                                    <p>Lo que anotas en el PC aparece mágicamente en tu mano.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-lime"><i class="fa-solid fa-bell"></i></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <h4>Notificaciones</h4>
+                                    <p>Recibe alertas donde quiera que estés.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                         <div style="width: 280px; height: 550px; background: #333; border-radius: 30px; border: 10px solid #1a1a1a; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+                            <!-- Notch -->
+                            <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: #1a1a1a; border-radius: 0 0 15px 15px; z-index: 20;"></div>
+                            
+                            <!-- Screen Content -->
+                            <div style="background: white; width: 100%; height: 100%; display: flex; flex-direction: column;">
+                                <!-- Header App -->
+                                <div style="background: var(--color-purple-main); height: 70px; padding-top: 20px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                    Septiembre
+                                </div>
+                                
+                                <!-- Events List -->
+                                <div style="flex: 1; padding: 15px; display: flex; flex-direction: column; gap: 15px;">
+                                    <div style="display: flex; gap: 10px; align-items: center;">
+                                        <div style="font-weight: bold; font-size: 1.2rem; color: #555;">14</div>
+                                        <div style="background: #f0f0f0; padding: 10px; border-radius: 8px; flex: 1;">
+                                            <div style="font-weight: bold;">Reunión Cliente</div>
+                                            <div style="font-size: 0.8rem; color: #888;">10:00 - 11:00 AM</div>
+                                        </div>
+                                    </div>
+
+                                    <div style="display: flex; gap: 10px; align-items: center;">
+                                        <div style="font-weight: bold; font-size: 1.2rem; color: #555;">15</div>
+                                        <div style="background: #e8f5e9; padding: 10px; border-radius: 8px; flex: 1; border-left: 4px solid var(--color-green-main);">
+                                            <div style="font-weight: bold;">Pago Proveedores</div>
+                                            <div style="font-size: 0.8rem; color: #666;">Todo el día</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="display: flex; gap: 10px; align-items: center; opacity: 0.5;">
+                                        <div style="font-weight: bold; font-size: 1.2rem; color: #555;">16</div>
+                                        <div style="background: #fff; border: 1px dashed #ccc; padding: 10px; border-radius: 8px; flex: 1;">
+                                            <div style="font-size: 0.9rem;">Sin eventos</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Navigation Bottom -->
+                                <div style="height: 50px; border-top: 1px solid #eee; display: flex; justify-content: space-around; align-items: center; color: #888; font-size: 1.2rem;">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <i class="fa-solid fa-calendar-days" style="color: var(--color-purple-main);"></i>
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+
+        <!-- SLIDE 13: BUENAS PRACTICAS -->
+        <div class="slide" id="slide-13">
+             <header class="corp-header"><div class="ch-end bg-purple-main"><h1>Reglas de Oro</h1></div></header>
+             <div class="content-body slide-content">
+                 <div class="timeline-container">
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-purple">1</div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Revisa tu calendario</strong> cada mañana antes de empezar.</div>
+                    </div>
+                     <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-green">2</div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Usa colores:</strong> Rojo (Urgente), Verde (Personal), Azul (Visitas).</div>
+                    </div>
+                     <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-lime">3</div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Deja huecos</strong> (buffers) para imprevistos y desplazamientos.</div>
+                    </div>
+                     <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-slate">4</div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Autodisciplina:</strong> Respeta tus propios tiempos agendados.</div>
+                    </div>
+                 </div>
+             </div>
+        </div>
+
+        <!-- SLIDE 14: CIERRE -->
+        <div class="slide cover-layout" id="slide-14">
+             <div class="bg-pattern-dots"></div>
+             
+             <!-- Top Bar (Optional for closing, keeping it clean) -->
+             
+             <div class="logo-wrapper-cover" style="bottom: auto; top: -50px; right: -50px; transform: rotate(20deg);">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+             <div class="cover-layout">
+                <div class="section-icon" style="font-size:6rem; margin-bottom:20px;">🚀</div>
+                <h1 class="cover-title">¡Manos a la obra!</h1>
+                <div class="cover-subtitle" style="margin-bottom: 20px;"> Crea tu primer evento y pídele a <strong>Gemini</strong> que organice tu día.</div>
+                <div class="cover-pill" style="background: var(--color-purple-main); color: white;">Fin de la Cápsula 2.3</div>
+             </div>
+
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-sm bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="controls">
+            <button class="nav-btn" onclick="prevSlide()" hidden>❮ Anterior</button>
+            <button class="nav-btn" onclick="nextSlide()" hidden>Siguiente ❯</button>
+        </div>
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>

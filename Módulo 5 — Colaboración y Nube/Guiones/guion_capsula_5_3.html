@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guion Técnico - Cápsula 5.3: Introducción a Microsoft Teams</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           TOKENS DE DISEÑO (SISTEMA ATÓMICO)
+           ========================================= */
+        :root {
+            --color-purple-main: #583586;
+            --color-purple-mid: #6d4c94;
+            --color-purple-light: #8f6bb3;
+            --color-purple-dark: #4a276b;
+            
+            --color-green-main: #76b82a;
+            --color-green-lime: #9ccb3b;
+            --color-green-slate: #7a9483;
+            
+            --color-neutral-white: #ffffff;
+            --color-neutral-light: #f4f4f4;
+            --color-neutral-gray: #d1d1d1;
+            --color-neutral-dark: #333333;
+
+            --font-primary: 'Montserrat', sans-serif;
+            --skew-angle: -40deg;
+        }
+
+        /* =========================================
+           CONFIGURACIÓN DE PÁGINA (IMPRIMIBLE)
+           ========================================= */
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: #525659;
+            font-family: var(--font-primary);
+            margin: 0;
+            padding: 20px;
+            color: var(--color-neutral-dark);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px auto;
+            padding: 15mm 20mm;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media print {
+            body { background: none; padding: 0; }
+            .page { width: 100%; margin: 0; box-shadow: none; border: none; min-height: auto; page-break-after: always; }
+            .page:last-child { page-break-after: auto; }
+        }
+
+        /* =========================================
+           COMPONENTES
+           ========================================= */
+        
+        /* Header */
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--color-green-main);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .header-info h1 {
+            font-size: 18pt;
+            color: var(--color-purple-main);
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .header-info h2 {
+            font-size: 10pt;
+            color: var(--color-green-slate);
+            margin: 5px 0 0 0;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .logo-simple {
+            width: 100px;
+            height: auto;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+        
+        .deco-strip {
+            display: flex;
+            height: 15px;
+            overflow: hidden;
+            width: 100%;
+        }
+        .deco-strip .segment {
+            height: 100%;
+            transform: skewX(var(--skew-angle));
+            margin-right: 4px;
+        }
+        .deco-strip .seg-fill { flex-grow: 1; }
+        .deco-strip .seg-sm { width: 15px; }
+        .deco-strip .seg-md { width: 30px; }
+        .deco-strip .seg-start { margin-left: -10px; padding-left: 10px; }
+        .deco-strip .seg-end { margin-right: -10px; padding-right: 10px; }
+
+        .footer-text {
+            text-align: right;
+            font-size: 8pt;
+            color: var(--color-green-slate);
+            margin-top: 5px;
+        }
+
+        /* Contenido */
+        .script-meta {
+            background-color: var(--color-neutral-light);
+            border-left: 4px solid var(--color-purple-main);
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 10pt;
+        }
+
+        .script-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 12pt;
+            color: var(--color-purple-main);
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--color-neutral-gray);
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cue-block {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            font-size: 10pt;
+        }
+
+        .cue-tech {
+            flex: 0 0 120px;
+            font-size: 8pt;
+            font-weight: 600;
+            color: var(--color-green-slate);
+            text-transform: uppercase;
+            padding-top: 3px;
+        }
+
+        .cue-tech strong {
+            display: block;
+            color: var(--color-purple-mid);
+            margin-bottom: 2px;
+        }
+
+        .cue-dialogue {
+            flex: 1;
+            line-height: 1.5;
+            color: var(--color-neutral-dark);
+        }
+
+        .cue-dialogue p { margin: 0 0 10px 0; }
+
+        /* Prompt Box */
+        .prompt-box {
+            background-color: #f0f7ff;
+            border: 1px dashed var(--color-purple-light);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 9pt;
+            color: var(--color-purple-dark);
+        }
+        .prompt-label {
+            font-weight: bold;
+            color: var(--color-purple-main);
+            display: block;
+            margin-bottom: 5px;
+            font-family: var(--font-primary);
+            font-size: 8pt;
+            text-transform: uppercase;
+        }
+
+        /* Listas */
+        ul { margin: 0 0 10px 20px; padding: 0; }
+        li { margin-bottom: 4px; }
+
+    </style>
+</head>
+<body>
+
+    <!-- PÁGINA 1 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <div class="script-meta">
+                <h3 style="margin: 0 0 10px 0; color: var(--color-purple-main);">🎥 CÁPSULA 5.3 – Introducción a Microsoft Teams</h3>
+                <div><strong>Duración estimada:</strong> 10–12 minutos</div>
+                <div><strong>Herramientas:</strong> Microsoft Teams</div>
+                <div><strong>Objetivo:</strong> Entender las características básicas de Microsoft Teams para comunicación y colaboración profesional.</div>
+            </div>
+
+            <!-- SECCIÓN 0 -->
+            <div class="script-section">
+                <div class="section-title">🎬 0. Bienvenida: Tu Oficina Digital (00:00 – 01:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Plano Medio
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>¡Hola a todos! Bienvenidos a una nueva cápsula. Hoy vamos a dar un paso gigante en nuestra forma de trabajar. Vamos a conocer <strong>Microsoft Teams</strong>.</p>
+                        <p>Quiero que se imaginen algo: ¿Recuerdan cuando tenían que caminar hasta el escritorio de un colega para hacerle una pregunta rápida? ¿O cuando tenían que enviar un correo formal solo para decir "ya te envié el archivo"? Eso es cosa del pasado.</p>
+                        <p>Piensen en Teams como su <strong>oficina virtual</strong>. Es el edificio donde trabajamos, pero en la nube. Es el lugar donde conversamos rápido con los compañeros (como si fuera un WhatsApp, pero profesional y seguro) y donde nos reunimos por video (como si estuviéramos en una sala de reuniones real).</p>
+                        <p>Muchos me preguntan: "¿Para qué Teams si ya tengo correo?". El correo es para cosas formales, externas o que pueden esperar. Teams es para el "ahora", para el trabajo en equipo fluido. Es para el "oye, ¿tienes el informe?" o "reunámonos 5 minutos para ver esto". Hoy aprenderemos a movernos en este edificio digital.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 1 -->
+            <div class="script-section">
+                <div class="section-title">💬 1. El Chat: Rápido y Furioso (01:30 – 04:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Teams Chat
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Microsoft Teams ofrece un sistema de chat profesional que funciona como un WhatsApp para el trabajo, pero con características avanzadas. El chat en Teams permite conversaciones rápidas y organizadas con colegas, equipos o grupos de trabajo.</p>
+                        <p>Una de las ventajas principales es la capacidad de formatear los mensajes: pueden usar negritas, cursivas, listas y hasta cambiar colores para hacer que sus comunicaciones sean más claras y profesionales. Esto ayuda a que los mensajes importantes destaquen y sean fáciles de leer.</p>
+                        <p>Otra característica poderosa es la posibilidad de adjuntar archivos directamente en el chat. Cuando comparten un documento de Word o Excel, sus colegas pueden abrirlo y editarlo en tiempo real sin necesidad de descargar copias. Todo queda registrado en el historial del chat, facilitando el seguimiento de versiones y cambios.</p>
+                        <p>Además, Teams incluye reacciones rápidas como "me gusta", "corazón" o "pulgar arriba" que permiten responder a mensajes de manera instantánea, manteniendo la conversación fluida y reduciendo la necesidad de escribir respuestas largas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2 -->
+            <div class="script-section">
+                <div class="section-title">📹 2. Reuniones: Vernos las caras (04:00 – 07:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Reunión
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Cuando el chat no es suficiente, Microsoft Teams permite realizar reuniones por video y audio, simulando una sala de conferencias virtual. Esta función es ideal cuando necesitan discutir temas complejos, ver expresiones faciales o compartir ideas de manera más interactiva.</p>
+                        <p>Antes de unirse a una reunión, Teams ofrece una "sala de espera" o pre-sala donde pueden prepararse. Aquí es importante verificar su apariencia: asegurarse de que la iluminación sea buena, que el fondo sea apropiado y que el audio funcione correctamente. Teams incluye filtros de fondo que permiten desenfocar el entorno real o elegir fondos virtuales profesionales, manteniendo la privacidad y el aspecto profesional.</p>
+                        <p>Durante la reunión, pueden compartir su pantalla para mostrar documentos, presentaciones o cualquier contenido relevante. Esto facilita la colaboración en tiempo real, permitiendo que todos los participantes vean lo mismo y puedan comentar al instante.</p>
+                        <p>Las reuniones en Teams también soportan grabación, lo que es útil para quienes no pudieron asistir o para tener un registro de las decisiones tomadas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3 -->
+            <div class="script-section">
+                <div class="section-title">✋ 3. Modales en Reunión (07:00 – 09:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Consejos
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Para mantener un ambiente profesional en las reuniones virtuales, Microsoft Teams promueve buenas prácticas de etiqueta digital. Una regla fundamental es el uso adecuado del micrófono: mantenerlo silenciado cuando no se está hablando evita ruidos de fondo que puedan distraer a los participantes.</p>
+                        <p>Otra herramienta útil es la función de "levantar la mano", que permite indicar al moderador que se desea intervenir sin interrumpir la conversación actual. Esto mantiene el orden y asegura que todos tengan oportunidad de participar.</p>
+                        <p>El chat de la reunión es un complemento valioso: permite hacer preguntas silenciosas, compartir enlaces o dejar comentarios escritos sin interrumpir el flujo de la conversación. Esto es especialmente útil para participantes que prefieren no hablar o para documentar acuerdos importantes.</p>
+                        <p>Estas normas de cortesía digital ayudan a que las reuniones sean productivas y respetuosas para todos los involucrados.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 4 -->
+            <div class="script-section">
+                <div class="section-title">📅 4. Agendar una reunión (09:30 – 11:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Calendario
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Microsoft Teams incluye un calendario integrado que permite programar reuniones con anticipación. Esta función está conectada con Outlook, asegurando que las invitaciones aparezcan tanto en Teams como en el correo electrónico.</p>
+                        <p>Al programar una reunión, se puede especificar el título, los participantes, la fecha y hora, y una descripción del tema a tratar. Teams ofrece sugerencias de horarios basadas en la disponibilidad de los invitados, facilitando la coordinación.</p>
+                        <p>Una vez enviada la invitación, los participantes reciben un enlace único para unirse a la reunión. Este enlace es válido para la sesión programada y no requiere instalación adicional, solo un navegador web o la aplicación de Teams.</p>
+                        <p>Esta integración con el calendario hace que la planificación de reuniones sea eficiente y reduce la posibilidad de conflictos de horario.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 5 -->
+            <div class="script-section">
+                <div class="section-title">🔚 5. Cierre (11:00 – 11:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Cierre
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Microsoft Teams es una herramienta poderosa que transforma la forma de trabajar en equipo. Permite mantener la conexión y la colaboración efectiva sin importar la distancia física. Con sus funciones de chat profesional, reuniones por video y calendario integrado, facilita la comunicación fluida y productiva.</p>
+                        <p>En resumen, Teams combina lo mejor de la mensajería instantánea con las capacidades de videoconferencia, creando un entorno de trabajo unificado. En la próxima cápsula, exploraremos cómo acceder a todas estas funciones desde dispositivos móviles. ¡Nos vemos allá!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 20px; background: var(--color-green-main); color: white; text-align: center; font-weight: bold; border-radius: 8px;">
+                📦 FIN DEL BLOQUE 3 (MÓDULO 5)
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 1 de 1 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+</body>
+</html>

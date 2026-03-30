@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Cápsula 4.4 - Análisis de Datos</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Consolas&display=swap" rel="stylesheet">
+    <!-- Links Corporativos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="presentation-container">
+        
+        <!-- Logo Institucional -->
+        <img src="../../../tu puedes logo.png" class="logo-overlay" alt="Logo Institucional">
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide cover-layout active" id="slide-1">
+            <div class="bg-pattern-dots"></div>
+            <!-- Top Bar -->
+            <div class="deco-strip" style="position: absolute; top: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-pill">Cápsula 4.4</div>
+            <h1 class="cover-title">Alfabetización Digital:<br><span>Excel Básico + IA</span></h1>
+            <div class="cover-subtitle">Análisis de Datos: El Detective</div>
+            
+            <div style="margin-top: 30px; font-weight: 600; color: var(--color-neutral-dark);">
+                Programa Tú Puedes - 2026
+            </div>
+
+            <div class="logo-wrapper-cover">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: SEPARADOR 1 -->
+        <div class="slide slide-section" id="slide-2">
+            <div class="bg-pattern-dots" style="opacity: 0.1;"></div>
+            <div class="deco-circle"></div>
+             <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 01</span>
+                    <div class="section-title-text">Hacer Preguntas</div>
+                    <div style="margin-top: 20px;">
+                        <span class="material-icons mi-lg anim-bounce-right" style="color: var(--color-green-lime);">search</span>
+                    </div>
+                </div>
+                <div class="section-number-giant">01</div>
+            </div>
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: INTRODUCCION ANALISIS -->
+        <div class="slide" id="slide-3">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>¿Qué pasó aquí?</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="margin-bottom: 30px; font-size: 1.3rem;">Tener datos no sirve si no los interrogas.</p>
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple"><span class="material-icons">attach_money</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>¿En qué gasté más?</strong> Identificar el problema.</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green"><span class="material-icons">calendar_month</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>¿Cuándo sucedió?</strong> ¿Fue a fin de mes o al principio?</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-slate"><span class="material-icons">bug_report</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Los "Gastos Hormiga":</strong> Esas pequeñas compras que sumadas son gigantes.</div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                         <span class="material-icons anim-pulse" style="font-size: 10rem; color: #333;">manage_search</span>
+                    </div>
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: FILTROS (LUPA) -->
+        <div class="slide" id="slide-4">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>La Lupa (Filtros)</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="margin-bottom: 20px;">Las flechas de la Tabla Inteligente son tu mejor amigo.</p>
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green"><span class="material-icons">filter_alt</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Ver solo una cosa:</strong> Quita "(Seleccionar todo)" y elige "Transporte".</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple"><span class="material-icons">attach_money</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Gastos Grandes:</strong> Filtros de número > "Mayor que..." (ej: 20.000).</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-slate"><span class="material-icons">palette</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Por Color:</strong> Filtra por color para ver solo las alertas rojas.</div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                         <div style="background: #fff; border: 1px solid #ccc; padding: 15px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 250px;">
+                             <div style="font-weight: bold; border-bottom: 1px solid #eee; margin-bottom: 10px; color: #333;">Filtros de número</div>
+                             <div style="color: #666; padding: 5px;">Es igual a...</div>
+                             <div style="background: #e8f5e9; color: var(--color-green-main); padding: 5px; font-weight: bold; border-left: 3px solid var(--color-green-main);">Mayor que...</div>
+                             <div style="color: #666; padding: 5px;">Menor que...</div>
+                             <div style="color: #666; padding: 5px;">Entre...</div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: SEPARADOR 2 -->
+        <div class="slide slide-section" id="slide-5">
+            <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 02</span>
+                    <div class="section-title-text">Orden y<br>Patrones</div>
+                </div>
+                <div class="section-number-giant">02</div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: ORDENAR DATOS -->
+        <div class="slide" id="slide-6">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Ordenar el Desorden</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="margin-bottom: 20px; font-size: 1.2rem;">El secreto es usar <strong>Niveles</strong> para ordenar por dos cosas a la vez.</p>
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple" style="font-size:1.2rem; display:flex; align-items:center; justify-content:center;"><span class="material-icons">sort</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <strong style="color:var(--color-purple-main);">1. Menú Ordenar</strong>
+                                    <p style="margin-top:5px; font-size:0.95rem;">Ve a la pestaña <strong>Datos</strong> y clickea "Ordenar" (el cuadro grande).</p>
+                                </div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green" style="font-size:1rem; display:flex; align-items:center; justify-content:center; font-weight:800;">A-Z</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <strong style="color:var(--color-green-main);">2. Primer Nivel</strong>
+                                    <p style="margin-top:5px; font-size:0.95rem;">Por <strong>Categoría</strong> (De la A a la Z).<br>Esto agrupa todo: "Comida" con "Comida".</p>
+                                </div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-slate" style="font-size:1rem; display:flex; align-items:center; justify-content:center; font-weight:800;">$$</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <strong style="color:var(--color-neutral-dark);">3. Segundo Nivel</strong>
+                                    <p style="margin-top:5px; font-size:0.95rem;">Agrega nivel y pon <strong>Monto</strong> (De Mayor a Menor).<br>Así ves el gasto más grande de cada grupo arriba.</p>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <div style="position:relative; width: 100%; max-width: 380px; margin: auto;">
+                            <!-- Background Excel Window (Blurred/Dimmed) -->
+                            <div class="app-window app-excel" style="width: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-radius: 8px; overflow:hidden; opacity:0.6; transform: scale(0.95);">
+                                 <div class="app-header" style="background:#1d6f42; height:20px;"></div>
+                                 <div class="app-body" style="padding:0; background:white; height: 180px;">
+                                      <div class="excel-grid-container" style="border:none; grid-template-columns: 30px 1fr 1fr;">
+                                          <div class="grid-header"></div><div class="grid-header">A</div><div class="grid-header">B</div>
+                                          <div class="grid-row-head">1</div><div class="grid-cell" style="background:#eee;">Categoría</div><div class="grid-cell" style="background:#eee;">Monto</div>
+                                          <div class="grid-row-head">2</div><div class="grid-cell">Comida</div><div class="grid-cell">$ 5.000</div>
+                                          <div class="grid-row-head">3</div><div class="grid-cell">Transp.</div><div class="grid-cell">$ 2.000</div>
+                                          <div class="grid-row-head">4</div><div class="grid-cell">Varios</div><div class="grid-cell">$ 10.000</div>
+                                      </div>
+                                 </div>
+                            </div>
+
+                            <!-- Floating Sort Dialog -->
+                            <div class="app-window" style="position:absolute; top:30px; left: -10px; width: 105%; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border-radius: 6px; background:white; font-family: 'Segoe UI', sans-serif; border: 1px solid #ccc; animation: fadeInScale 0.5s ease-out;">
+                                <div style="padding:10px; border-bottom:1px solid #ddd; display:flex; justify-content:space-between; align-items:center; background:#f9f9f9; border-radius: 6px 6px 0 0;">
+                                    <span style="font-size:13px; font-weight:600; color:#333;">Ordenar</span>
+                                    <span class="material-icons" style="font-size:16px; color:#999; cursor:pointer;">close</span>
+                                </div>
+                                <div style="padding:15px; font-size:11px;">
+                                    
+                                    <!-- Level 1 -->
+                                    <div style="background:#fff; padding:8px; border-radius:4px; margin-bottom:10px; display:flex; gap:10px; align-items:center; border:1px solid #e0e0e0;">
+                                        <div style="flex:1;">
+                                            <div style="color:#666; margin-bottom:4px; font-size:10px;">Ordenar por</div>
+                                            <div style="font-weight:600; background:white; border:1px solid #ccc; padding:4px 8px; border-radius:3px;">Categoría</div>
+                                        </div>
+                                        <div style="flex:1;">
+                                            <div style="color:#666; margin-bottom:4px; font-size:10px;">Criterio</div>
+                                            <div style="background:white; border:1px solid #ccc; padding:4px 8px; border-radius:3px; color:#666;">A a Z</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Connector -->
+                                    <div style="text-align:center; height:10px; border-left: 2px dashed #ccc; margin-left: 20px; margin-top:-10px; margin-bottom:0px;"></div>
+
+                                    <!-- Level 2 (Highlighted) -->
+                                    <div style="background:#e8f5e9; padding:8px; border-radius:4px; display:flex; gap:10px; align-items:center; border:2px solid var(--color-green-main); position:relative; box-shadow: 0 4px 10px rgba(76, 175, 80, 0.1);">
+                                         <div style="position:absolute; left:-12px; top:50%; transform:translateY(-50%); background:var(--color-green-main); color:white; border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:16px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">+</div>
+                                        <div style="flex:1;">
+                                            <div style="color:var(--color-green-dark); margin-bottom:4px; font-size:10px; font-weight:bold;">Luego por</div>
+                                            <div style="font-weight:600; background:white; border:1px solid #a5d6a7; padding:4px 8px; border-radius:3px; color:#1b5e20;">Monto</div>
+                                        </div>
+                                        <div style="flex:1;">
+                                            <div style="color:var(--color-green-dark); margin-bottom:4px; font-size:10px; font-weight:bold;">Criterio</div>
+                                            <div style="background:white; border:1px solid #a5d6a7; padding:4px 8px; border-radius:3px; color:#1b5e20;">Mayor a Menor</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div style="padding:10px; background:#f0f0f0; text-align:right; border-top:1px solid #ddd; border-radius: 0 0 6px 6px;">
+                                    <span style="border:1px solid #aaa; background:#e1e1e1; padding:4px 15px; margin-right:5px; font-size:11px; border-radius:3px; color:#333; font-weight:500;">Aceptar</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: COSAS RARAS (NUEVO) -->
+        <div class="slide" id="slide-7">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Buscando Cosas Raras</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                 <p style="text-align: center; margin-bottom: 40px; font-size: 1.3rem;">Con todo ordenado, busca lo que no encaja.</p>
+                 <div style="display: flex; gap: 30px; justify-content: center;">
+                    
+                    <div class="concept-card bullet-point" style="width: 250px;">
+                        <div class="card-top-strip bg-green-lime"></div>
+                        <div class="card-body">
+                            <span class="material-icons" style="font-size: 3rem; color: var(--color-green-main); margin-bottom: 15px;">pest_control</span>
+                            <h3>Gastos Hormiga</h3>
+                            <p>Muchos gastos chiquititos en "Kiosco" suman una fortuna.</p>
+                        </div>
+                    </div>
+
+                    <div class="concept-card bullet-point" style="width: 250px;">
+                        <div class="card-top-strip bg-purple-light"></div>
+                        <div class="card-body">
+                            <span class="material-icons" style="font-size: 3rem; color: var(--color-purple-light); margin-bottom: 15px;">event_repeat</span>
+                            <h3>Fechas</h3>
+                            <p>¿Gastas más a principio de mes o a fin de mes?</p>
+                        </div>
+                    </div>
+
+                    <div class="concept-card bullet-point" style="width: 250px;">
+                        <div class="card-top-strip bg-purple-main"></div>
+                        <div class="card-body">
+                            <span class="material-icons" style="font-size: 3rem; color: var(--color-purple-main); margin-bottom: 15px;">warning</span>
+                            <h3>Sorpresas</h3>
+                            <p>¿Qué hace ese gasto gigante en "Varios"? ¡Investiga!</p>
+                        </div>
+                    </div>
+
+                 </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: SEPARADOR 3 -->
+        <div class="slide slide-section" id="slide-8">
+            <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 03</span>
+                    <div class="section-title-text">IA y<br>Limpieza</div>
+                </div>
+                <div class="section-number-giant">03</div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: GEMINI ANALISIS -->
+        <div class="slide" id="slide-9">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Gemini Detective</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="margin-bottom: 20px;">No analices a ojo. Copia tu tabla y pégala en el chat.</p>
+                    </div>
+                    <div class="col-media" style="flex: 2;">
+                        <div class="app-window app-gemini">
+                             <div class="app-header">
+                                <div class="app-controls">
+                                    <div class="win-btn close"></div><div class="win-btn min"></div><div class="win-btn max"></div>
+                                </div>
+                                <div class="app-title">Chat con Gemini</div>
+                            </div>
+                            <div class="app-body">
+                                <div class="prompt-display" style="border:none; box-shadow:none; margin:0; background:transparent;">
+                                    "Mira esta tabla de mis gastos.<br>
+                                    1. Dime cuáles son las 3 cosas en las que más gasto plata.<br>
+                                    2. ¿Ves algo raro o algún día especial?<br>
+                                    3. Dame 2 consejos para ahorrar."
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-badge">⚡ Actividad: Pega tus datos y pide conclusiones</div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: LIMPIEZA DE DATOS (MOVIDO AQUI) -->
+        <div class="slide" id="slide-10">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Limpiando el Desorden</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                 <div class="content-row">
+                    <div class="col-text">
+                        <p style="margin-bottom: 20px;">Excel es muy literal. "Pan" no es "Pan " (con espacio).</p>
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple"><span class="material-icons">content_copy</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Quitar Duplicados:</strong> Pestaña Datos. Borra lo que está repetido.</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green"><span class="material-icons">space_bar</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Función ESPACIOS:</strong> Borra espacios invisibles que molestan.</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-slate"><span class="material-icons">smart_toy</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Prompt IA:</strong> "Arregla esta lista de nombres mal escritos".</div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                         <div style="font-family: 'Consolas', monospace; background: #333; color: #fff; padding: 20px; border-radius: 8px;">
+                             [A1] Pan<br>
+                             [A2] Pan &nbsp; (Invisible)<br>
+                             [A3] pan<br>
+                             <div style="color: #ff5f56; margin-top: 10px;">Excel ve 3 cosas distintas ❌</div>
+                         </div>
+                    </div>
+                 </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: EJERCICIO (NUEVO) -->
+        <div class="slide" id="slide-11">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Tu Primer Reporte</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div style="background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 30px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                    
+                    <h3 style="text-align:center; color: #555; margin-bottom: 40px; font-weight: 600;">Un análisis financiero en 3 pasos:</h3>
+                    
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px;">
+                        
+                        <!-- Step 1 -->
+                        <div class="process-step" style="text-align: center; flex: 1; position: relative;">
+                            <div style="width: 100px; height: 100px; background: var(--color-green-main); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);">
+                                <span class="material-icons" style="font-size: 3.5rem; color: white;">filter_alt</span>
+                            </div>
+                            <div style="background: #e8f5e9; padding: 5px 15px; border-radius: 20px; color: var(--color-green-main); font-weight: bold; display: inline-block; margin-bottom: 10px;">PASO 1</div>
+                            <h3 style="margin: 0;">Filtra</h3>
+                            <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">Solo "Este Mes"</p>
+                        </div>
+
+                        <!-- Arrow -->
+                        <div style="flex: 0 0 50px; text-align: center;">
+                            <span class="material-icons anim-bounce-right" style="font-size: 2.5rem; color: #ccc;">arrow_forward</span>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="process-step" style="text-align: center; flex: 1;">
+                            <div style="width: 100px; height: 100px; background: var(--color-green-lime); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; box-shadow: 0 4px 10px rgba(205, 220, 57, 0.4);">
+                                <span class="material-icons" style="font-size: 3.5rem; color: var(--color-neutral-dark);">sort</span>
+                            </div>
+                            <div style="background: #f9fbe7; padding: 5px 15px; border-radius: 20px; color: #827717; font-weight: bold; display: inline-block; margin-bottom: 10px;">PASO 2</div>
+                            <h3 style="margin: 0;">Ordena</h3>
+                            <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">De Mayor a Menor</p>
+                        </div>
+
+                        <!-- Arrow -->
+                         <div style="flex: 0 0 50px; text-align: center;">
+                            <span class="material-icons anim-bounce-right" style="font-size: 2.5rem; color: #ccc; animation-delay: 0.2s;">arrow_forward</span>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="process-step" style="text-align: center; flex: 1;">
+                            <div style="width: 100px; height: 100px; background: var(--color-purple-main); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; box-shadow: 0 4px 10px rgba(103, 58, 183, 0.3);">
+                                <span class="material-icons" style="font-size: 3.5rem; color: white;">smart_toy</span>
+                            </div>
+                            <div style="background: #ede7f6; padding: 5px 15px; border-radius: 20px; color: var(--color-purple-main); font-weight: bold; display: inline-block; margin-bottom: 10px;">PASO 3</div>
+                            <h3 style="margin: 0;">Pregunta</h3>
+                            <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">Pide conclusión a IA</p>
+                        </div>
+
+                    </div>
+
+                    <!-- Result Panel -->
+                    <div style="background: var(--color-neutral-light); border-left: 5px solid var(--color-purple-main); padding: 15px 25px; border-radius: 0 8px 8px 0; display: flex; align-items: start; gap: 15px;">
+                        <span class="material-icons" style="color: var(--color-purple-main); margin-top: 2px;">auto_awesome</span>
+                        <div style="font-family: 'Segoe UI', sans-serif; font-style: italic; color: #444;">
+                            <strong>Resultado esperable:</strong><br>
+                            "Este mes gastaste un 40% más en Transporte. Recomiendo revisar rutas alternas..."
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: ERRORES (NUEVO) -->
+        <div class="slide" id="slide-12">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>¡Cuidado con esto!</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div style="display: flex; gap: 40px; justify-content: center; align-items: center; margin-top: 30px;">
+                    
+                    <div class="concept-card bullet-point" style="width: 350px; border: 2px solid #ef5350;">
+                        <div class="card-top-strip" style="background: #ef5350;"></div>
+                        <div class="card-body">
+                            <span class="material-icons" style="font-size: 3rem; color: #ef5350; margin-bottom: 20px;">shuffle</span>
+                            <h3>El Desastre del Orden</h3>
+                            <p>Si seleccionas solo los nombres (sin los precios) y ordenas, <strong>se mezclan los datos</strong>.</p>
+                            <p style="font-weight: bold; color: #c62828;">¡Usa siempre Tabla Inteligente!</p>
+                        </div>
+                    </div>
+
+                    <div class="concept-card bullet-point" style="width: 350px; border: 2px solid #ff9800;">
+                        <div class="card-top-strip" style="background: #ff9800;"></div>
+                        <div class="card-body">
+                            <span class="material-icons" style="font-size: 3rem; color: #ff9800; margin-bottom: 20px;">visibility_off</span>
+                            <h3>La Suma Escondida</h3>
+                            <p>Si filtras y luego sumas a mano, cuidado: ¿Estás sumando todo o solo lo que ves?</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: RESUMEN -->
+        <div class="slide" id="slide-13">
+             <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Resumen del Análisis</h1></div>
+            </header>
+             <div class="content-body slide-content">
+                 <h2 style="text-align:center; color: #555; margin-bottom: 30px;">Cápsula 4.4: Puntos Clave</h2>
+                 <div class="timeline-container">
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-green"><span class="material-icons">filter_alt</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Filtros:</strong> Usa la Lupa. Filtra por categoría, por monto (> $20.000) o por color.</div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-purple"><span class="material-icons">sort</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Orden Avanzado:</strong> Ordena por NIVELES (Categoría + Precio) para agrupar.</div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-slate"><span class="material-icons">smart_toy</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Gemini:</strong> Úsalo para encontrar patrones, limpiar nombres y sacar conclusiones.</div>
+                    </div>
+                 </div>
+             </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: CIERRE -->
+         <div class="slide cover-layout" id="slide-14">
+             <div class="bg-pattern-dots"></div>
+             
+             <div class="logo-wrapper-cover" style="bottom: auto; top: -50px; right: -50px; transform: rotate(20deg);">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+             <div class="section-icon" style="font-size:6rem; margin-bottom:20px;">🕵️</div>
+             <h1 class="cover-title">¡Misterio Resuelto!</h1>
+             <div class="cover-subtitle" style="margin-bottom: 20px;"> Próxima parada: Gráficos (Dibujando tus números).</div>
+             <div class="cover-pill" style="background: var(--color-purple-main); color: white;">Fin de la Cápsula 4.4</div>
+             
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-sm bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="nav-btn" onclick="prevSlide()" hidden>❮ Anterior</button>
+            <button class="nav-btn" onclick="nextSlide()" hidden>Siguiente ❯</button>
+        </div>
+        <div class="progress-bar" id="progressBar"></div>
+
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>

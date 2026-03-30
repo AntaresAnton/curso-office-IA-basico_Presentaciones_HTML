@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Cápsula 4.5: Mini Proyecto Excel + IA</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Consolas&display=swap" rel="stylesheet">
+    <!-- Links Corporativos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Animaciones Personalizadas */
+        @keyframes pulse-custom {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .anim-pulse { animation: pulse-custom 2s infinite; }
+
+        @keyframes bounceRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+        .anim-bounce-right { animation: bounceRight 1.5s infinite; }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .slide.active .content-body { animation: fadeInScale 0.6s ease-out; }
+        
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(76, 175, 80, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+        }
+
+        /* Utilidades de Excel UI */
+        .excel-grid-container {
+            display: grid;
+            grid-template-columns: 40px repeat(3, 1fr);
+            gap: 1px;
+            background-color: #e0e0e0;
+            border: 1px solid #ccc;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.9rem;
+        }
+        .grid-header {
+            background-color: #f0f0f0;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            color: #555;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .grid-cell {
+            background-color: white;
+            padding: 8px;
+            display: flex; align-items: center;
+            border: 1px solid transparent; /* Para evitar saltos al hover */
+        }
+        .ribbon-bar {
+            background: #f3f2f1;
+            padding: 10px;
+            border-bottom: 1px solid #e1dfdd;
+            display: flex; gap: 20px;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.85rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .ribbon-group {
+            display: flex; flex-direction: column; align-items: center; gap: 5px;
+            cursor: pointer;
+        }
+        .ribbon-group:hover { background-color: #d1d1d1; border-radius: 4px; }
+        
+        /* Chat UI Improvements */
+        .chat-ui { display: flex; flex-direction: column; gap: 15px; font-family: 'Segoe UI', sans-serif; font-size: 0.95rem; }
+        .chat-message { display: flex; gap: 10px; align-items: flex-start; }
+        .chat-message.user { flex-direction: row-reverse; }
+        .chat-bubble { padding: 12px 16px; border-radius: 12px; max-width: 80%; line-height: 1.4; position: relative; }
+        .chat-bubble.user { background-color: #e8f0fe; color: #1967d2; border-radius: 12px 12px 0 12px; }
+        .chat-bubble.ai { background-color: #f1f3f4; color: #3c4043; border-radius: 12px 12px 12px 0; border-left: 4px solid var(--color-purple-main); }
+        .chat-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.8rem; }
+        .avatar-user { background: #1967d2; color: white; }
+        .avatar-ai { background: linear-gradient(135deg, var(--color-purple-main), var(--color-purple-light)); color: white; }
+
+        /* Mini Charts */
+        .mini-chart-bar { display: flex; align-items: flex-end; gap: 5px; height: 60px; }
+        .bar { background: var(--color-green-main); width: 15px; border-radius: 2px 2px 0 0; }
+        .mini-chart-line { width: 100%; height: 60px; position: relative; border-left: 2px solid #ccc; border-bottom: 2px solid #ccc; }
+        .line-point { width: 8px; height: 8px; background: var(--color-purple-main); border-radius: 50%; position: absolute; }
+    </style>
+</head>
+<body>
+    <div id="presentation-container">
+        <!-- Logo Institucional -->
+        <img src="../../../tu puedes logo.png" class="logo-overlay" alt="Logo Institucional">
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide cover-layout active" id="slide-1">
+             <div class="bg-pattern-dots"></div>
+            <!-- Top Bar -->
+            <div class="deco-strip" style="position: absolute; top: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-pill">Cápsula 4.5</div>
+            <h1 class="cover-title">Alfabetización Digital:<br><span>Excel Básico + IA</span></h1>
+            <div class="cover-subtitle">Mini Proyecto: Reporte Profesional</div>
+            
+            <div style="margin-top: 30px; font-weight: 600; color: var(--color-neutral-dark);">
+                Programa Tú Puedes - 2026
+            </div>
+
+            <div class="logo-wrapper-cover">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: SEPARADOR 1 -->
+        <div class="slide slide-section" id="slide-2">
+            <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">FASE 1</span>
+                    <div class="section-title-text">Orden y<br>Estructura</div>
+                    <div style="margin-top: 20px;">
+                        <span class="material-icons mi-lg anim-bounce-right" style="color: var(--color-green-lime);">table_chart</span>
+                    </div>
+                </div>
+                <div class="section-number-giant">01</div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: PASO 1 TABLA -->
+        <div class="slide" id="slide-3">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Paso 1: La Base (Tabla)</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="margin-bottom: 20px;">Antes de decorar, hay que ordenar.</p>
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple">1</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">Selecciona todos tus datos (Fecha, Ítem, Categoría, Precio).</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green">2</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">Presiona <strong>CTRL + T</strong> (o Insertar > Tabla).</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-slate">3</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Clave:</strong> Marca "La tabla tiene encabezados".</div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                         <div class="app-window" style="width: 380px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 8px; overflow: hidden; font-family: 'Segoe UI', sans-serif;">
+                            <div class="app-header" style="background: white; border-bottom: 1px solid #ddd; padding: 8px 15px; display: flex; justify-content: space-between;">
+                                <div class="app-title" style="color: #333; font-weight: normal; font-size: 0.9rem;">Crear tabla</div>
+                                <div style="color: #999;">✕</div>
+                            </div>
+                            <div class="app-body" style="padding: 20px; background: #f0f0f0;">
+                                <div style="margin-bottom: 15px; font-size: 0.9rem;">¿Dónde están los datos de la tabla?</div>
+                                <div style="background: white; border: 1px solid #aaa; padding: 5px; margin-bottom: 20px; display: flex;">
+                                    <input type="text" value="=$A$1:$D$50" style="border:none; width: 100%; outline: none; font-family: monospace;">
+                                    <span class="material-icons" style="font-size: 1.2rem; color: #666;">grid_on</span>
+                                </div>
+                                
+                                <div style="display:flex; align-items:center; gap: 10px; margin-bottom: 20px;">
+                                    <div style="width: 18px; height: 18px; background: white; border: 1px solid #217346; display: flex; align-items: center; justify-content: center;">
+                                        <span class="material-icons" style="font-size: 14px; color: #217346; font-weight: bold;">check</span>
+                                    </div>
+                                    <span style="font-size: 0.9rem;">La tabla tiene encabezados</span>
+                                </div>
+
+                                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                                    <button style="border: 1px solid #ccc; background: white; padding: 5px 20px; min-width: 80px;">Cancelar</button>
+                                    <button style="border: 1px solid #2ea8e0; background: #e1f4ff; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5); padding: 5px 20px; min-width: 80px; color: #000;">Aceptar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: PASO 2 ESTILO -->
+        <div class="slide" id="slide-4">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Paso 2: Estética Profesional</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text" style="flex: 0.9;">
+                        <p style="margin-bottom: 25px;">Un buen Excel se lee sin esfuerzo. Sigue estas reglas:</p>
+                        
+                        <div class="concept-card" style="margin-bottom: 15px; border-left: 5px solid var(--color-purple-main); padding: 12px;">
+                            <div style="font-weight: bold; color: var(--color-purple-main); display: flex; align-items: center; gap: 10px;">
+                                <span class="material-icons">title</span> 1. Jerarquía
+                            </div>
+                            <p style="margin: 5px 0 0 34px; font-size: 0.9em; color: #555;">El <strong>Título</strong> debe ser lo más grande. Empieza en B2, no en A1.</p>
+                        </div>
+
+                        <div class="concept-card" style="margin-bottom: 15px; border-left: 5px solid var(--color-green-main); padding: 12px;">
+                            <div style="font-weight: bold; color: var(--color-green-main); display: flex; align-items: center; gap: 10px;">
+                                <span class="material-icons">format_align_right</span> 2. Alineación
+                            </div>
+                            <p style="margin: 5px 0 0 34px; font-size: 0.9em; color: #555;">Texto a la <strong>Izquierda</strong>, Números a la <strong>Derecha</strong>. Nunca centres números.</p>
+                        </div>
+
+                        <div class="concept-card" style="margin-bottom: 15px; border-left: 5px solid var(--color-green-lime); padding: 12px;">
+                            <div style="font-weight: bold; color: var(--color-green-lime); display: flex; align-items: center; gap: 10px;">
+                                <span class="material-icons">space_bar</span> 3. Aire
+                            </div>
+                            <p style="margin: 5px 0 0 34px; font-size: 0.9em; color: #555;">Deja la <strong>Columna A</strong> vacía y angosta como margen visual.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-media" style="flex: 1.3;">
+                        <!-- Excel Mockup -->
+                        <div class="excel-grid-container" style="grid-template-columns: 35px 25px 1.5fr 1fr; border-radius: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); font-size: 0.85rem; height: auto;">
+                            <!-- Headers (A, B, C) -->
+                            <div class="grid-header"></div>
+                            <div class="grid-header" style="background:#e0e0e0; color: #888;">A</div>
+                            <div class="grid-header">B</div>
+                            <div class="grid-header">C</div>
+
+                            <!-- Row 1 -->
+                            <div class="grid-header">1</div>
+                            <div class="grid-cell" style="background:#f5f5f5;"></div> <!-- A1 Empty -->
+                            <div class="grid-cell" style="background:white; border-bottom: 1px solid #f0f0f0;"></div>
+                            <div class="grid-cell" style="background:white; border-bottom: 1px solid #f0f0f0;"></div>
+
+                            <!-- Row 2 -->
+                            <div class="grid-header">2</div>
+                            <div class="grid-cell" style="background:#f5f5f5; border-right: 1px dashed #ccc;"></div> <!-- A2 Empty -->
+                            <div class="grid-cell" style="grid-column: span 2; font-size: 1.4rem; font-weight: bold; color: var(--color-purple-main); padding-top: 15px; padding-bottom: 15px; display: block;">
+                                INFORME DE GASTOS
+                            </div>
+
+                            <!-- Row 3 (Headers Table) -->
+                            <div class="grid-header">3</div>
+                            <div class="grid-cell" style="background:#f5f5f5; border-right: 1px dashed #ccc;"></div> <!-- A3 Empty -->
+                            <div class="grid-cell" style="background: var(--color-green-slate); color: white; font-weight: bold;">Ítem</div>
+                            <div class="grid-cell" style="background: var(--color-green-slate); color: white; font-weight: bold; text-align: right; justify-content: flex-end;">Precio</div>
+
+                            <!-- Row 4 Data -->
+                            <div class="grid-header">4</div>
+                            <div class="grid-cell" style="background:#f5f5f5; border-right: 1px dashed #ccc;"></div> <!-- A4 Empty -->
+                            <div class="grid-cell" style="border-bottom: 1px solid #eee;">Supermercado</div>
+                            <div class="grid-cell" style="text-align: right; justify-content: flex-end; border-bottom: 1px solid #eee;">$ 45.000</div>
+
+                            <!-- Row 5 Data -->
+                            <div class="grid-header">5</div>
+                            <div class="grid-cell" style="background:#f5f5f5; border-right: 1px dashed #ccc;"></div> <!-- A5 Empty -->
+                            <div class="grid-cell" style="border-bottom: 1px solid #eee;">Transporte</div>
+                            <div class="grid-cell" style="text-align: right; justify-content: flex-end; border-bottom: 1px solid #eee;">$ 12.000</div>
+
+                            <!-- Row 6 Data -->
+                            <div class="grid-header">6</div>
+                            <div class="grid-cell" style="background:#f5f5f5; border-right: 1px dashed #ccc;"></div> <!-- A6 Empty -->
+                             <div class="grid-cell" style="border-bottom: 1px solid #eee;">Farmacia</div>
+                            <div class="grid-cell" style="text-align: right; justify-content: flex-end; border-bottom: 1px solid #eee;">$ 8.500</div>
+
+                        </div>
+                        
+                        <div style="margin-top: 10px; text-align: right;">
+                             <div style="display: inline-block; background: #fff3cd; color: #856404; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; border: 1px solid #ffeeba;">
+                                <span class="material-icons" style="font-size: 1rem; vertical-align: text-bottom;">warning</span>
+                                No uses Combina y Centrar en exceso
+                             </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+             <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: PASO 3 FORMULAS -->
+        <div class="slide" id="slide-5">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Paso 3: KPI Resumen</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text" style="flex:1;">
+                        <p>Crea un cuadro resumen arriba de la tabla con estas fórmulas:</p>
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green">Σ</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>=SUMA</strong> (Total Gastado)</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple">÷</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>=PROMEDIO</strong> (Gasto medio)</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-lime">↑</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>=MAX</strong> (Gasto más grande)</div>
+                             </div>
+                        </div>
+                    </div>
+                     <div class="col-media" style="flex: 1.5;">
+                        <div class="excel-grid-container" style="grid-template-columns: 40px 1fr 1fr; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                            <!-- Header Row -->
+                            <div class="grid-header"></div>
+                            <div class="grid-header">A</div>
+                            <div class="grid-header">B</div>
+                            
+                            <!-- Row 1 -->
+                            <div class="grid-header">1</div>
+                            <div class="grid-cell" style="font-weight: bold; background: #f3f3f3;">RESUMEN DE GASTOS</div>
+                            <div class="grid-cell" style="background: #f3f3f3;"></div>
+
+                            <!-- Row 2 -->
+                            <div class="grid-header">2</div>
+                            <div class="grid-cell" style="color: #666;">Total Gastado:</div>
+                            <div class="grid-cell" style="font-weight: bold; color: var(--color-purple-main); background: #fdf2ff; border: 1px solid var(--color-purple-light);">=SUMA(Tabla1[Precio])</div>
+
+                            <!-- Row 3 -->
+                            <div class="grid-header">3</div>
+                            <div class="grid-cell" style="color: #666;">Gasto Máximo:</div>
+                            <div class="grid-cell" style="color: #333;">=MAX(Tabla1[Precio])</div>
+
+                            <!-- Row 4 -->
+                            <div class="grid-header">4</div>
+                            <div class="grid-cell" style="color: #666;">Cant. Compras:</div>
+                            <div class="grid-cell" style="color: #333;">=CONTARA(Tabla1[Item])</div>
+                        </div>
+                        <div style="text-align: center; margin-top: 15px; font-size: 0.9em; color: #666;">
+                            <span class="material-icons" style="font-size: 1.2rem; vertical-align: middle; color: var(--color-green-main);">arrow_upward</span>
+                            Déjalo arriba de tu tabla para verlo siempre.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: PASO 4 GRAFICOS -->
+        <div class="slide" id="slide-6">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Paso 4: Poder Visual</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                 <div class="content-row">
+                    <div class="col-text">
+                         <p>Nadie quiere leer mil números. Usa dibujos:</p>
+                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            
+                            <!-- Card Barras -->
+                            <div class="concept-card" style="padding: 15px;">
+                                <div style="color:var(--color-purple-main); font-weight:bold; margin-bottom: 10px;">1. Barras</div>
+                                <div class="mini-chart-bar" style="margin-bottom: 10px; justify-content: space-around;">
+                                    <div class="bar" style="height: 40%; background: #ccc;"></div>
+                                    <div class="bar" style="height: 80%; background: var(--color-purple-main);"></div>
+                                    <div class="bar" style="height: 60%; background: #ccc;"></div>
+                                </div>
+                                <div style="font-size:0.85em; color:#666; text-align: center;">Categorías vs Precios<br><em>(¿En qué gasto más?)</em></div>
+                            </div>
+
+                            <!-- Card Lineas -->
+                            <div class="concept-card" style="padding: 15px;">
+                                <div style="color:var(--color-green-main); font-weight:bold; margin-bottom: 10px;">2. Líneas</div>
+                                <div class="mini-chart-line" style="margin-bottom: 10px;">
+                                    <svg width="100%" height="100%" viewBox="0 0 100 60" preserveAspectRatio="none">
+                                        <polyline points="0,50 25,30 50,45 75,10 100,20" fill="none" stroke="var(--color-green-main)" stroke-width="3"></polyline>
+                                        <circle cx="25" cy="30" r="3" fill="var(--color-green-main)" />
+                                        <circle cx="75" cy="10" r="3" fill="var(--color-green-main)" />
+                                    </svg>
+                                </div>
+                                <div style="font-size:0.85em; color:#666; text-align: center;">Fechas vs Precios<br><em>(¿Cuándo gasté más?)</em></div>
+                            </div>
+                         </div>
+                         <div class="highlight-box bullet-point" style="margin-top: 20px; font-size: 0.9em;">
+                            <span class="material-icons" style="color:var(--color-purple-main); vertical-align:middle;">brush</span>
+                            <strong>Tip Pro:</strong> Borra las líneas de fondo para limpiar el gráfico.
+                        </div>
+                    </div>
+                    <div class="col-media">
+                         <div style="background: white; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 8px; transform: rotate(2deg);">
+                             <div style="font-weight: bold; text-align: center; margin-bottom: 15px;">Gastos por Categoría</div>
+                             <div style="display: flex; align-items: flex-end; justify-content: space-around; height: 150px; border-bottom: 2px solid #333; border-left: 2px solid #333; padding: 10px;">
+                                 <div style="width: 30px; height: 60px; background: #90caf9;" class="anim-pulse"></div>
+                                 <div style="width: 30px; height: 120px; background: var(--color-purple-main);" class="anim-pulse"></div>
+                                 <div style="width: 30px; height: 40px; background: #a5d6a7;" class="anim-pulse"></div>
+                                 <div style="width: 30px; height: 90px; background: #ffcc80;" class="anim-pulse"></div>
+                             </div>
+                             <div style="display: flex; justify-content: space-around; margin-top: 5px; font-size: 0.7rem; color: #666;">
+                                 <span>Comida</span><span>Transp.</span><span>Varios</span><span>Hogar</span>
+                             </div>
+                         </div>
+                    </div>
+                 </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: SEPARADOR 2 -->
+        <div class="slide slide-section" id="slide-7">
+            <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">FASE 2</span>
+                    <div class="section-title-text">Análisis e<br>Informe</div>
+                    <div style="margin-top: 20px;">
+                        <span class="material-icons mi-lg anim-bounce-right" style="color: var(--color-purple-light);">psychology</span>
+                    </div>
+                </div>
+                <div class="section-number-giant">02</div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: IA -->
+        <div class="slide" id="slide-8">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>La IA Escribe por ti</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text" style="flex: 1.2;">
+                        <p style="margin-bottom:15px;">Copia tu cuadrito resumen y pregúntale a Gemini:</p>
+                        <div class="prompt-container">
+                            <div class="prompt-label">🧩 Para Analizar</div>
+                            <div class="prompt-text">"Mira estos números de mis gastos. Dime qué opinas: ¿voy bien o mal? ¿Hay algo raro?"</div>
+                        </div>
+                        <div class="prompt-container" style="margin-top: 15px;">
+                            <div class="prompt-label">🧩 Para el Jefe</div>
+                            <div class="prompt-text">"Escribe un párrafo corto y formal para mi jefe explicándolos. Menciona el total y en qué gasté más."</div>
+                        </div>
+                    </div>
+                    <div class="col-media" style="flex: 0.8;">
+                        <div class="app-window" style="border: 2px solid var(--color-purple-light); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-family: 'Segoe UI', sans-serif;">
+                            <div class="app-header" style="background: var(--color-purple-main); padding: 10px; display: flex; align-items: center; justify-content: space-between;">
+                                <div style="display:flex; align-items:center; gap: 8px; color: white; font-weight: 500;">
+                                    <span class="material-icons" style="font-size: 1.1rem;">auto_awesome</span> Gemini
+                                </div>
+                                <div style="display:flex; gap:5px;">
+                                    <div style="width:10px; height:10px; background:rgba(255,255,255,0.5); border-radius:50%;"></div>
+                                </div>
+                            </div>
+                            <div class="app-body" style="padding: 15px; background: #fff; height: 300px; display: flex; flex-direction: column; justify-content: flex-end;">
+                                <div class="chat-ui">
+                                    <div class="chat-message user">
+                                        <div class="chat-avatar avatar-user">Y</div>
+                                        <div class="chat-bubble user">Escribe un párrafo corto y formal para mi jefe...</div>
+                                    </div>
+                                    <div class="chat-message ai">
+                                        <div class="chat-avatar avatar-ai">✨</div>
+                                        <div class="chat-bubble ai">
+                                            <strong>Análisis Financiero:</strong><br>
+                                            Estimado equipo, este mes el gasto total fue de $150.000. La categoría principal fue "Transporte" con un 45% del presupuesto. Sugiero revisar las rutas...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: EXPORTAR -->
+        <div class="slide" id="slide-9">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Empaquetar y Enviar</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div style="display: flex; gap: 20px; text-align: center; justify-content: center; align-items: stretch; margin-top: 30px;">
+                    
+                    <div class="concept-card" style="flex:1; display:flex; flex-direction:column; align-items:center; padding: 25px;">
+                        <div style="background: rgba(143, 202, 235, 0.2); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                            <span class="material-icons" style="font-size: 2.5rem; color: #2ea8e0;">preview</span>
+                        </div>
+                        <h3 style="margin-bottom: 10px;">1. Revisar</h3>
+                        <p style="color: #666; font-size: 0.95rem;">Usa la "Vista Previa de Salto de Página" abajo a la derecha.</p>
+                        <div style="background: #e1f5fe; color: #0277bd; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; margin-top: auto; width: 100%;"><strong>Meta:</strong> Que todo quepa en 1 hoja.</div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <span class="material-icons anim-bounce-right" style="color: #ccc; font-size: 2rem;">arrow_forward_ios</span>
+                    </div>
+
+                    <div class="concept-card" style="flex:1; display:flex; flex-direction:column; align-items:center; padding: 25px;">
+                         <div style="background: rgba(229, 57, 53, 0.1); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                            <span class="material-icons" style="font-size: 2.5rem; color: #e53935;">picture_as_pdf</span>
+                        </div>
+                        <h3 style="margin-bottom: 10px;">2. PDF</h3>
+                        <p style="color: #666; font-size: 0.95rem;">Archivo > Exportar > Crear documento PDF/XPS.</p>
+                        <div style="background: #ffebee; color: #c62828; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; margin-top: auto; width: 100%;"><strong>Por qué:</strong> Nadie puede romper tus fórmulas.</div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <span class="material-icons anim-bounce-right" style="color: #ccc; font-size: 2rem;">arrow_forward_ios</span>
+                    </div>
+
+                    <div class="concept-card" style="flex:1; display:flex; flex-direction:column; align-items:center; padding: 25px;">
+                         <div style="background: rgba(76, 175, 80, 0.1); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                            <span class="material-icons" style="font-size: 2.5rem; color: #4caf50;">send</span>
+                        </div>
+                        <h3 style="margin-bottom: 10px;">3. Enviar</h3>
+                        <p style="color: #666; font-size: 0.95rem;">Adjunta tu PDF y el párrafo resumen de Gemini.</p>
+                        <div style="background: #e8f5e9; color: #2e7d32; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; margin-top: auto; width: 100%;"><strong>Resultado:</strong> Informe Profesional.</div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: TU TURNO -->
+         <div class="slide" id="slide-10">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>¡A Trabajar!</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text" style="width: 100%;">
+                        <div style="background: white; border-top: 5px solid var(--color-green-main); border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); padding: 40px; max-width: 700px; margin: 0 auto;">
+                            <h2 style="text-align: center; color: #333; margin-bottom: 30px; font-weight: 600;">Checklist del Proyecto Final</h2>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 15px;">
+                                
+                                <label style="display: flex; align-items: center; gap: 15px; padding: 10px; background: #f9f9f9; border-radius: 6px; cursor: pointer; transition: 0.2s;">
+                                    <input type="checkbox" style="width: 20px; height: 20px; accent-color: var(--color-green-main);">
+                                    <span style="font-size: 1.1rem; color: #444;">1. Convertir datos en <strong>Tabla Inteligente</strong> <small style="color:#888;">(CTRL + T)</small></span>
+                                </label>
+
+                                <label style="display: flex; align-items: center; gap: 15px; padding: 10px; background: #f9f9f9; border-radius: 6px; cursor: pointer; transition: 0.2s;">
+                                    <input type="checkbox" style="width: 20px; height: 20px; accent-color: var(--color-purple-main);">
+                                    <span style="font-size: 1.1rem; color: #444;">2. Crear Resumen KPI <small style="color:#888;">(Suma, Promedio, Max)</small></span>
+                                </label>
+
+                                <label style="display: flex; align-items: center; gap: 15px; padding: 10px; background: #f9f9f9; border-radius: 6px; cursor: pointer; transition: 0.2s;">
+                                    <input type="checkbox" style="width: 20px; height: 20px; accent-color: var(--color-green-lime);">
+                                    <span style="font-size: 1.1rem; color: #444;">3. Insertar <strong>Gráfico</strong> <small style="color:#888;">(Visualizar datos)</small></span>
+                                </label>
+
+                                <label style="display: flex; align-items: center; gap: 15px; padding: 10px; background: #f9f9f9; border-radius: 6px; cursor: pointer; transition: 0.2s;">
+                                    <input type="checkbox" style="width: 20px; height: 20px; accent-color: var(--color-green-slate);">
+                                    <span style="font-size: 1.1rem; color: #444;">4. Análisis con <strong>Gemini</strong> <small style="color:#888;">(Redactar conclusión)</small></span>
+                                </label>
+
+                                <label style="display: flex; align-items: center; gap: 15px; padding: 10px; background: #f9f9f9; border-radius: 6px; cursor: pointer; transition: 0.2s;">
+                                    <input type="checkbox" style="width: 20px; height: 20px; accent-color: var(--color-purple-light);">
+                                    <span style="font-size: 1.1rem; color: #444;">5. Guardar como <strong>PDF</strong> <small style="color:#888;">(Listo para enviar)</small></span>
+                                </label>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+         </div>
+
+        <!-- SLIDE 11: CIERRE -->
+         <div class="slide cover-layout" id="slide-11">
+             <div class="bg-pattern-dots"></div>
+             
+             <div class="logo-wrapper-cover" style="bottom: auto; top: -50px; right: -50px; transform: rotate(20deg);">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+             <div class="section-icon" style="font-size:6rem; margin-bottom:20px;">🎓</div>
+             <h1 class="cover-title">¡Módulo 4 Completado!</h1>
+             <div class="cover-subtitle" style="margin-bottom: 20px;"> Has dominado las bases de Excel y el poder de la IA.</div>
+             <div class="cover-pill" style="background: var(--color-purple-main); color: white;">Fin del Módulo 4</div>
+             
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="nav-btn" onclick="prevSlide()" hidden>❮ Anterior</button>
+            <button class="nav-btn" onclick="nextSlide()" hidden>Siguiente ❯</button>
+        </div>
+        <div class="progress-bar" id="progressBar"></div>
+
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>

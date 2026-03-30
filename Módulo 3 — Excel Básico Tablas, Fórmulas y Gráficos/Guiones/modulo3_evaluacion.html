@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación y Práctica - Módulo 3: Excel Básico + IA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           TOKENS DE DISEÑO (SISTEMA ATÓMICO)
+           ========================================= */
+        :root {
+            --color-purple-main: #583586;
+            --color-purple-mid: #6d4c94;
+            --color-purple-light: #8f6bb3;
+            --color-purple-dark: #4a276b;
+            
+            --color-green-main: #76b82a;
+            --color-green-lime: #9ccb3b;
+            --color-green-slate: #7a9483;
+            
+            --color-neutral-white: #ffffff;
+            --color-neutral-light: #f4f4f4;
+            --color-neutral-gray: #d1d1d1;
+            --color-neutral-dark: #333333;
+
+            --font-primary: 'Montserrat', sans-serif;
+            --skew-angle: -40deg;
+        }
+
+        /* =========================================
+           CONFIGURACIÓN DE PÁGINA (IMPRIMIBLE)
+           ========================================= */
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: #525659;
+            font-family: var(--font-primary);
+            margin: 0;
+            padding: 20px;
+            color: var(--color-neutral-dark);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px auto;
+            padding: 15mm 20mm;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media print {
+            body { background: none; padding: 0; }
+            .page { width: 100%; margin: 0; box-shadow: none; border: none; min-height: auto; page-break-after: always; }
+            .page:last-child { page-break-after: auto; }
+        }
+
+        /* =========================================
+           COMPONENTES
+           ========================================= */
+        
+        /* Header */
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--color-green-main);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .header-info h1 {
+            font-size: 18pt;
+            color: var(--color-purple-main);
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .header-info h2 {
+            font-size: 10pt;
+            color: var(--color-green-slate);
+            margin: 5px 0 0 0;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .logo-simple {
+            width: 100px;
+            height: auto;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+        
+        .deco-strip {
+            display: flex;
+            height: 15px;
+            overflow: hidden;
+            width: 100%;
+        }
+        .deco-strip .segment {
+            height: 100%;
+            transform: skewX(var(--skew-angle));
+            margin-right: 4px;
+        }
+        .deco-strip .seg-fill { flex-grow: 1; }
+        .deco-strip .seg-sm { width: 15px; }
+        .deco-strip .seg-md { width: 30px; }
+        .deco-strip .seg-start { margin-left: -10px; padding-left: 10px; }
+        .deco-strip .seg-end { margin-right: -10px; padding-right: 10px; }
+
+        .footer-text {
+            text-align: right;
+            font-size: 8pt;
+            color: var(--color-green-slate);
+            margin-top: 5px;
+        }
+
+        /* Estilos Específicos de Evaluación */
+        .section-title {
+            font-size: 14pt;
+            color: var(--color-purple-main);
+            font-weight: 700;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--color-neutral-gray);
+            padding-bottom: 5px;
+            margin-top: 20px;
+        }
+        
+        .subsection-title {
+            font-size: 11pt;
+            color: var(--color-green-main);
+            font-weight: 700;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .question-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .question-list li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+            font-size: 10pt;
+        }
+
+        .question-list li::before {
+            content: "•";
+            color: var(--color-purple-light);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .quiz-item {
+            background-color: var(--color-neutral-light);
+            border-radius: 6px;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            page-break-inside: avoid;
+        }
+
+        .quiz-question {
+            font-weight: 600;
+            color: var(--color-purple-dark);
+            margin-bottom: 5px;
+            font-size: 10pt;
+        }
+
+        .quiz-options {
+            font-size: 9pt;
+            color: var(--color-neutral-dark);
+            margin-left: 10px;
+        }
+        
+        .quiz-correct {
+            font-size: 8pt;
+            color: var(--color-green-main);
+            font-weight: bold;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .activity-box {
+            border: 1px solid var(--color-green-slate);
+            border-left: 4px solid var(--color-green-main);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 6px 6px 0;
+            page-break-inside: avoid;
+        }
+
+        .activity-title {
+            font-weight: 700;
+            color: var(--color-green-main);
+            margin-bottom: 5px;
+            font-size: 11pt;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- PÁGINA 1: PREGUNTAS DE REFLEXIÓN -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Evaluación y Práctica</h1>
+                <h2>Módulo 3: Excel Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <div class="section-title">🧩 1. Preguntas de Reflexión</div>
+            <p style="font-size: 10pt; font-style: italic; color: var(--color-green-slate);">Para discusión grupal o análisis individual al finalizar cada bloque.</p>
+
+            <div class="subsection-title">🔵 Bloque 1 — Introducción a Excel</div>
+            <ul class="question-list">
+                <li>¿Qué diferencia existe entre una hoja y un libro en Excel?</li>
+                <li>¿Por qué es importante utilizar encabezados claros en tu tabla?</li>
+                <li>¿Qué ventajas tiene pedirle a la IA que explique conceptos básicos de Excel?</li>
+                <li>¿Cómo te ayuda organizar los datos desde el inicio antes de aplicar fórmulas?</li>
+                <li>¿Qué parte de Excel te resultó más intuitiva al comenzar?</li>
+            </ul>
+
+            <div class="subsection-title">🔵 Bloque 2 — Formato profesional y tablas</div>
+            <ul class="question-list">
+                <li>¿De qué manera influye el formato en la claridad del análisis?</li>
+                <li>¿Qué colores y estilos de tabla crees que favorecen una presentación profesional?</li>
+                <li>¿Por qué es importante alinear números a la derecha y texto a la izquierda?</li>
+                <li>¿Qué errores de formato cometías antes y ahora evitarías?</li>
+                <li>¿Qué ventajas tiene convertir tu lista en una tabla inteligente?</li>
+            </ul>
+
+            <div class="subsection-title">🔵 Bloque 3 — Fórmulas esenciales</div>
+            <ul class="question-list">
+                <li>¿Cuál de las fórmulas aprendidas te parece más útil en tu vida diaria?</li>
+                <li>¿Qué importancia tiene comprender correctamente los rangos (A1:A10)?</li>
+                <li>¿Cuándo usarías CONTAR y cuándo CONTARA?</li>
+                <li>¿Qué fórmulas te gustaría aprender después?</li>
+                <li>¿Cómo puede la IA ayudarte a crear fórmulas incluso si no las conoces?</li>
+            </ul>
+
+            <div class="subsection-title">🔵 Bloque 4 — Filtros y análisis</div>
+            <ul class="question-list">
+                <li>¿Qué información valiosa pudiste obtener filtrando y ordenando datos?</li>
+                <li>¿Qué patrón o tendencia te llamó más la atención al analizar tu tabla?</li>
+                <li>¿Qué problemas pueden aparecer al ordenar sin seleccionar toda la tabla?</li>
+                <li>¿Cuándo usarías filtros y cuándo ordenamiento?</li>
+                <li>¿Qué análisis te resultó más interesante al trabajar con IA?</li>
+            </ul>
+
+            <div class="subsection-title">🔵 Bloque 5 — Proyecto final</div>
+            <ul class="question-list">
+                <li>¿Qué parte disfrutaste más del proceso de crear un reporte completo?</li>
+                <li>¿Cómo cambia la interpretación de los datos cuando agregas gráficos?</li>
+                <li>¿Qué aporta la IA al análisis final del reporte?</li>
+                <li>¿Qué mejorarías de tu reporte si lo presentaras en un trabajo real?</li>
+                <li>¿Cuál sería tu siguiente paso para profundizar en Excel?</li>
+            </ul>
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 1 de 3 | Evaluación Módulo 3 - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+    <!-- PÁGINA 2: QUIZZES -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Evaluación y Práctica</h1>
+                <h2>Módulo 3: Excel Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <div class="section-title">🎯 2. Quizzes de Conocimiento</div>
+
+            <div class="subsection-title">🔵 Quiz Bloque 1 — Estructura básica</div>
+            <div class="quiz-item">
+                <div class="quiz-question">1. ¿Qué es una celda en Excel?</div>
+                <div class="quiz-options">A) Un archivo | B) Intersección fila/columna | C) Nombre del libro</div>
+                <span class="quiz-correct">Correcta: B</span>
+            </div>
+            <div class="quiz-item">
+                <div class="quiz-question">2. ¿Cuál NO es un tipo de dato en Excel?</div>
+                <div class="quiz-options">A) Texto | B) Imagen vectorial | C) Fecha | D) Número</div>
+                <span class="quiz-correct">Correcta: B</span>
+            </div>
+            <div class="quiz-item">
+                <div class="quiz-question">3. Todas las fórmulas comienzan con:</div>
+                <div class="quiz-options">A) # | B) & | C) = | D) ?</div>
+                <span class="quiz-correct">Correcta: C</span>
+            </div>
+
+            <div class="subsection-title">🔵 Quiz Bloque 2 — Formato y tablas</div>
+            <div class="quiz-item">
+                <div class="quiz-question">1. ¿Por qué evitar colores muy intensos?</div>
+                <div class="quiz-options">A) Ocupan memoria | B) Errores fórmulas | C) Dificultan lectura</div>
+                <span class="quiz-correct">Correcta: C</span>
+            </div>
+            <div class="quiz-item">
+                <div class="quiz-question">2. ¿Qué función tiene convertir una lista en tabla?</div>
+                <div class="quiz-options">A) Aumenta tamaño | B) Agrega filtros y estilos | C) Elimina formatos</div>
+                <span class="quiz-correct">Correcta: B</span>
+            </div>
+            <div class="quiz-item">
+                <div class="quiz-question">3. ¿Cómo se ajusta el ancho de columna?</div>
+                <div class="quiz-options">A) Doble clic entre letras | B) Doble clic en celda | C) Insertar fórmula</div>
+                <span class="quiz-correct">Correcta: A</span>
+            </div>
+
+            <div class="subsection-title">🔵 Quiz Bloque 3 — Fórmulas</div>
+            <div class="quiz-item">
+                <div class="quiz-question">1. ¿Qué fórmula suma un rango?</div>
+                <div class="quiz-options">A) =PROMEDIO() | B) =SUMA() | C) =MIN()</div>
+                <span class="quiz-correct">Correcta: B</span>
+            </div>
+            <div class="quiz-item">
+                <div class="quiz-question">2. ¿Qué hace la fórmula CONTARA?</div>
+                <div class="quiz-options">A) Solo números | B) Celdas vacías | C) Celdas no vacías</div>
+                <span class="quiz-correct">Correcta: C</span>
+            </div>
+            <div class="quiz-item">
+                <div class="quiz-question">3. ¿Qué fórmula muestra el valor menor?</div>
+                <div class="quiz-options">A) =MAX() | B) =MAYOR() | C) =MIN()</div>
+                <span class="quiz-correct">Correcta: C</span>
+            </div>
+
+            <div class="subsection-title">🔵 Quiz Bloque 4 — Filtros y análisis</div>
+            <div class="quiz-item">
+                <div class="quiz-question">1. ¿Qué permite hacer el filtro?</div>
+                <div class="quiz-options">A) Eliminar datos | B) Mostrar solo condición | C) Editar fórmula</div>
+                <span class="quiz-correct">Correcta: B</span>
+            </div>
+            <div class="quiz-item">
+                <div class="quiz-question">2. ¿Qué sucede si ordenas sin seleccionar toda la tabla?</div>
+                <div class="quiz-options">A) Excel corrige | B) Filas se desalinean | C) Se bloquea</div>
+                <span class="quiz-correct">Correcta: B</span>
+            </div>
+            <div class="quiz-item">
+                <div class="quiz-question">3. ¿Qué es un análisis descriptivo?</div>
+                <div class="quiz-options">A) Ecuaciones avanzadas | B) Analizar patrones existentes | C) Eliminar datos</div>
+                <span class="quiz-correct">Correcta: B</span>
+            </div>
+
+            <div class="subsection-title">🔵 Quiz Bloque 5 — Reporte final</div>
+            <div class="quiz-item">
+                <div class="quiz-question">1. ¿Por qué exportar a PDF?</div>
+                <div class="quiz-options">A) Editar directo | B) Evitar fórmulas | C) Documento fijo profesional</div>
+                <span class="quiz-correct">Correcta: C</span>
+            </div>
+            <div class="quiz-item">
+                <div class="quiz-question">2. ¿Mejor gráfico para evolución temporal?</div>
+                <div class="quiz-options">A) Circular | B) Barra apilada | C) Línea con marcadores</div>
+                <span class="quiz-correct">Correcta: C</span>
+            </div>
+            <div class="quiz-item">
+                <div class="quiz-question">3. ¿Aporte principal de la IA en el reporte?</div>
+                <div class="quiz-options">A) Gráficos auto | B) Analizar y redactar conclusiones | C) Bloquear celdas</div>
+                <span class="quiz-correct">Correcta: B</span>
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 2 de 3 | Evaluación Módulo 3 - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+    <!-- PÁGINA 3: ACTIVIDADES Y EXAMEN -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Evaluación y Práctica</h1>
+                <h2>Módulo 3: Excel Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <div class="section-title">🧪 3. Actividades Prácticas</div>
+            
+            <div class="activity-box">
+                <div class="activity-title">🟩 Actividad 1 — Construcción de Hoja Profesional</div>
+                <p>Crear una hoja de gastos con 20 registros, 4-6 categorías, encabezados claros, formato profesional y convertirla en Tabla Inteligente.</p>
+            </div>
+
+            <div class="activity-box">
+                <div class="activity-title">🟦 Actividad 2 — Análisis de Patrón</div>
+                <p>Usar filtros y ordenamiento para responder: ¿Cuál es el gasto más alto? ¿Categoría más frecuente? ¿Día con más gastos? ¿Qué reducir?</p>
+            </div>
+
+            <div class="activity-box">
+                <div class="activity-title">🟨 Actividad 3 — Fórmulas esenciales</div>
+                <p>Aplicar SUMA, PROMEDIO, CONTAR, CONTARA, MIN, MAX y CONCAT en tu tabla.</p>
+            </div>
+
+            <div class="activity-box">
+                <div class="activity-title">🟪 Actividad 4 — Gráficos</div>
+                <p>Crear dos gráficos: Gasto por categoría (Circular/Barras) y Evolución mensual (Línea).</p>
+            </div>
+
+            <div class="activity-box">
+                <div class="activity-title">🟥 Actividad 5 — Informe Final con IA</div>
+                <p>Pedir a Copilot un análisis profesional de tus datos, insertarlo en el reporte y exportar a PDF.</p>
+            </div>
+
+            <div class="section-title">🎤 4. Preguntas de Comprobación</div>
+            <ul class="question-list">
+                <li>Explica por qué una tabla debe tener datos consistentes.</li>
+                <li>¿Qué diferencia hay entre filtrar y ordenar datos?</li>
+                <li>¿Cómo usarías SUMAR.SI en un análisis más profundo?</li>
+                <li>¿Por qué la IA es especialmente útil en Excel para principiantes?</li>
+                <li>Explica cómo un gráfico puede cambiar la interpretación de datos.</li>
+                <li>Describe tres formas en que limpiar datos mejora el análisis.</li>
+                <li>¿Qué diferencia hay entre análisis descriptivo y predictivo?</li>
+            </ul>
+
+            <div class="section-title">🌟 5. Interacción</div>
+            <ul class="question-list">
+                <li>¿Qué categoría te sorprendió más al analizar tus gastos?</li>
+                <li>¿Qué fue lo más fácil y lo más difícil del módulo?</li>
+                <li>¿Qué fórmula usarás más en tu vida cotidiana?</li>
+            </ul>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 3 de 3 | Evaluación Módulo 3 - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+</body>
+</html>

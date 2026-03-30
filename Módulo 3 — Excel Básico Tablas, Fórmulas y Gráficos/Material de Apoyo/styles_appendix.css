@@ -1,0 +1,45 @@
+/* =========================================
+   8. COMPONENTES: PROMPTS & BADGES
+   ========================================= */
+.prompt-display {
+    background: linear-gradient(145deg, #2b2b2b, #1a1a1a);
+    color: #e0e0e0;
+    font-family: var(--font-mono);
+    padding: 25px;
+    border-radius: 15px;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+    border: 1px solid #333;
+    position: relative;
+    margin: 20px 0;
+}
+.prompt-display::before {
+    content: '✨ Gemini Prompt';
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    background: var(--color-purple-main);
+    color: white;
+    padding: 5px 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 4px;
+}
+.activity-badge {
+    display: inline-block;
+    background: var(--color-purple-mid);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+.bullet-icon {
+    margin-right: 15px;
+    font-size: 1.2em;
+    display: inline-block;
+    color: var(--color-green-main);
+}

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Cápsula 6.2 - Preparando Datos Excel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="presentation-container">
+        
+        <img src="../../../tu puedes logo.png" class="logo-overlay" alt="Logo Institucional">
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide slide-cover active" id="slide-1">
+            <div class="bg-pattern-dots"></div>
+            
+            <!-- Top Bar -->
+            <div class="deco-strip">
+                <div class="segment seg-start bg-green-main"></div>
+                <div class="segment seg-mini bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-purple-main"></div>
+                <div class="segment seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-content slide-content" style="justify-content: center; align-items: center; text-align: center;">
+                <div class="cover-pill">Cápsula 6.2 Excel + IA</div>
+                <h1 class="cover-title">Preparando <br><span>los Datos</span></h1>
+                
+                <div class="hero-apps">
+                    <!-- Cards decorativas animadas -->
+                    <div class="app-icon-card excel"><span class="material-icons">table_chart</span></div>
+                    <div class="flow-arrow"><span class="material-icons">arrow_forward</span></div>
+                    <div class="app-icon-card gemini"><span class="material-icons">auto_awesome</span></div>
+                </div>
+
+                <div style="margin-top: 50px;">
+                    <span style="background: var(--color-purple-main); color: white; padding: 8px 20px; border-radius: 50px; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(88, 53, 134, 0.3);">Programa Tú Puedes | El Bosque</span>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip">
+                <div class="segment seg-start bg-purple-main"></div>
+                <div class="segment seg-mini bg-purple-main"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Ingresando la información -->
+        <div class="slide" id="slide-2">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Ingresando la información</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p style="font-size: 1.5rem; margin-bottom: 30px;">Vamos a digitalizar los datos del papel al Excel.</p>
+                
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-badge t-green"><span class="material-icons">title</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Encabezados:</strong> Taller, Asistentes, Mes.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-badge t-green"><span class="material-icons">sports_soccer</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Fútbol:</strong> 40 participantes.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-badge t-green"><span class="material-icons">groups</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Reunión Mensual:</strong> 25 asistentes.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="4">
+                                <div class="timeline-badge t-green"><span class="material-icons">computer</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Computación:</strong> 18 alumnos.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <!-- Simulación Excel Simple -->
+                        <div class="app-window bullet-point">
+                            <div class="app-header excel">
+                                <div style="color: white; font-weight: bold; font-size: 0.9rem; display: flex; align-items: center; gap:10px;">
+                                    <span class="material-icons">table_chart</span> Libro1 - Excel
+                                </div>
+                            </div>
+                            <div class="app-body" style="padding: 0;">
+                                <table style="width: 100%; border-collapse: collapse; font-family: 'Consolas', monospace; font-size: 0.9rem;">
+                                    <tr style="background: #f0f0f0; border-bottom: 1px solid #ccc;">
+                                        <th style="padding: 8px; width: 30px; border-right: 1px solid #ddd;"></th>
+                                        <th style="padding: 8px; text-align: left; color: #666; border-right: 1px solid #ddd;">A</th>
+                                        <th style="padding: 8px; text-align: left; color: #666;">B</th>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #eee;">
+                                        <td style="background: #f9f9f9; text-align: center; color: #666; border-right: 1px solid #ddd;">1</td>
+                                        <td style="padding: 8px;">Taller</td>
+                                        <td style="padding: 8px;">Asistentes</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #eee;">
+                                        <td style="background: #f9f9f9; text-align: center; color: #666; border-right: 1px solid #ddd;">2</td>
+                                        <td style="padding: 8px;">Fútbol</td>
+                                        <td style="padding: 8px;">40</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #eee;">
+                                        <td style="background: #f9f9f9; text-align: center; color: #666; border-right: 1px solid #ddd;">3</td>
+                                        <td style="padding: 8px;">Reunión</td>
+                                        <td style="padding: 8px;">25</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #eee;">
+                                        <td style="background: #f9f9f9; text-align: center; color: #666; border-right: 1px solid #ddd;">4</td>
+                                        <td style="padding: 8px;">Computación</td>
+                                        <td style="padding: 8px;">18</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barra inferior -->
+            <div class="deco-strip">
+                <div class="segment seg-start bg-purple-main"></div>
+                <div class="segment seg-mini bg-purple-main"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Convertir en Tabla Oficial -->
+        <div class="slide" id="slide-3">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Convertir en Tabla Oficial</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p style="font-size: 1.5rem; margin-bottom: 20px;">El "truco secreto" para que Excel trabaje por ti.</p>
+                
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-badge t-green"><span class="material-icons">select_all</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Paso 1:</strong> Selecciona todos tus datos.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-badge t-blue"><span class="material-icons">table_view</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Paso 2:</strong> Ve a <strong>Insertar > Tabla</strong>.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-badge t-lime"><span class="material-icons">functions</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Pro Tip:</strong> Activa "Fila de totales" para sumar automático.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <!-- Simulación Tabla Profesional -->
+                        <div class="app-window bullet-point" style="overflow:visible;">
+                            <div class="app-header excel">
+                                <div style="color: white; font-weight: bold; font-size: 0.9rem; display: flex; align-items: center; gap:10px;">
+                                    <span class="material-icons">table_chart</span> Tabla1
+                                </div>
+                            </div>
+                            <div class="app-body" style="padding: 20px; align-items: center; justify-content: center; background: #fff;">
+                                <div style="border: 1px solid #1D6F42; border-radius: 4px; overflow: hidden; width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                                    <div style="background: #1D6F42; color: white; padding: 10px; display: flex; justify-content: space-between; font-weight: bold;">
+                                        <span>Taller ▼</span>
+                                        <span>Asistentes ▼</span>
+                                    </div>
+                                    <div style="background: #e6f4ea; padding: 10px; display: flex; justify-content: space-between; border-bottom: 1px solid #cce8d4;">
+                                        <span>Fútbol</span>
+                                        <span>40</span>
+                                    </div>
+                                    <div style="background: white; padding: 10px; display: flex; justify-content: space-between; border-bottom: 1px solid #eee;">
+                                        <span>Reunión</span>
+                                        <span>25</span>
+                                    </div>
+                                    <div style="background: #1D6F42; color: white; padding: 10px; display: flex; justify-content: space-between; font-weight: bold; border-top: 2px solid #145231;">
+                                        <span>Total</span>
+                                        <span>98</span>
+                                    </div>
+                                </div>
+                                <div style="position: absolute; right: -20px; bottom: -20px; background: #ffaa00; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transform: rotate(-5deg);">Autosuma!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barra inferior -->
+            <div class="deco-strip">
+                <div class="segment seg-start bg-purple-main"></div>
+                <div class="segment seg-mini bg-purple-main"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: El Gráfico -->
+        <div class="slide" id="slide-4">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>El Gráfico: Una imagen vale más</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p style="font-size: 1.5rem; margin-bottom: 20px;">Transforma números aburridos en algo visual.</p>
+                
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-badge t-purple"><span class="material-icons">insert_chart</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Clic:</strong> Pestaña Insertar > Gráficos.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-badge t-green"><span class="material-icons">bar_chart</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Elección:</strong> Gráfico de <strong>Columnas</strong> (el clásico).</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-badge t-orange"><span class="material-icons">edit</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Detalle:</strong> Cambia el Título a "Participación Enero".</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <!-- Simulación Gráfico CSS -->
+                        <div class="app-window bullet-point">
+                            <div class="app-header excel">
+                                <div style="color: white; font-weight: bold; font-size: 0.9rem;"> <span class="material-icons" style="font-size: 1rem; vertical-align: middle;">bar_chart</span> Gráfico 1</div>
+                            </div>
+                            <div class="app-body" style="padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
+                                <h4 style="margin-bottom: 20px; color: #333;">Participación Enero</h4>
+                                <div style="display: flex; align-items: flex-end; gap: 20px; height: 150px; width: 100%; justify-content: center; border-bottom: 2px solid #ccc; padding-bottom: 5px;">
+                                    <!-- Bar 1 -->
+                                    <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; width: 40px;">
+                                        <div style="width: 100%; height: 120px; background: #2b579a; border-radius: 4px 4px 0 0; animation: growBar 1s ease-out;"></div>
+                                        <span style="font-size: 0.7rem; color: #666;">Fútbol</span>
+                                    </div>
+                                    <!-- Bar 2 -->
+                                    <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; width: 40px;">
+                                        <div style="width: 100%; height: 80px; background: #2b579a; border-radius: 4px 4px 0 0; animation: growBar 1s ease-out 0.2s backwards;"></div>
+                                        <span style="font-size: 0.7rem; color: #666;">Reunión</span>
+                                    </div>
+                                    <!-- Bar 3 -->
+                                    <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; width: 40px;">
+                                        <div style="width: 100%; height: 60px; background: #2b579a; border-radius: 4px 4px 0 0; animation: growBar 1s ease-out 0.4s backwards;"></div>
+                                        <span style="font-size: 0.7rem; color: #666;">Comp.</span>
+                                    </div>
+                                    <!-- Bar 4 -->
+                                    <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; width: 40px;">
+                                        <div style="width: 100%; height: 50px; background: #2b579a; border-radius: 4px 4px 0 0; animation: growBar 1s ease-out 0.6s backwards;"></div>
+                                        <span style="font-size: 0.7rem; color: #666;">Pintura</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <style> @keyframes growBar { from { height: 0; } } </style>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barra inferior -->
+            <div class="deco-strip">
+                <div class="segment seg-start bg-purple-main"></div>
+                <div class="segment seg-mini bg-purple-main"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Preguntándole a la IA -->
+        <div class="slide" id="slide-5">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Ayuda de Google Gemini</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p style="font-size: 1.5rem; margin-bottom: 20px;">Use Google Gemini para analizar los datos rápidamente.</p>
+                
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="prompt-display bullet-point" data-step="1">
+                            Analiza estos datos y escribe 3 conclusiones breves y claras sobre qué actividad fue la más popular y cuál la menos popular.
+                        </div>
+                        <div class="highlight-box bullet-point" data-step="2" style="background: #e6e6fa; border-left-color: #583586;">
+                            <span class="bullet-icon">💡</span> <strong>Idea:</strong> Copiaremos la respuesta de la IA para usarla en nuestro informe de Word.
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <!-- Simulación Google Gemini -->
+                        <div class="app-window bullet-point" data-step="1">
+                            <div class="app-header gemini">
+                                <div style="color: white; font-weight: bold; display: flex; align-items: center; gap: 10px;">
+                                    <span class="material-icons">auto_awesome</span> Google Gemini
+                                </div>
+                            </div>
+                            <div class="app-body" style="padding: 20px; font-size: 0.9rem; justify-content: center;">
+                                <div class="chat-bubble" style="background: #f0f0f0; padding: 10px; border-radius: 10px; margin-bottom: 10px; opacity: 0.7;">
+                                    analizando datos...
+                                </div>
+                                <div class="chat-bubble" style="background: #e6e6fa; padding: 15px; border-radius: 10px; border: 1px solid #dcd6f7;">
+                                    <strong>Conclusiones:</strong><br>
+                                    1. El Fútbol lidera la participación con un 40% del total.<br>
+                                    2. La Pintura registra la menor asistencia.<br>
+                                    3. Buena participación en general en talleres deportivos.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barra inferior -->
+            <div class="deco-strip">
+                <div class="segment seg-start bg-purple-main"></div>
+                <div class="segment seg-mini bg-purple-main"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: CIERRE -->
+        <div class="slide slide-cover" id="slide-6">
+            <div class="bg-pattern-dots"></div>
+            
+            <!-- Top Bar -->
+            <div class="deco-strip">
+                <div class="segment seg-start bg-green-main"></div>
+                <div class="segment seg-mini bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-purple-main"></div>
+                <div class="segment seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-content slide-content" style="justify-content: center; align-items: center; text-align: center;">
+                
+                <div class="cover-pill">Misión Cumplida</div>
+                
+                <h1 class="cover-title">¡Datos <span>Listos!</span></h1>
+                
+                <div class="cover-subtitle" style="margin-bottom: 40px; border: none; width: auto; padding-top: 0;">
+                    Próxima Cápsula: Creando el Informe en Word
+                </div>
+                
+                <!-- Animated Success Card -->
+                <div class="app-window glass-window" style="max-width: 450px; margin: 0 auto; transform: scale(1); transition: transform 0.3s; box-shadow: 0 20px 50px rgba(0,0,0,0.15);">
+                     <div class="app-header excel">
+                        <div class="app-controls">
+                            <div class="win-btn close"></div>
+                            <div class="win-btn min"></div>
+                            <div class="win-btn max"></div>
+                        </div>
+                        <div style="color: white; font-weight: 600; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
+                            <span class="material-icons">save</span> Datos_Proyecto_Final.xlsx
+                        </div>
+                    </div>
+                    <div class="app-body" style="padding: 40px; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle at center, #ffffff 0%, #f4f6f8 100%);">
+                        
+                        <div style="width: 80px; height: 80px; background: #e6f4ea; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; animation: pulseGlow 2s infinite;">
+                            <span class="material-icons" style="font-size: 3.5rem; color: #1D6F42;">verified</span>
+                        </div>
+                        
+                        <h2 style="color: #202124; margin-bottom: 10px; font-size: 1.6rem; font-weight: 700;">Archivo Guardado</h2>
+                        <p style="color: #5f6368; font-size: 1.1rem; max-width: 90%; line-height: 1.5; margin: 0;">
+                            Tabla oficial creada y gráfico generado.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 50px;">
+                    <button onclick="nextSlide()" style="
+                        background: var(--color-purple-main); 
+                        color: white; 
+                        border: none;
+                        padding: 15px 40px; 
+                        border-radius: 50px; 
+                        font-weight: 700; 
+                        font-size: 1.1rem;
+                        letter-spacing: 1px;
+                        cursor: pointer;
+                        box-shadow: 0 10px 20px rgba(88, 53, 134, 0.3);
+                        display: flex; align-items: center; gap: 10px;
+                        transition: transform 0.2s;
+                        margin: 0 auto;
+                    " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        SIGUIENTE LECCIÓN <span class="material-icons">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip">
+                <div class="segment seg-start bg-purple-main"></div>
+                <div class="segment seg-mini bg-purple-main"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+
+        <!-- CONTROLES -->
+        <div class="controls">
+            <button class="nav-btn" onclick="prevSlide()" aria-label="Ir a la diapositiva anterior">❮ Anterior</button>
+            <button class="nav-btn" onclick="nextSlide()" aria-label="Ir a la siguiente diapositiva">Siguiente ❯</button>
+        </div>
+        <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progreso de la presentación">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

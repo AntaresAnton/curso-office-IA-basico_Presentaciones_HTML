@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guion Técnico - Cápsula 6.5: Proyecto Final Integrado</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           TOKENS DE DISEÑO (SISTEMA ATÓMICO)
+           ========================================= */
+        :root {
+            --color-purple-main: #583586;
+            --color-purple-mid: #6d4c94;
+            --color-purple-light: #8f6bb3;
+            --color-purple-dark: #4a276b;
+            
+            --color-green-main: #76b82a;
+            --color-green-lime: #9ccb3b;
+            --color-green-slate: #7a9483;
+            
+            --color-neutral-white: #ffffff;
+            --color-neutral-light: #f4f4f4;
+            --color-neutral-gray: #d1d1d1;
+            --color-neutral-dark: #333333;
+
+            --font-primary: 'Montserrat', sans-serif;
+            --skew-angle: -40deg;
+        }
+
+        /* =========================================
+           CONFIGURACIÓN DE PÁGINA (IMPRIMIBLE)
+           ========================================= */
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: #525659;
+            font-family: var(--font-primary);
+            margin: 0;
+            padding: 20px;
+            color: var(--color-neutral-dark);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px auto;
+            padding: 15mm 20mm;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media print {
+            body { background: none; padding: 0; }
+            .page { width: 100%; margin: 0; box-shadow: none; border: none; min-height: auto; page-break-after: always; }
+            .page:last-child { page-break-after: auto; }
+        }
+
+        /* =========================================
+           COMPONENTES
+           ========================================= */
+        
+        /* Header */
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--color-green-main);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .header-info h1 {
+            font-size: 18pt;
+            color: var(--color-purple-main);
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .header-info h2 {
+            font-size: 10pt;
+            color: var(--color-green-slate);
+            margin: 5px 0 0 0;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .logo-simple {
+            width: 100px;
+            height: auto;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+        
+        .deco-strip {
+            display: flex;
+            height: 15px;
+            overflow: hidden;
+            width: 100%;
+        }
+        .deco-strip .segment {
+            height: 100%;
+            transform: skewX(var(--skew-angle));
+            margin-right: 4px;
+        }
+        .deco-strip .seg-fill { flex-grow: 1; }
+        .deco-strip .seg-sm { width: 15px; }
+        .deco-strip .seg-md { width: 30px; }
+        .deco-strip .seg-start { margin-left: -10px; padding-left: 10px; }
+        .deco-strip .seg-end { margin-right: -10px; padding-right: 10px; }
+
+        .footer-text {
+            text-align: right;
+            font-size: 8pt;
+            color: var(--color-green-slate);
+            margin-top: 5px;
+        }
+
+        /* Contenido */
+        .script-meta {
+            background-color: var(--color-neutral-light);
+            border-left: 4px solid var(--color-purple-main);
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 10pt;
+        }
+
+        .script-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 12pt;
+            color: var(--color-purple-main);
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--color-neutral-gray);
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cue-block {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            font-size: 10pt;
+        }
+
+        .cue-tech {
+            flex: 0 0 120px;
+            font-size: 8pt;
+            font-weight: 600;
+            color: var(--color-green-slate);
+            text-transform: uppercase;
+            padding-top: 3px;
+        }
+
+        .cue-tech strong {
+            display: block;
+            color: var(--color-purple-mid);
+            margin-bottom: 2px;
+        }
+
+        .cue-dialogue {
+            flex: 1;
+            line-height: 1.5;
+            color: var(--color-neutral-dark);
+        }
+
+        .cue-dialogue p { margin: 0 0 10px 0; }
+
+        /* Prompt Box */
+        .prompt-box {
+            background-color: #f0f7ff;
+            border: 1px dashed var(--color-purple-light);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 9pt;
+            color: var(--color-purple-dark);
+        }
+        .prompt-label {
+            font-weight: bold;
+            color: var(--color-purple-main);
+            display: block;
+            margin-bottom: 5px;
+            font-family: var(--font-primary);
+            font-size: 8pt;
+            text-transform: uppercase;
+        }
+
+        /* Listas */
+        ul { margin: 0 0 10px 20px; padding: 0; }
+        li { margin-bottom: 4px; }
+
+        /* Quiz */
+        .quiz-block {
+            background-color: #e8f5e9;
+            border-left: 4px solid var(--color-green-main);
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .quiz-question {
+            font-weight: bold;
+            color: var(--color-purple-dark);
+            margin-bottom: 5px;
+        }
+        .quiz-answer {
+            font-style: italic;
+            color: var(--color-green-main);
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- PÁGINA 1 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <div class="script-meta">
+                <h3 style="margin: 0 0 10px 0; color: var(--color-purple-main);">🎥 CÁPSULA 6.5 – Cierre del Curso: Tu Proyecto Final</h3>
+                <div><strong>Duración estimada:</strong> 10–12 minutos</div>
+                <div><strong>Herramientas:</strong> Excel, Word, PowerPoint, Copilot Web</div>
+                <div><strong>Objetivo:</strong> Revisar el trabajo completo, celebrar los logros y entender cómo aplicar esto en la vida diaria.</div>
+            </div>
+
+            <!-- SECCIÓN 0 -->
+            <div class="script-section">
+                <div class="section-title">🎬 0. ¡Lo logramos! (00:00 – 01:40)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Plano Medio<br>
+                        Emotivo
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>¡Felicidades! Han llegado al final del curso. Miren todo lo que han recorrido.</p>
+                        <p>Empezaron quizás con miedo a tocar una tecla, y hoy son capaces de crear un sistema completo donde Excel, Word y PowerPoint conversan entre sí, ayudados por la Inteligencia Artificial.</p>
+                        <p>Hoy vamos a revisar nuestro "Proyecto Final" para asegurarnos de que todo funcione perfecto.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 1 -->
+            <div class="script-section">
+                <div class="section-title">📘 1. El Checklist del Éxito (01:40 – 04:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Gráfica</strong>
+                        Lista
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Revisemos juntos si tenemos todo:</p>
+                        <ul>
+                            <li>✅ <strong>Excel:</strong> ¿Tienen la tabla con totales y el gráfico?</li>
+                            <li>✅ <strong>Word:</strong> ¿Tienen el informe con la tabla pegada como "vínculo"?</li>
+                            <li>✅ <strong>PowerPoint:</strong> ¿Tienen la presentación con el gráfico conectado?</li>
+                            <li>✅ <strong>IA:</strong> ¿Usaron Copilot para escribir los textos?</li>
+                        </ul>
+                        <p>Si tienen todo esto, ¡ya son usuarios avanzados de Office!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2 -->
+            <div class="script-section">
+                <div class="section-title">🟦 2. La prueba de fuego (04:00 – 06:20)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Prueba
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Vamos a probar si la magia funciona.</p>
+                        <ol>
+                            <li>Abran los 3 archivos (Excel, Word, PPT).</li>
+                            <li>Vayan a Excel y cambien un número. Por ejemplo, pongan que al fútbol fueron 100 personas en vez de 40.</li>
+                            <li>Miren Word y PowerPoint. ¿Cambió el gráfico? Si no cambió al tiro, hagan clic derecho sobre el gráfico y elijan "Actualizar vínculo".</li>
+                        </ol>
+                        <p>¡Funciona! Todo está conectado.</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 1 de 2 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+    <!-- PÁGINA 2 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <!-- SECCIÓN 3 -->
+            <div class="script-section">
+                <div class="section-title">🟩 3. ¿Para qué me sirve esto? (06:20 – 09:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Reflexión
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Piensen en cómo pueden usar esto mañana mismo:</p>
+                        <ul>
+                            <li><strong>Emprendedores:</strong> Para llevar sus cuentas en Excel y hacer cotizaciones bonitas en Word.</li>
+                            <li><strong>Dirigentes:</strong> Para presentar proyectos a la comunidad.</li>
+                            <li><strong>Estudiantes:</strong> Para hacer tareas más rápido.</li>
+                            <li><strong>En casa:</strong> Para organizar los gastos del mes.</li>
+                        </ul>
+                        <p>La tecnología no es para complicarse, es para tener más tiempo libre.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 4 -->
+            <div class="script-section">
+                <div class="section-title">🔚 4. Despedida Final (09:30 – 11:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Cierre
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Ha sido un placer acompañarlos. Recuerden: no tengan miedo de probar, de hacer clic y de equivocarse. Así se aprende.</p>
+                        <p>Y no olviden que tienen a Copilot. Si se les olvida cómo hacer algo, pregúntenle: "Copilot, ¿cómo hago un gráfico en Excel?". Él siempre les responderá.</p>
+                        <p>¡Mucho éxito y sigan aprendiendo! Soy Patricio Quintanilla, y esto fue Office Básico con IA. ¡Hasta siempre!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 20px; background: var(--color-purple-main); color: white; text-align: center; font-weight: bold; border-radius: 8px;">
+                🎉 FIN DEL CURSO COMPLETO
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 2 de 2 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+</body>
+</html>

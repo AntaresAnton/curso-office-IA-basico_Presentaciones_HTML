@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Cápsula 5.1 - Introducción a PowerPoint</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Consolas&display=swap" rel="stylesheet">
+    <!-- Links Corporativos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* PowerPoint UI Simulation */
+        .ppt-app-window {
+            width: 100%; max-width: 500px; height: 320px;
+            background: #fff; border: 1px solid #ccc;
+            border-radius: 8px; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: flex; flex-direction: column;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .ppt-header {
+            background: #D04423; color: white; padding: 8px 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.85rem;
+        }
+        .ppt-ribbon {
+            background: #f3f3f3; border-bottom: 1px solid #ddd;
+            padding: 5px 10px; display: flex; gap: 15px;
+            height: 40px; align-items: center;
+        }
+        .ppt-ribbon-tab {
+            font-size: 0.8rem; color: #444; padding: 2px 8px; cursor: pointer;
+        }
+        .ppt-ribbon-tab.active {
+            border-bottom: 2px solid #D04423; color: #D04423; font-weight: 600;
+        }
+        .ppt-workspace {
+            display: flex; flex: 1; background: #e6e6e6; overflow: hidden;
+        }
+        .ppt-sidebar {
+            width: 80px; background: #f0f0f0; border-right: 1px solid #ddd;
+            padding: 10px 5px; display: flex; flex-direction: column; gap: 8px;
+        }
+        .ppt-thumb {
+            width: 100%; height: 45px; background: white; border: 1px solid #ccc;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: relative;
+        }
+        .ppt-thumb.active {
+            border: 2px solid #D04423;
+        }
+        .ppt-thumb::before {
+            content: attr(data-index);
+            position: absolute; left: -15px; top: 0; font-size: 0.7rem; color: #888;
+        }
+        .ppt-canvas {
+            flex: 1; padding: 20px; display: flex; justify-content: center; align-items: center;
+        }
+        .ppt-slide-main {
+            width: 90%; height: 90%; background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        }
+        
+        /* Rule Cards */
+        .rule-card {
+            flex: 1; padding: 25px; border-radius: 12px; position: relative;
+            background: white; border: 2px solid transparent;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        .rule-card:hover { transform: translateY(-5px); }
+        .rule-card.dont { border-color: #e57373; background: #ffebee; }
+        .rule-card.do { border-color: #81c784; background: #e8f5e9; }
+        .rule-badge {
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            padding: 5px 20px; border-radius: 20px; font-weight: bold; color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .rule-card.dont .rule-badge { background: #e53935; }
+        .rule-card.do .rule-badge { background: #43a047; }
+        .rule-icon {
+            position: absolute; bottom: 15px; right: 15px; font-size: 4rem; opacity: 0.1;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container">
+        
+        <img src="../../../tu puedes logo.png" class="logo-overlay" alt="Logo Institucional">
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide cover-layout active" id="slide-1">
+             <div class="bg-pattern-dots"></div>
+            <!-- Top Bar -->
+            <div class="deco-strip" style="position: absolute; top: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-pill">Cápsula 5.1</div>
+            <h1 class="cover-title">Introducción a PowerPoint<br><span>y Estructura con IA</span></h1>
+            <div class="cover-subtitle">Introducción a PowerPoint</div>
+            
+            <div style="margin-top: 30px; font-weight: 600; color: var(--color-neutral-dark);">
+                Programa Tú Puedes - 2026
+            </div>
+
+            <div class="logo-wrapper-cover">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: ¿Qué es PowerPoint? -->
+        <div class="slide" id="slide-2">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>¿Qué es PowerPoint?</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="font-size: 1.5rem; margin-bottom: 30px;">Es la herramienta para contar <strong>historias visuales</strong>. Ya sea para un proyecto, una clase o fotos familiares, nos ayuda a captar la atención.</p>
+                        
+                        <div class="highlight-box bullet-point" data-step="1">
+                            <span class="material-icons" style="font-size: 2rem; color: var(--color-purple-main); margin-right: 15px;">track_changes</span>
+                            <strong>Objetivo de Hoy:</strong> <br>Perder el miedo a la "hoja en blanco" y usar IA para crear el esqueleto.
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <!-- Emulated Office UI -->
+                        <div class="ppt-app-window">
+                            <div class="ppt-header">
+                                <span>Presentación1 - PowerPoint</span>
+                                <div style="display: flex; gap: 5px;">
+                                    <div style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.3);"></div>
+                                    <div style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.3);"></div>
+                                </div>
+                            </div>
+                            <div class="ppt-ribbon">
+                                <div class="ppt-ribbon-tab active">Inicio</div>
+                                <div class="ppt-ribbon-tab">Insertar</div>
+                                <div class="ppt-ribbon-tab">Diseño</div>
+                                <div class="ppt-ribbon-tab">Transiciones</div>
+                            </div>
+                            <div class="ppt-workspace">
+                                <div class="ppt-sidebar">
+                                    <div class="ppt-thumb active" data-index="1">
+                                         <div style="width: 100%; height: 100%; transform: scale(0.3); transform-origin: top left; padding: 5px;">
+                                            <div style="width: 100%; height: 5px; background: #ddd; margin-top: 10px;"></div>
+                                         </div>
+                                    </div>
+                                    <div class="ppt-thumb" data-index="2"></div>
+                                </div>
+                                <div class="ppt-canvas">
+                                    <div class="ppt-slide-main">
+                                        <div style="border: 2px dashed #ccc; padding: 10px 20px; margin-bottom: 15px; width: 80%;">
+                                            <span style="color: #ccc; font-size: 1.2rem;">Haga clic para agregar título</span>
+                                        </div>
+                                        <div style="border: 2px dashed #eee; padding: 5px 20px; width: 60%;">
+                                            <span style="color: #eee; font-size: 0.9rem;">Haga clic para agregar subtítulo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Diferencias con Word -->
+        <div class="slide" id="slide-3">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Conociendo el Escenario</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <h2 style="color: var(--color-purple-main); margin-bottom: 30px;">Diferencias con Word</h2>
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-badge t-purple"><span class="material-icons">view_carousel</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Diapositivas:</strong> Tarjetas o láminas, no hojas largas.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-badge t-green"><span class="material-icons">crop_free</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Lienzo Libre:</strong> Puedes poner cosas en cualquier lugar.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-badge t-slate"><span class="material-icons">text_fields</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Cajas de Texto:</strong> Necesarias para escribir.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <!-- Visual Comparison: Doc vs Slide -->
+                        <div style="display: flex; gap: 20px;">
+                            <!-- Word Icon -->
+                            <div style="text-align: center;">
+                                <div style="width: 100px; height: 140px; background: white; border: 1px solid #ccc; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); padding: 10px; display: flex; flex-direction: column; gap: 5px;">
+                                    <div style="width: 100%; height: 2px; background: #ddd;"></div>
+                                    <div style="width: 100%; height: 2px; background: #ddd;"></div>
+                                    <div style="width: 80%; height: 2px; background: #ddd;"></div>
+                                </div>
+                                <p style="font-size: 0.8rem; margin-top: 5px; font-weight: bold; color: #2B579A;">Word</p>
+                            </div>
+                            <!-- Arrow -->
+                            <div style="display: flex; align-items: center;">
+                                <span class="material-icons anim-bounce-right" style="color: #999;">arrow_forward</span>
+                            </div>
+                            <!-- PPT Icon -->
+                            <div style="text-align: center;">
+                                <div style="width: 160px; height: 100px; background: white; border: 2px solid #D04423; box-shadow: 0 5px 15px rgba(0,0,0,0.2); position: relative;">
+                                    <div style="position: absolute; top: 10px; left: 10px; width: 30px; height: 30px; background: #ffccbc; border-radius: 50%;"></div>
+                                    <div style="position: absolute; bottom: 10px; right: 10px; width: 60px; height: 10px; background: #eee;"></div>
+                                </div>
+                                <p style="font-size: 0.8rem; margin-top: 5px; font-weight: bold; color: #D04423;">PowerPoint</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: IA para Estructura -->
+        <div class="slide" id="slide-4">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>IA para Estructura</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <h2 style="color: var(--color-purple-main); margin-bottom: 20px;">No empieces de cero</h2>
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-badge t-purple">1</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Prompt Claro:</strong> Pide rol, tema y cantidad de láminas.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-badge t-green">2</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Obtén el Guion:</strong> Google Gemini te da la estructura lógica.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-badge t-slate">3</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Aplica:</strong> Usa ese esquema para crear tus diapositivas.</div>
+                            </div>
+                        </div>
+                        <div class="highlight-box bullet-point" data-step="4" style="margin-top: 15px;">
+                            <strong>Resultado:</strong> Un guion listo (Portada, Problema, Solución, etc.) sin estrés.
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <!-- Emulated Gemini Pane -->
+                        <div class="app-window app-gemini" style="width: 350px; height: 400px; font-family: 'Segoe UI', sans-serif;">
+                            <div class="app-header">
+                                <div class="app-controls">
+                                    <div class="win-btn close"></div><div class="win-btn min"></div><div class="win-btn max"></div>
+                                </div>
+                                <div class="app-title">Chat con Gemini</div>
+                            </div>
+                            <div class="app-body" style="background: #fff; padding: 15px; display: flex; flex-direction: column; gap: 15px; height: 350px; justify-content: flex-end;">
+                                <div style="background: #f0f4f9; padding: 12px; border-radius: 12px 12px 0 12px; font-size: 0.8rem; align-self: flex-end; max-width: 90%; color: #1f1f1f;">
+                                    Actúa como experto. Dame estructura de 5 láminas sobre 'Seguridad Laboral'.
+                                </div>
+                                <div style="display: flex; gap: 10px; align-items: flex-start;">
+                                     <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #4285F4 0%, #9B72CB 50%, #D96570 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: white; font-weight: bold;">
+                                        ✨
+                                     </div>
+                                     <div style="font-size: 0.8rem; color: #1f1f1f; line-height: 1.4; background: #f2f2f2; padding: 12px; border-radius: 0 12px 12px 12px;">
+                                        <strong>Claro, aquí tienes una estructura sugerida:</strong><br><br>
+                                        1. <strong>Portada:</strong> Título e Introducción al tema.<br>
+                                        2. <strong>Contexto:</strong> Principales riesgos en el área.<br>
+                                        3. <strong>Normativa:</strong> Reglas clave a seguir.<br>
+                                        ...
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Armando el Esqueleto -->
+        <div class="slide" id="slide-5">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Armando el Esqueleto</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-badge t-purple"><span class="material-icons">title</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Portada:</strong> Título y Nombre en la primera.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-badge t-green"><span class="material-icons">add_box</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Nueva Diapositiva:</strong> Usa el botón "Nuevo" en Inicio.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-badge t-slate"><span class="material-icons">dashboard</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Diseño:</strong> Elige la estructura (Título y objetos, Solo título).</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="4">
+                                <div class="timeline-badge t-lime"><span class="material-icons">repeat</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Repetir:</strong> Crea las 5 láminas antes de diseñar.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <!-- Emulated New Slide Interface -->
+                        <div style="background: white; border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0,0,0,0.1); padding: 10px; width: 300px;">
+                            <div style="display: flex; gap: 5px; margin-bottom: 10px; border-bottom: 2px solid #ddd; padding-bottom: 5px;">
+                                <div style="display: flex; flex-direction: column; align-items: center; color: #444;">
+                                    <span class="material-icons" style="font-size: 24px;">content_paste</span>
+                                    <span style="font-size: 10px;">Pegar</span>
+                                </div>
+                                <div style="width: 1px; background: #ddd; margin: 0 5px;"></div>
+                                <div style="display: flex; flex-direction: column; align-items: center; background: #ffe0b2; border: 1px solid #ffcc80; padding: 2px 5px; border-radius: 4px;">
+                                    <span class="material-icons" style="color: #d84315;">add_to_queue</span>
+                                    <span style="font-size: 10px; font-weight: bold; color: #333;">Nueva diapositiva</span>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: center; color: #444;">
+                                    <span class="material-icons">web</span>
+                                    <span style="font-size: 10px;">Diseño</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide Thumbs Emulation -->
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div style="font-size: 12px; color: #888;">1</div>
+                                    <div style="width: 60px; height: 35px; border: 1px solid #999; background: white;"></div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div style="font-size: 12px; color: #D04423; font-weight: bold;">2</div>
+                                    <div style="width: 60px; height: 35px; border: 2px solid #D04423; background: #fff3e0;"></div>
+                                </div>
+                                <div style="opacity: 0.5; display: flex; align-items: center; gap: 10px;">
+                                    <div style="font-size: 12px; color: #888;">3</div>
+                                    <div style="width: 60px; height: 35px; border: 1px dashed #999; background: #f5f5f5;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Regla de Oro -->
+        <div class="slide" id="slide-6">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Regla de Oro: Menos es Más</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <h2 style="text-align: center; color: var(--color-purple-main); margin-bottom: 30px;">PowerPoint NO es Word</h2>
+                
+                <div style="display: flex; gap: 40px; justify-content: center; align-items: stretch;">
+                    <!-- DON'T Card -->
+                    <div class="rule-card dont bullet-point" data-step="1">
+                        <div class="rule-badge">NO</div>
+                        <div style="margin-top: 25px; font-size: 0.85rem; text-align: left; color: #555; line-height: 1.6;">
+                            Este es un ejemplo de lo que no se debe hacer. Poner demasiado texto hace que la audiencia no lea y se aburra. <br><br>
+                            Si copias y pegas todo el documento de Word aquí, nadie te escuchará. ¡Evita los muros de texto!
+                        </div>
+                        <span class="material-icons rule-icon">block</span>
+                    </div>
+
+                    <!-- DO Card -->
+                    <div class="rule-card do bullet-point" data-step="2">
+                        <div class="rule-badge">SÍ</div>
+                        <ul style="margin-top: 25px; text-align: left; color: #333; list-style: none; padding: 0;">
+                            <li style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px; font-weight: 500;">
+                                <span class="material-icons" style="color: #43a047;">check_circle</span> Frases cortas.
+                            </li>
+                            <li style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px; font-weight: 500;">
+                                <span class="material-icons" style="color: #43a047;">check_circle</span> Punteos (Bullets).
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 10px; font-weight: 500;">
+                                <span class="material-icons" style="color: #43a047;">check_circle</span> Apoyo visual potente.
+                            </li>
+                        </ul>
+                        <span class="material-icons rule-icon">check</span>
+                    </div>
+                </div>
+                 <div class="highlight-box bullet-point" data-step="3" style="text-align: center; margin-top: 30px;">
+                    <span class="material-icons" style="vertical-align: middle;">mic</span> <strong>Recuerda:</strong> Tú eres el presentador, la lámina es solo apoyo.
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: RESUMEN -->
+        <div class="slide" id="slide-7">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Resumen de la Cápsula</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <h2 style="color: var(--color-purple-main); text-align: center; margin-bottom: 40px;">¿Qué aprendimos hoy?</h2>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <div class="timeline-container">
+                        <div class="timeline-item bullet-point" data-step="1">
+                            <div class="timeline-badge t-purple"><span class="material-icons">view_carousel</span></div>
+                            <div class="timeline-line"></div>
+                            <div class="timeline-content"><strong>Word vs PowerPoint:</strong> Diapositivas visuales vs Documentos extensos.</div>
+                        </div>
+                        <div class="timeline-item bullet-point" data-step="2">
+                             <div class="timeline-badge t-green" style="background: linear-gradient(135deg, #4285F4 0%, #9B72CB 50%, #D96570 100%); color: white;"><span class="material-icons">auto_awesome</span></div>
+                            <div class="timeline-line"></div>
+                            <div class="timeline-content"><strong>Estructura con Gemini:</strong> Usar IA para crear el guion antes de diseñar.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-container">
+                        <div class="timeline-item bullet-point" data-step="3">
+                            <div class="timeline-badge t-slate"><span class="material-icons">dashboard_customize</span></div>
+                            <div class="timeline-line"></div>
+                            <div class="timeline-content"><strong>Armar el Esqueleto:</strong> Crear las láminas en blanco primero.</div>
+                        </div>
+                        <div class="timeline-item bullet-point" data-step="4">
+                            <div class="timeline-badge t-lime"><span class="material-icons">filter_none</span></div>
+                            <div class="timeline-line"></div>
+                            <div class="timeline-content"><strong>Menos es Más:</strong> Punteos y frases cortas, no párrafos.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box bullet-point" data-step="5" style="margin-top: 30px; text-align: center; background: #e8f5e9; border-color: #4caf50;">
+                    <span class="material-icons" style="color: #4caf50; vertical-align: middle;">check_circle</span> <strong>¡Ya tienes la base sólida para tu presentación!</strong>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: CIERRE -->
+         <div class="slide cover-layout" id="slide-8">
+             <div class="bg-pattern-dots"></div>
+             
+             <div class="logo-wrapper-cover" style="bottom: auto; top: -50px; right: -50px; transform: rotate(20deg);">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+             <div class="section-icon" style="font-size:6rem; margin-bottom:20px;">🎓</div>
+             <h1 class="cover-title">¡Estructura Lista!</h1>
+             <div class="cover-subtitle" style="margin-bottom: 20px;">Guarda tu archivo como "Presentación Base".</div>
+             <div class="cover-pill" style="background: var(--color-purple-main); color: white;">Próxima Cápsula: Diseño Automático</div>
+             
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- CONTROLES -->
+        <div class="controls">
+            <button class="nav-btn" onclick="prevSlide()" hidden>❮ Anterior</button>
+            <button class="nav-btn" onclick="nextSlide()" hidden>Siguiente ❯</button>
+        </div>
+        <div class="progress-bar" id="progressBar"></div>
+
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

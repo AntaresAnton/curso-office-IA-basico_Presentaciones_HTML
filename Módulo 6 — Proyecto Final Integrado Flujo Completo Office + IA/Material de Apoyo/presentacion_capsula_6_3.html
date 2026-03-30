@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Cápsula 6.3 - Informe en Word</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Links Corporativos -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Ajustes específicos locales para esta cápsula si faltan en styles.css */
+        .chart-placeholder {
+            width: 80%; height: 150px;
+            background: linear-gradient(to bottom, #f3f3f3 0%, #e6e6e6 100%);
+            border: 1px dashed #ccc;
+            margin: 20px auto;
+            position: relative;
+            display: flex; justify-content: center; align-items: flex-end; gap: 10px; padding-bottom: 20px;
+        }
+        .bar { width: 20px; background: #1D6F42; border-radius: 3px 3px 0 0; }
+        .bar:nth-child(1) { height: 40%; }
+        .bar:nth-child(2) { height: 70%; }
+        .bar:nth-child(3) { height: 50%; }
+        .bar:nth-child(4) { height: 90%; }
+
+        .paste-menu {
+            position: absolute; top: 40%; right: -20px;
+            background: white; border: 1px solid #ccc; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            padding: 10px; border-radius: 4px; z-index: 20; width: 150px;
+        }
+        .paste-option { display: flex; align-items: center; gap: 8px; padding: 5px; font-size: 0.8rem; cursor: pointer; }
+        .paste-option:hover { background: #f0f0f0; }
+        .paste-option i { color: #555; }
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container">
+        
+        <img src="../../../tu puedes logo.png" class="logo-overlay" alt="Logo Institucional">
+
+        <div class="advanced-controls">
+            <button class="control-btn" onclick="toggleTheme()" aria-label="Alternar tema oscuro"><span class="material-icons">dark_mode</span></button>
+            <button class="control-btn" onclick="toggleFullscreen()" aria-label="Pantalla completa"><span class="material-icons">fullscreen</span></button>
+            <button class="control-btn" onclick="resetPresentation()" aria-label="Reiniciar presentación"><span class="material-icons">restart_alt</span></button>
+        </div>
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide slide-cover active" id="slide-1">
+            <div class="bg-pattern-dots"></div>
+            
+            <!-- Top Bar -->
+            <div class="deco-strip">
+                <div class="segment seg-start bg-green-main"></div>
+                <div class="segment seg-mini bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-purple-main"></div>
+                <div class="segment seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-content slide-content" style="justify-content: center; align-items: center; text-align: center;">
+                <div class="cover-pill">Cápsula 6.3</div>
+                <h1 class="cover-title">Informe en Word <br><span>Conectado a Excel</span></h1>
+                
+                <div class="hero-apps">
+                    <!-- Visual Connection Excel -> Word -->
+                    <div class="app-icon-card excel scale-in"><span class="material-icons">table_chart</span></div>
+                    <div class="flow-arrow pulse"><span class="material-icons">link</span></div>
+                    <div class="app-icon-card word scale-in"><span class="material-icons">description</span></div>
+                </div>
+
+                <div style="margin-top: 50px;">
+                    <span style="background: var(--color-purple-main); color: white; padding: 8px 20px; border-radius: 50px; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(88, 53, 134, 0.3);">Programa Tú Puedes | El Bosque</span>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip bottom">
+                <div class="segment seg-start bg-purple-main"></div>
+                <div class="segment seg-mini bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Preparando el documento (TIMELINE VERTICAL) -->
+        <div class="slide" id="slide-2">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-mid bg-green-lime"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Preparando el documento</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="split-layout">
+                    <div class="split-text">
+                        <p class="slide-intro">Estructura profesional paso a paso.</p>
+                        
+                        <!-- Timeline Vertical -->
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-badge t-blue"><i class="fas fa-file-alt"></i></div>
+                                <div class="timeline-content">
+                                    <strong>Insertar > Portada</strong>
+                                    <p style="margin:5px 0 0 0; font-size:0.9rem; color:#666;">Elige un diseño limpio y profesional.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-badge t-blue"><i class="fas fa-heading"></i></div>
+                                <div class="timeline-content">
+                                    <strong>Estilos de Título</strong>
+                                    <p style="margin:5px 0 0 0; font-size:0.9rem; color:#666;">Usa "Título 1" para secciones principales.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-badge t-green"><i class="fas fa-check"></i></div>
+                                <div class="timeline-content">
+                                    <strong>Beneficio</strong>
+                                    <p style="margin:5px 0 0 0; font-size:0.9rem; color:#666;">Permite generar índice automático después.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="split-visual">
+                         <!-- Word UI Simulation -->
+                         <div class="app-window app-word">
+                            <div class="app-header word">
+                                <div class="app-controls">
+                                    <div class="win-btn close"></div><div class="win-btn min"></div>
+                                </div>
+                                <div class="app-title">Informe_Final.docx - Word</div>
+                            </div>
+                            <!-- Ribbon Simulado -->
+                            <div class="ribbon-bar">
+                                <div class="ribbon-btn active">Inicio</div>
+                                <div class="ribbon-btn">Insertar</div>
+                                <div class="ribbon-btn">Diseño</div>
+                            </div>
+                            <div class="ribbon-toolbar">
+                                <div class="ribbon-group">
+                                    <div class="ribbon-btn active"><i class="material-icons">content_paste</i></div>
+                                </div>
+                                <div class="ribbon-group" style="padding-left:10px;">
+                                    <div class="ribbon-select" style="width:120px;">Calibri (Cuerpo) <i class="material-icons" style="font-size:14px; margin-left:auto;">arrow_drop_down</i></div>
+                                    <div class="ribbon-select" style="width:50px;">11 <i class="material-icons" style="font-size:14px; margin-left:auto;">arrow_drop_down</i></div>
+                                </div>
+                                <div class="ribbon-group" style="margin-left:auto;">
+                                    <div class="ribbon-btn" style="color:#2B579A; width:auto; padding:0 10px; border:1px solid #ddd; background:#eef;">Estilos <i class="material-icons">expand_more</i></div>
+                                </div>
+                            </div>
+
+                            <div class="app-body" style="background:#f3f3f3; padding:20px;">
+                                <div class="doc-sheet">
+                                    <div style="font-size:2rem; font-weight:bold; color:#2B579A; margin-bottom:20px;">Introducción</div>
+                                    <div style="width:100%; height:10px; background:#eee; margin-bottom:10px;"></div>
+                                    <div style="width:100%; height:10px; background:#eee; margin-bottom:10px;"></div>
+                                    <div style="width:80%; height:10px; background:#eee; margin-bottom:10px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Strip -->
+            <div class="deco-strip bottom small-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: El Pegado Especial (Horizontal Timeline) -->
+        <div class="slide" id="slide-3">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-mid bg-green-lime"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Conexión Viva (Tablas)</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p class="slide-intro">Trae tus datos de Excel sin perder la conexión.</p>
+                
+                <!-- Horizontal Timeline -->
+                <div class="h-timeline">
+                    <div class="h-item bullet-point" data-step="1">
+                        <div class="h-line"></div>
+                        <div class="h-badge t-green" style="color:white; border:none;"><i class="material-icons">grid_on</i></div>
+                        <div style="margin-top:10px; font-weight:600;">Copiar en Excel</div>
+                        <p style="font-size:0.9rem; color:#666;">Selecciona la tabla y Ctrl+C</p>
+                    </div>
+
+                    <div class="h-item bullet-point" data-step="2">
+                        <div class="h-line"></div>
+                        <div class="h-badge t-blue" style="color:white; border:none;"><i class="material-icons">description</i></div>
+                        <div style="margin-top:10px; font-weight:600;">Pegado Especial</div>
+                        <p style="font-size:0.9rem; color:#666;">En la pestaña Inicio de Word</p>
+                    </div>
+
+                    <div class="h-item bullet-point" data-step="3">
+                        <div class="h-line"></div>
+                        <div class="h-badge t-purple" style="color:white; border:none;"><i class="material-icons">link</i></div>
+                        <div style="margin-top:10px; font-weight:600;">Pegar Vínculo</div>
+                        <p style="font-size:0.9rem; color:#666;">La opción mágica</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box focus-box bounce-in" data-step="4" style="text-align:center; margin-top:50px; max-width:600px; margin-left:auto; margin-right:auto;">
+                    <span class="material-icons" style="font-size:2rem; color:var(--color-purple-main)">sync</span>
+                    <p><strong>¿El resultado?</strong> Si cambias un número en Excel, ¡se actualiza solo en Word!</p>
+                </div>
+            </div>
+
+            <!-- Footer Strip -->
+            <div class="deco-strip bottom small-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Gráficos Vinculados (Mixed UI + Timeline) -->
+        <div class="slide" id="slide-4">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-mid bg-green-lime"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Gráficos Vinculados</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="split-layout">
+                    <!-- Column Left: Visual Demonstration -->
+                    <div class="split-visual">
+                         <div class="app-window app-excel" style="border: 1px solid #1D6F42; transform: scale(0.9);">
+                            <div class="app-header excel">
+                                <div class="app-title">Ventas_Anuales.xlsx</div>
+                            </div>
+                            <div class="app-body" style="padding:20px; position:relative;">
+                                <div class="chart-placeholder">
+                                    <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                                </div>
+                                <!-- Overlay Menu -->
+                                <div class="paste-menu scale-in">
+                                    <div style="font-size:0.8rem; padding:5px; background:#eee; font-weight:bold;">Pegado Especial</div>
+                                    <div class="paste-option"><i class="material-icons">content_paste</i> Objeto Excel</div>
+                                    <div class="paste-option" style="background:#e8f0fe; color:#1967d2;"><i class="material-icons">link</i> Pegar vínculo</div>
+                                    <div class="paste-option"><i class="material-icons">image</i> Imagen</div>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+
+                    <!-- Column Right: Timeline Steps -->
+                    <div class="split-text">
+                        <p class="slide-intro">Los gráficos siguen la misma lógica.</p>
+                        
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-badge t-green"><i class="fas fa-chart-bar"></i></div>
+                                <div class="timeline-content">
+                                    <strong>Copiar Gráfico</strong>
+                                    <div style="font-size:0.9rem; color:#666;">Ctrl+C sobre el gráfico en Excel.</div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-badge t-blue"><i class="fas fa-paste"></i></div>
+                                <div class="timeline-content">
+                                    <strong>Pegado Especial</strong>
+                                    <div style="font-size:0.9rem; color:#666;">Elige siempre "Pegar Vínculo".</div>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-badge t-purple"><i class="fas fa-expand"></i></div>
+                                <div class="timeline-content">
+                                    <strong>Ajustar</strong>
+                                    <div style="font-size:0.9rem; color:#666;">Adapta el tamaño en Word para que cuadre en tu informe.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Strip -->
+            <div class="deco-strip bottom small-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Redacción con IA -->
+        <div class="slide" id="slide-5">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-mid bg-green-lime"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Redactando con IA</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p class="slide-intro">Acelera la redacción de tus Conclusiones.</p>
+                
+                <div class="app-window app-gemini scale-in" style="max-height: 400px; height: 400px; border-radius: 15px;">
+                    <div class="app-header gemini">
+                        <div class="app-title">Google Gemini</div>
+                        <div style="margin-left:auto;"><i class="material-icons" style="color:white; opacity:0.7;">sparkles</i></div>
+                    </div>
+                    
+                    <div class="app-body" style="background: #f8faff; padding: 20px; display:flex; flex-direction:column; overflow-y:auto; gap:15px;">
+                        
+                        <!-- Chat Sequence -->
+                        <div class="chat-message bot" style="display:flex; gap:10px; align-items:start;">
+                            <div class="avatar t-purple" style="width:35px; height:35px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white;"><i class="material-icons" style="font-size:18px;">smart_toy</i></div>
+                            <div style="background:white; padding:15px; border-radius: 0 15px 15px 15px; box-shadow:0 2px 5px rgba(0,0,0,0.05); max-width:80%;">
+                                <p style="margin:0; font-size:0.95rem;">Hola, soy tu asistente IA. ¿En qué te ayudo con tu informe?</p>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-message user bullet-point" data-step="1" style="display:flex; gap:10px; align-items:start; flex-direction:row-reverse; align-self:flex-end;">
+                            <div class="avatar t-green" style="width:35px; height:35px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white;"><i class="material-icons" style="font-size:18px;">person</i></div>
+                            <div style="background:#dcf8c6; padding:15px; border-radius: 15px 0 15px 15px; box-shadow:0 2px 5px rgba(0,0,0,0.05); max-width:80%;">
+                                <p style="margin:0; font-size:0.95rem;">Escribe una introducción formal de 3 líneas sobre "Alfabetización Digital".</p>
+                            </div>
+                        </div>
+
+                        <div class="chat-message bot bullet-point" data-step="2" style="display:flex; gap:10px; align-items:start;">
+                            <div class="avatar t-purple" style="width:35px; height:35px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white;"><i class="material-icons" style="font-size:18px;">smart_toy</i></div>
+                            <div style="background:white; padding:15px; border-radius: 0 15px 15px 15px; box-shadow:0 2px 5px rgba(0,0,0,0.05); max-width:80%;">
+                                <p style="margin:0; font-size:0.95rem; font-style:italic; color:#555;">"El presente informe detalla el impacto de los talleres, destacando su rol crucial en la inclusión tecnológica comunitaria y el desarrollo de competencias clave..."</p>
+                                <div style="margin-top:10px; display:flex; gap:10px;">
+                                    <button style="border:1px solid #ddd; background:white; padding:5px 10px; border-radius:4px; cursor:pointer; font-size:0.8rem; display:flex; align-items:center; gap:5px;"><i class="material-icons" style="font-size:14px;">content_copy</i> Copiar</button>
+                                    <button style="border:1px solid #ddd; background:white; padding:5px 10px; border-radius:4px; cursor:pointer; font-size:0.8rem; display:flex; align-items:center; gap:5px;"><i class="material-icons" style="font-size:14px;">thumb_up</i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <!-- Fake Input Area -->
+                    <div style="padding:15px; border-top:1px solid #eee; background:white; display:flex; align-items:center; gap:10px;">
+                         <div style="flex-grow:1; height:35px; border:1px solid #ddd; border-radius:20px; padding:0 15px; display:flex; align-items:center; color:#999; font-size:0.9rem;">Escribe un mensaje...</div>
+                         <div style="width:35px; height:35px; background:var(--color-purple-main); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white;"><i class="material-icons" style="font-size:18px;">send</i></div>
+                    </div>
+                </div>
+
+                <div class="highlight-box" data-step="3" style="text-align:center; margin-top:20px; padding:10px;">
+                    <span class="material-icons" style="vertical-align:middle; margin-right:5px;">edit</span> Revisa y ajusta el tono antes de pegar en Word.
+                </div>
+            </div>
+
+            <!-- Footer Strip -->
+            <div class="deco-strip bottom small-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: CIERRE -->
+        <div class="slide slide-cover" id="slide-6">
+            <div class="bg-pattern-dots"></div>
+            
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-content slide-content" style="justify-content: center; align-items: center; text-align: center;">
+                <h1 class="cover-title">¡Informe Listo!</h1>
+                <div class="cover-subtitle">Tu documento Word ahora tiene<br>datos vivos de Excel y redacción asistida.</div>
+                
+                <div class="next-capsule-box pulse" style="margin-top: 40px; border: 2px solid rgba(255,255,255,0.2); padding: 20px; border-radius: 12px; background: rgba(255,255,255,0.1);">
+                    <small style="text-transform: uppercase; letter-spacing: 2px; color: var(--color-green-lime);">Siguiente Paso</small>
+                    <div style="font-size: 1.5rem; font-weight: 700; margin-top: 10px;">Llevando todo a PowerPoint</div>
+                </div>
+            </div>
+
+            <div class="deco-strip bottom">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-md bg-green-slate"></div>
+                <div class="segment seg-sm bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- CONTROLES -->
+        <div class="controls" role="navigation" aria-label="Controles de navegación">
+            <button class="nav-btn" onclick="prevSlide()" aria-label="Diapositiva anterior"><span class="material-icons">arrow_back_ios</span></button>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+            </div>
+            <button class="nav-btn" onclick="nextSlide()" aria-label="Diapositiva siguiente"><span class="material-icons">arrow_forward_ios</span></button>
+        </div>
+
+    </div>
+
+    <!-- Script Principal -->
+    <script src="main.js"></script>
+</body>
+</html>

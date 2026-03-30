@@ -1,0 +1,40 @@
+Módulo 1 — Introducción a Microsoft Office + IA
+Cápsula 1.1 – Identidad Digital
+Cápsula 1.2 – Redacción Profesional
+Cápsula 1.3 – Agenda y Calendario Inteligente
+Cápsula 1.4 – Resumen Inteligente de Correos
+Cápsula 1.5 – Seguridad Digital Básica
+
+Módulo 2 — Word Básico: Creación de Documentos Profesionales
+Cápsula 2.1 – Introducción a Word + IA
+Cápsula 2.2 – Formato Básico Profesional
+Cápsula 2.3 – Tablas, Imágenes y Diseño
+Cápsula 2.4 – Revisión y Mejora con IA
+Cápsula 2.5 – Plantillas y Documentos Comerciales
+
+Módulo 3 — Excel Básico: Tablas, Fórmulas y Gráficos
+Cápsula 3.1 – Introducción a Excel + IA
+Cápsula 3.2 – Formato Profesional en Excel
+Cápsula 3.3 – Fórmulas Esenciales y Comprensión Asistida con IA
+Cápsula 3.4 – Filtros, Ordenamiento y Análisis Descriptivo con IA
+Cápsula 3.5 – Mini Proyecto: Crear un Reporte Profesional con Excel + IA
+
+Módulo 4 — PowerPoint Básico: Presentaciones de Impacto
+Cápsula 4.1 – Introducción a PowerPoint y Estructura con IA
+Cápsula 4.2 – Diseño Inteligente y Multimedia
+Cápsula 4.3 – Movimiento y Transiciones Elegantes
+Cápsula 4.4 – Ensayar y Presentar con IA
+Cápsula 4.5 – Proyecto Final Integrado
+
+Módulo 5 — Colaboración y Nube
+Cápsula 5.1 – Entendiendo la Nube y OneDrive
+Cápsula 5.2 – Compartir y Colaborar en Tiempo Real
+Cápsula 5.3 – Introducción a Microsoft Teams
+Cápsula 5.4 – Office en el Celular
+Cápsula 5.5 – Cierre del Curso y Seguridad Digital
+
+Módulo 6 — Proyecto Final Integrado: Flujo Completo Office + IA
+Cápsula 6.1 – Introducción al Flujo Integrado Office + IA
+Cápsula 6.2 – Etapa 1: Creación y Análisis de Datos en Excel
+Cápsula 6.3 – Etapa 2: Informe Formal en Word
+Cápsula 6.4 – Etapa 3: Presentación Final en PowerPoint

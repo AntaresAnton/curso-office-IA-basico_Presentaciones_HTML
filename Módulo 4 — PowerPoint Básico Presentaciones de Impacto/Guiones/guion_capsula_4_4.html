@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guion Técnico - Cápsula 4.4: Ensayar y Presentar con IA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           TOKENS DE DISEÑO (SISTEMA ATÓMICO)
+           ========================================= */
+        :root {
+            --color-purple-main: #583586;
+            --color-purple-mid: #6d4c94;
+            --color-purple-light: #8f6bb3;
+            --color-purple-dark: #4a276b;
+            
+            --color-green-main: #76b82a;
+            --color-green-lime: #9ccb3b;
+            --color-green-slate: #7a9483;
+            
+            --color-neutral-white: #ffffff;
+            --color-neutral-light: #f4f4f4;
+            --color-neutral-gray: #d1d1d1;
+            --color-neutral-dark: #333333;
+
+            --font-primary: 'Montserrat', sans-serif;
+            --skew-angle: -40deg;
+        }
+
+        /* =========================================
+           CONFIGURACIÓN DE PÁGINA (IMPRIMIBLE)
+           ========================================= */
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: #525659;
+            font-family: var(--font-primary);
+            margin: 0;
+            padding: 20px;
+            color: var(--color-neutral-dark);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px auto;
+            padding: 15mm 20mm;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media print {
+            body { background: none; padding: 0; }
+            .page { width: 100%; margin: 0; box-shadow: none; border: none; min-height: auto; page-break-after: always; }
+            .page:last-child { page-break-after: auto; }
+        }
+
+        /* =========================================
+           COMPONENTES
+           ========================================= */
+        
+        /* Header */
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--color-green-main);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .header-info h1 {
+            font-size: 18pt;
+            color: var(--color-purple-main);
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .header-info h2 {
+            font-size: 10pt;
+            color: var(--color-green-slate);
+            margin: 5px 0 0 0;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .logo-simple {
+            width: 100px;
+            height: auto;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+        
+        .deco-strip {
+            display: flex;
+            height: 15px;
+            overflow: hidden;
+            width: 100%;
+        }
+        .deco-strip .segment {
+            height: 100%;
+            transform: skewX(var(--skew-angle));
+            margin-right: 4px;
+        }
+        .deco-strip .seg-fill { flex-grow: 1; }
+        .deco-strip .seg-sm { width: 15px; }
+        .deco-strip .seg-md { width: 30px; }
+        .deco-strip .seg-start { margin-left: -10px; padding-left: 10px; }
+        .deco-strip .seg-end { margin-right: -10px; padding-right: 10px; }
+
+        .footer-text {
+            text-align: right;
+            font-size: 8pt;
+            color: var(--color-green-slate);
+            margin-top: 5px;
+        }
+
+        /* Contenido */
+        .script-meta {
+            background-color: var(--color-neutral-light);
+            border-left: 4px solid var(--color-purple-main);
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 10pt;
+        }
+
+        .script-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 12pt;
+            color: var(--color-purple-main);
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--color-neutral-gray);
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cue-block {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            font-size: 10pt;
+        }
+
+        .cue-tech {
+            flex: 0 0 120px;
+            font-size: 8pt;
+            font-weight: 600;
+            color: var(--color-green-slate);
+            text-transform: uppercase;
+            padding-top: 3px;
+        }
+
+        .cue-tech strong {
+            display: block;
+            color: var(--color-purple-mid);
+            margin-bottom: 2px;
+        }
+
+        .cue-dialogue {
+            flex: 1;
+            line-height: 1.5;
+            color: var(--color-neutral-dark);
+        }
+
+        .cue-dialogue p { margin: 0 0 10px 0; }
+
+        /* Prompt Box */
+        .prompt-box {
+            background-color: #f0f7ff;
+            border: 1px dashed var(--color-purple-light);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 9pt;
+            color: var(--color-purple-dark);
+        }
+        .prompt-label {
+            font-weight: bold;
+            color: var(--color-purple-main);
+            display: block;
+            margin-bottom: 5px;
+            font-family: var(--font-primary);
+            font-size: 8pt;
+            text-transform: uppercase;
+        }
+
+        /* Listas */
+        ul { margin: 0 0 10px 20px; padding: 0; }
+        li { margin-bottom: 4px; }
+
+    </style>
+</head>
+<body>
+
+    <!-- PÁGINA 1 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <div class="script-meta">
+                <h3 style="margin: 0 0 10px 0; color: var(--color-purple-main);">🎥 CÁPSULA 4.4 – Ensayar y Presentar con IA</h3>
+                <div><strong>Duración estimada:</strong> 10–12 minutos</div>
+                <div><strong>Herramientas:</strong> PowerPoint (Vista Moderador, Ensayo con Asesor)</div>
+                <div><strong>Objetivo:</strong> Usar las notas del orador, la vista de moderador y el Asesor de Presentaciones (IA) para mejorar la oratoria.</div>
+            </div>
+
+            <!-- SECCIÓN 0 -->
+            <div class="script-section">
+                <div class="section-title">🎬 0. Bienvenida: El miedo escénico (00:00 – 01:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Plano Medio
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>¡Hola! Tener un PowerPoint bonito no sirve de nada si nos ponemos nerviosos y se nos olvida todo al hablar.</p>
+                        <p>Hoy vamos a conocer dos herramientas secretas: una que te permite leer tus apuntes sin que nadie se dé cuenta (Vista Moderador) y otra que te escucha ensayar y te dice si estás hablando muy rápido o muy lento (Asesor de Presentaciones).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 1 -->
+            <div class="script-section">
+                <div class="section-title">📝 1. El torpedo invisible (Notas) (01:00 – 03:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Panel Notas
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Abajo de cada diapositiva hay un botón que dice <strong>"Notas"</strong>. Si lo pinchan, se abre un espacio.</p>
+                        <p>Ahí pueden escribir todo lo que quieren decir, pero que no quieren poner en la pantalla. Es su "torpedo" o ayuda memoria.</p>
+                        <p>Escriban ahí los datos difíciles, las fechas o los chistes que no quieren olvidar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2 -->
+            <div class="script-section">
+                <div class="section-title">🕶️ 2. Vista Moderador: Tu centro de control (03:00 – 06:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Vista Moderador
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Cuando conectan el computador a un proyector, ocurre la magia.</p>
+                        <p>La gente ve la diapositiva bonita en la pared. Pero ustedes, en su pantalla, ven la <strong>Vista Moderador</strong>.</p>
+                        <ul>
+                            <li>Ven la diapositiva actual.</li>
+                            <li>Ven la diapositiva que viene (para anticiparse).</li>
+                            <li>¡Y ven sus NOTAS en grande!</li>
+                        </ul>
+                        <p>Así pueden leer tranquilos y parecer expertos que se saben todo de memoria.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3 -->
+            <div class="script-section">
+                <div class="section-title">🤖 3. Ensayo con Asesor (Coach) (06:00 – 09:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Ensayo con Asesor
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>¿No tienen con quién ensayar? PowerPoint los escucha.</p>
+                        <p>Vayan a <strong>Presentación con diapositivas > Ensayar con el Asesor</strong>.</p>
+                        <p>Empiecen a hablar. La IA los escuchará y al final les dará un informe:</p>
+                        <ul>
+                            <li>"Hablaste muy rápido".</li>
+                            <li>"Dijiste mucho 'ehhh' o 'emmm'".</li>
+                            <li>"Leíste textual la diapositiva" (¡eso no se hace!).</li>
+                        </ul>
+                        <p>Es el mejor profesor para mejorar antes del día real.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 4 -->
+            <div class="script-section">
+                <div class="section-title">🖨️ 4. Imprimir para la audiencia (09:00 – 10:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Imprimir
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>A veces la gente pide la presentación impresa. No gasten tinta imprimiendo una hoja por lámina.</p>
+                        <p>Vayan a <strong>Imprimir</strong> y elijan la opción <strong>"3 diapositivas"</strong>. Esto imprime 3 láminas a la izquierda y deja renglones a la derecha para que la gente tome notas. ¡Quedarán como reyes!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 5 -->
+            <div class="script-section">
+                <div class="section-title">🔚 5. Cierre (10:30 – 11:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Cierre
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Ya están listos para pararse frente a cualquier público. Tienen el diseño, el contenido y la herramienta para ensayar.</p>
+                        <p>En la última cápsula, vamos a juntar todo: Word, Excel y PowerPoint en un gran proyecto final. ¡Será el broche de oro!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 20px; background: var(--color-green-main); color: white; text-align: center; font-weight: bold; border-radius: 8px;">
+                📦 FIN DEL BLOQUE 4 (MÓDULO 4)
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 1 de 1 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+</body>
+</html>

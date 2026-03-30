@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Cápsula 6.5 - Cierre y Aplicación Real</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Links Corporativos -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Ajustes locales para Cierre */
+        .check-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+        .check-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-left: 5px solid transparent;
+            transition: transform 0.3s;
+        }
+        .check-card.verified {
+            border-left-color: var(--color-green-main);
+        }
+        .check-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .check-icon {
+            width: 40px; height: 40px;
+            background: #e8f5e9;
+            color: var(--color-green-main);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        /* Persona Cards for Slide 4 */
+        .persona-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .persona-card {
+            background: white;
+            border-radius: 15px;
+            width: 280px;
+            padding: 30px 20px;
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        .persona-card::before {
+            content:'';
+            position: absolute;
+            top:0; left:0; right:0; height: 6px;
+        }
+        .persona-card.p1::before { background: var(--color-green-main); }
+        .persona-card.p2::before { background: var(--color-purple-main); }
+        .persona-card.p3::before { background: var(--color-green-mid); }
+        
+        .persona-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        .p1 .persona-icon { color: var(--color-green-main); }
+        .p2 .persona-icon { color: var(--color-purple-main); }
+        .p3 .persona-icon { color: #eb866d; } /* Orange accent */
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container">
+        
+        <img src="../../../tu puedes logo.png" class="logo-overlay" alt="Logo Institucional">
+
+        <div class="advanced-controls">
+            <button class="control-btn" onclick="toggleTheme()" aria-label="Alternar tema oscuro"><span class="material-icons">dark_mode</span></button>
+            <button class="control-btn" onclick="toggleFullscreen()" aria-label="Pantalla completa"><span class="material-icons">fullscreen</span></button>
+            <button class="control-btn" onclick="resetPresentation()" aria-label="Reiniciar presentación"><span class="material-icons">restart_alt</span></button>
+        </div>
+
+        <!-- SLIDE 1: PORTADA CIERRE -->
+        <div class="slide slide-cover active" id="slide-1">
+            <div class="bg-pattern-dots"></div>
+            
+            <div class="deco-strip">
+                <div class="segment seg-start bg-purple-main"></div>
+                <div class="segment seg-mini bg-purple-light"></div>
+                <div class="segment seg-md bg-green-main"></div>
+                <div class="segment seg-end bg-green-lime"></div>
+            </div>
+
+            <div class="cover-content slide-content" style="justify-content: center; align-items: center; text-align: center;">
+                <div class="cover-pill">Cápsula 6.5</div>
+                <h1 class="cover-title">¡Lo Logramos! <br><span>Cierre del Curso</span></h1>
+                
+                <div class="hero-apps">
+                    <!-- The Trifecta Completed -->
+                    <div class="app-icon-card excel bounce-in" style="animation-delay: 0.1s;"><span class="material-icons">table_view</span></div>
+                    <div class="app-icon-card word bounce-in" style="animation-delay: 0.3s;"><span class="material-icons">description</span></div>
+                    <div class="app-icon-card ppt bounce-in" style="animation-delay: 0.5s;"><span class="material-icons">pie_chart</span></div>
+                </div>
+
+                <div style="margin-top: 50px;">
+                    <span style="background: var(--color-green-main); color: white; padding: 8px 20px; border-radius: 50px; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(118, 184, 42, 0.3);">Programa Tú Puedes | El Bosque</span>
+                </div>
+            </div>
+
+            <div class="deco-strip bottom">
+                <div class="segment seg-start bg-green-main"></div>
+                <div class="segment seg-md bg-green-slate"></div>
+                <div class="segment seg-end bg-purple-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Checklist del Éxito -->
+        <div class="slide" id="slide-2">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-mid bg-green-lime"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Checklist del Éxito</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p class="slide-intro">Verifiquemos que tenemos todas las piezas del rompecabezas digital.</p>
+                
+                <div class="check-grid">
+                    <div class="check-card verified scale-in" style="animation-delay: 0.1s;">
+                        <div class="check-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong style="color:var(--color-green-main); display:block;">Excel</strong>
+                            <span style="font-size:0.9rem; color:#666;">Tabla con totales y gráfico dinámico.</span>
+                        </div>
+                    </div>
+                    
+                    <div class="check-card verified scale-in" style="animation-delay: 0.3s;">
+                        <div class="check-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong style="color:#2b579a; display:block;">Word</strong>
+                            <span style="font-size:0.9rem; color:#666;">Informe redactado con tabla vinculada.</span>
+                        </div>
+                    </div>
+
+                    <div class="check-card verified scale-in" style="animation-delay: 0.5s;">
+                        <div class="check-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong style="color:#C43E1C; display:block;">PowerPoint</strong>
+                            <span style="font-size:0.9rem; color:#666;">Presentación visual con gráfico conectado.</span>
+                        </div>
+                    </div>
+
+                    <div class="check-card verified scale-in" style="animation-delay: 0.7s;">
+                        <div class="check-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <strong style="color:var(--color-purple-main); display:block;">IA (Google Gemini)</strong>
+                            <span style="font-size:0.9rem; color:#666;">Textos, ideas y revisión asistida.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <div class="deco-strip bottom small-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Prueba de Fuego (Testing Connection) -->
+        <div class="slide" id="slide-3">
+             <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-mid bg-green-lime"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>La Prueba de Fuego</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="split-layout">
+                    <div class="split-text">
+                        <p class="slide-intro">¿Funciona la integración en tiempo real?</p>
+                        
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-badge t-green"><i class="fas fa-folder-open"></i></div>
+                                <div class="timeline-content">
+                                    <strong>Abre todo</strong>
+                                    <div style="font-size:0.9rem; color:#666;">Ten abiertos Excel, Word y PowerPoint simultáneamente.</div>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-badge t-orange"><i class="fas fa-edit"></i></div>
+                                <div class="timeline-content">
+                                    <strong>Cambia un dato en Excel</strong>
+                                    <div style="font-size:0.9rem; color:#666;">Modifica un número clave en tu tabla de origen.</div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-badge t-purple"><i class="fas fa-sync-alt"></i></div>
+                                <div class="timeline-content">
+                                    <strong>Verifica la actualización</strong>
+                                    <div style="font-size:0.9rem; color:#666;">Mira como cambia en Word y PPT. (Click derecho > Actualizar vínculo si es necesario).</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="split-visual">
+                         <!-- Simulation of updating data -->
+                         <div style="position:relative; width:100%; height:300px;">
+                             <!-- Excel File Background -->
+                             <div class="app-window app-excel" style="position:absolute; top:0; left:0; width:70%; z-index:1;">
+                                <div class="app-header excel"><div class="app-title">Excel</div></div>
+                                <div class="app-body" style="background:white; padding:10px; display:flex; justify-content:center; align-items:center;">
+                                    <div style="font-size:1.5rem; font-weight:bold; color:#107c10;" class="pulse">1.500 → 5.000</div>
+                                </div>
+                             </div>
+
+                             <!-- Word File Foreground -->
+                             <div class="app-window app-word scale-in" style="position:absolute; bottom:20px; right:0; width:70%; z-index:2; animation-delay:1s;">
+                                <div class="app-header word"><div class="app-title">Informe Word</div></div>
+                                <div class="app-body" style="background:white; padding:10px; display:flex; justify-content:center; align-items:center;">
+                                    <div style="font-size:1.2rem; font-weight:bold; color:#333;">Total: <span style="color:#107c10;">$5.000</span></div>
+                                </div>
+                             </div>
+                             
+                             <!-- Connection Line -->
+                             <svg style="position:absolute; width:100%; height:100%; top:0; left:0; pointer-events:none; z-index:0;">
+                                 <line x1="35%" y1="50%" x2="70%" y2="80%" stroke="#107c10" stroke-width="4" stroke-dasharray="10"/>
+                             </svg>
+                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip bottom small-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Aplicación Real (Roles) -->
+        <div class="slide" id="slide-4">
+             <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-mid bg-green-lime"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>¿Para qué me sirve esto?</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p class="slide-intro">Aplicación inmediata en tu vida profesional y personal.</p>
+                
+                <div class="persona-container">
+                    <!-- Card 1 -->
+                    <div class="persona-card p1 scale-in" style="animation-delay: 0.1s;">
+                        <div class="persona-icon"><i class="fas fa-rocket"></i></div>
+                        <h3 style="color:#333; margin-bottom:10px;">Emprendedores</h3>
+                        <p style="font-size:0.9rem; color:#666;">Cuentas claras, inventarios automáticos y cotizaciones profesionales.</p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="persona-card p2 scale-in" style="animation-delay: 0.3s;">
+                        <div class="persona-icon"><i class="fas fa-users"></i></div>
+                        <h3 style="color:#333; margin-bottom:10px;">Dirigentes</h3>
+                        <p style="font-size:0.9rem; color:#666;">Presentar proyectos visuales impactantes a la comunidad y autoridades.</p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="persona-card p3 scale-in" style="animation-delay: 0.5s;">
+                        <div class="persona-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3 style="color:#333; margin-bottom:10px;">Estudiantes</h3>
+                        <p style="font-size:0.9rem; color:#666;">Realizar tareas e informes complejos de manera más eficiente y rápida.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip bottom small-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Despedida y Cita -->
+        <div class="slide slide-cover" id="slide-5">
+            <div class="bg-pattern-dots"></div>
+            
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-content slide-content" style="justify-content: center; align-items: center; text-align: center; padding: 0 150px;">
+                <h1 class="cover-title" style="font-size: 2.5rem; margin-bottom: 30px;">¡Gracias por participar!</h1>
+                
+                <div style="font-size: 1.4rem; color: #555; margin-bottom: 40px; font-style: italic; line-height: 1.6;">
+                    "No tengas miedo de probar, de hacer clic y de equivocarte. <br>
+                    <strong style="color:var(--color-purple-main);">La curiosidad es tu mejor herramienta.</strong>"
+                </div>
+
+                <div class="next-capsule-box" style="margin-top: 20px; border: 2px solid var(--color-green-main); padding: 15px 30px; border-radius: 50px; display:inline-block; background:white;">
+                    <i class="fas fa-check-circle" style="color:var(--color-green-main); margin-right:10px;"></i>
+                    <span style="font-weight: 600; color:var(--color-neutral-dark);">Fin del Módulo 6</span>
+                </div>
+            </div>
+
+            <div class="deco-strip bottom">
+                <div class="segment seg-start bg-purple-main"></div>
+                <div class="segment seg-md bg-green-slate"></div>
+                <div class="segment seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- CONTROLES -->
+        <div class="controls" role="navigation" aria-label="Controles de navegación">
+            <button class="nav-btn" onclick="prevSlide()" aria-label="Diapositiva anterior"><span class="material-icons">arrow_back_ios</span></button>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+            </div>
+            <button class="nav-btn" onclick="nextSlide()" aria-label="Diapositiva siguiente"><span class="material-icons">arrow_forward_ios</span></button>
+        </div>
+
+    </div>
+
+    <!-- Script Principal -->
+    <script src="main.js"></script>
+</body>
+</html>

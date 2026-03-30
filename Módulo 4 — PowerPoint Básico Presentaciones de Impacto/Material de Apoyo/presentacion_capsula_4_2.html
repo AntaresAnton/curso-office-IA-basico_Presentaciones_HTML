@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Cápsula 5.2 - Diseño Inteligente</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Consolas&display=swap" rel="stylesheet">
+    <!-- Links Corporativos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* PPT UI Simulation */
+        .ppt-app-window {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #d0d0d0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .ppt-header {
+            background: #D04423; /* PPT Brand Color */
+            color: white;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            justify-content: space-between;
+        }
+
+        .ppt-ribbon {
+            background: #f3f2f1;
+            border-bottom: 1px solid #e1dfdd;
+        }
+
+        .ppt-ribbon-tabs {
+            display: flex;
+            background: white;
+            padding: 0 10px;
+        }
+
+        .ppt-tab {
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            color: #252423;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+
+        .ppt-tab.active {
+            border-bottom-color: #D04423;
+            color: #D04423;
+            font-weight: 600;
+        }
+
+        .ppt-toolbar {
+            display: flex;
+            padding: 10px 15px;
+            gap: 20px;
+            min-height: 80px;
+            align-items: flex-start;
+        }
+
+        .ppt-group {
+            display: flex;
+            gap: 5px;
+            padding-right: 15px;
+            border-right: 1px solid #e1dfdd;
+            flex-direction: row;
+        }
+        
+        .ppt-group:last-child {
+            border-right: none;
+        }
+
+        .ppt-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            color: #252423;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .ppt-btn:hover {
+            background: #e1dfdd;
+        }
+        
+        .ppt-btn-label {
+            font-size: 0.75rem;
+        }
+
+        .ppt-icon {
+            font-size: 24px;
+            color: #444;
+        }
+
+        /* Specific Highlight */
+        .highlight-btn {
+            background: #ffe0b2;
+            outline: 2px solid #D04423;
+        }
+
+        /* Designer Pane */
+        .designer-pane {
+            width: 280px;
+            background: #fff;
+            border-left: 1px solid #e1dfdd;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .pane-header {
+            padding: 15px;
+            font-weight: 600;
+            border-bottom: 1px solid #e1dfdd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .design-idea-card {
+            margin: 15px;
+            height: 140px;
+            border: 1px solid #e1dfdd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .design-idea-card:hover {
+            border-color: #D04423;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .design-idea-card.selected {
+             outline: 2px solid #D04423;
+             outline-offset: 2px;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .anim-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Rule Cards (from 4.1) */
+        .rule-card {
+            flex: 1;
+            padding: 25px;
+            border-radius: 12px;
+            position: relative;
+            transition: transform 0.3s;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .rule-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .rule-card.warning {
+            border-top: 5px solid #ff9800;
+        }
+
+        .rule-card.success {
+            border-top: 5px solid #2ecc71;
+        }
+
+        .rule-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .rule-title {
+             font-weight: 700;
+             font-size: 1.1rem;
+             margin-bottom: 20px;
+             text-transform: uppercase;
+             letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container">
+        
+        <img src="../../../tu puedes logo.png" class="logo-overlay" alt="Logo Institucional">
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide cover-layout active" id="slide-1">
+             <div class="bg-pattern-dots"></div>
+            <!-- Top Bar -->
+            <div class="deco-strip" style="position: absolute; top: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-pill">Cápsula 5.2</div>
+            <h1 class="cover-title">Diseño Inteligente<br><span>y Multimedia</span></h1>
+            <div class="cover-subtitle">El Poder del Diseñador IA</div>
+            
+            <div style="margin-top: 30px; font-weight: 600; color: var(--color-neutral-dark);">
+                Programa Tú Puedes - 2026
+            </div>
+
+            <div class="logo-wrapper-cover">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: El Problema -->
+        <div class="slide" id="slide-2">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>El Problema</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <h2 style="color: var(--color-purple-main); text-align: center; margin-bottom: 40px;">¿PowerPoint Aburrido?</h2>
+                
+                <div style="display: flex; gap: 40px; justify-content: center; height: 350px;">
+                    <!-- Boring Slide -->
+                    <div class="bullet-point" data-step="1" style="flex: 1; background: white; border: 1px solid #ccc; padding: 20px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); position: relative;">
+                        <h3 style="font-family: Arial, sans-serif; margin-bottom: 10px;">Título Presentación</h3>
+                        <ul style="font-family: Arial, sans-serif; font-size: 0.9rem; padding-left: 20px;">
+                            <li>Texto plano</li>
+                            <li>Sin color</li>
+                            <li>Solo viñetas</li>
+                            <li>Aburrido para la audiencia</li>
+                        </ul>
+                        <div style="position: absolute; top: 10px; right: 10px; font-size: 2rem; opacity: 0.5;">😴</div>
+                        <div style="position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); background: #ef5350; color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: bold;">ANTES</div>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div style="display: flex; align-items: center;">
+                        <span class="material-icons anim-bounce-right" style="color: var(--color-purple-light); font-size: 3rem;">arrow_forward</span>
+                    </div>
+
+                    <!-- Cool Slide -->
+                    <div class="bullet-point" data-step="2" style="flex: 1; background: linear-gradient(135deg, #2b1640 0%, #583586 100%); color: white; padding: 20px; box-shadow: 5px 5px 15px rgba(0,0,0,0.2); position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 0 0 0 100%;"></div>
+                        <h3 style="font-family: var(--font-primary); margin-bottom: 10px; text-transform: uppercase;">Título Impactante</h3>
+                        <div style="display: flex; gap: 10px; margin-top: 20px;">
+                            <div style="flex: 1; height: 80px; background: rgba(255,255,255,0.2); border-radius: 5px;"></div>
+                            <div style="flex: 1; height: 80px; background: rgba(255,255,255,0.2); border-radius: 5px;"></div>
+                        </div>
+                        <div style="position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); background: #76b82a; color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: bold;">AHORA</div>
+                    </div>
+                </div>
+
+                <div class="highlight-box bullet-point" data-step="3" style="margin-top: 30px; text-align: center;">
+                    <span class="material-icons" style="color: var(--color-purple-main); vertical-align: middle;">auto_awesome</span> <strong>La Solución:</strong> Imágenes de Stock + Diseñador IA.
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Imágenes -->
+        <div class="slide" id="slide-3">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>1. Imágenes Profesionales</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-badge t-purple">1</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Insertar:</strong> Ve a la pestaña Insertar.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-badge t-green">2</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Imágenes de Archivo:</strong> Usa la biblioteca gratuita de alta calidad.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-badge t-slate">3</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Sin Miedo:</strong> Ponlas donde sea, la IA las arreglará.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <!-- Emulated Ribbon Menu -->
+                        <div class="ppt-app-window" style="height: auto;">
+                             <div class="ppt-header">
+                                <div>Presentación1 - PowerPoint</div>
+                                <div><span class="material-icons" style="font-size: 16px;">remove</span> <span class="material-icons" style="font-size: 16px;">check_box_outline_blank</span> <span class="material-icons" style="font-size: 16px;">close</span></div>
+                            </div>
+                            <div class="ppt-ribbon">
+                                <div class="ppt-ribbon-tabs">
+                                    <div class="ppt-tab">Inicio</div>
+                                    <div class="ppt-tab active">Insertar</div>
+                                    <div class="ppt-tab">Dibujar</div>
+                                    <div class="ppt-tab">Diseño</div>
+                                    <div class="ppt-tab">Transiciones</div>
+                                </div>
+                                <div class="ppt-toolbar">
+                                    <div class="ppt-group">
+                                        <div class="ppt-btn">
+                                            <span class="material-icons ppt-icon">add_to_photos</span>
+                                            <span class="ppt-btn-label">Nueva<br>Diapositiva</span>
+                                        </div>
+                                    </div>
+                                    <div class="ppt-group">
+                                        <div class="ppt-btn">
+                                            <span class="material-icons ppt-icon">table_chart</span>
+                                            <span class="ppt-btn-label">Tabla</span>
+                                        </div>
+                                        <div class="ppt-btn">
+                                             <span class="material-icons ppt-icon">image</span>
+                                             <span class="ppt-btn-label">Imágenes</span>
+                                        </div>
+                                        <div class="ppt-btn highlight-btn">
+                                             <span class="material-icons ppt-icon" style="color: #D04423;">photo_library</span>
+                                             <span class="ppt-btn-label" style="font-weight: 700; color: #D04423;">Imágenes<br>de archivo</span>
+                                        </div>
+                                        <div class="ppt-btn">
+                                            <span class="material-icons ppt-icon">camera_alt</span>
+                                            <span class="ppt-btn-label">Captura</span>
+                                       </div>
+                                    </div>
+                                    <div class="ppt-group">
+                                        <div class="ppt-btn">
+                                             <span class="material-icons ppt-icon">shape_line</span>
+                                             <span class="ppt-btn-label">Formas</span>
+                                        </div>
+                                        <div class="ppt-btn">
+                                             <span class="material-icons ppt-icon">smart_display</span>
+                                             <span class="ppt-btn-label">SmartArt</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="background: #e6e6e6; flex: 1; min-height: 100px; display: flex; align-items: center; justify-content: center; color: #666; font-size: 0.9rem;">
+                                <span><i class="fas fa-search"></i> Buscando en biblioteca creativa...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: El Diseñador -->
+        <div class="slide" id="slide-4">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>2. La Magia del Diseñador</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                         <h2 style="color: var(--color-purple-main); margin-bottom: 20px;">Tu diseñador personal</h2>
+                         <div class="timeline-container">
+                            <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-badge t-purple"><span class="material-icons">touch_app</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Un Clic:</strong> Botón "Diseñador" en Inicio.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-badge t-green"><span class="material-icons">psychology</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Análisis IA:</strong> Lee tu texto y mira tus fotos.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-badge t-slate"><span class="material-icons">star</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Elige:</strong> Selecciona el diseño que más te guste.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                       <!-- Emulated Designer Pane -->
+                        <div class="ppt-app-window" style="flex-direction: row; height: 380px;">
+                             <!-- Main Canvas area -->
+                             <div style="flex: 1; background: #e6e6e6; padding: 20px; display: flex; align-items: center; justify-content: center;">
+                                 <div style="width: 80%; aspect-ratio: 16/9; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); display: flex; flex-direction: column; padding: 10px;">
+                                     <div style="height: 60%; background: #eee; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; color: #999;">
+                                         <span class="material-icons" style="font-size: 40px;">image</span>
+                                     </div>
+                                     <div style="height: 10px; width: 70%; background: #ccc; margin-bottom: 5px;"></div>
+                                     <div style="height: 10px; width: 40%; background: #ccc;"></div>
+                                 </div>
+                             </div>
+
+                             <!-- Designer Sidebar -->
+                             <div class="designer-pane">
+                                 <div class="pane-header">
+                                    <span>Diseñador</span>
+                                    <span class="material-icons" style="font-size: 18px; color: #666; cursor: pointer;">close</span>
+                                </div>
+                                <div style="padding: 10px 15px; font-size: 0.8rem; color: #666;">
+                                    Ideas de diseño para ti:
+                                </div>
+                                <div style="flex: 1; overflow-y: auto;">
+                                    <!-- Suggestion 1 -->
+                                    <div class="design-idea-card" style="background: #333; display: flex; align-items: flex-end; padding: 10px;">
+                                        <div style="color: white; font-weight: bold;">TÍTULO<br>MODERNO</div>
+                                    </div>
+                                    <!-- Suggestion 2 -->
+                                    <div class="design-idea-card" style="background: white; display: flex; align-items: center; justify-content: space-between; padding: 0;">
+                                         <div style="width: 40%; height: 100%; background: url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60') center/cover;"></div>
+                                         <div style="width: 60%; padding: 10px; font-weight: 300;">Diseño<br>Elegante</div>
+                                    </div>
+                                    <!-- Suggestion 3 (Selected) -->
+                                    <div class="design-idea-card selected" style="background: linear-gradient(135deg, #D04423 0%, #F57C00 100%); display: flex; align-items: center; justify-content: center;">
+                                        <div style="text-align: center; color: white;">
+                                            <span class="material-icons" style="font-size: 30px;">star</span>
+                                            <div style="font-weight: 800; font-size: 1.2rem;">IMPACTO</div>
+                                        </div>
+                                        <div style="position: absolute; top: 10px; right: 10px; background: #2ecc71; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">✓</div>
+                                    </div>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: SmartArt -->
+        <div class="slide" id="slide-5">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>3. SmartArt</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <h2 style="color: var(--color-purple-main); margin-bottom: 20px;">Adiós Listas Aburridas</h2>
+                         <div class="timeline-container">
+                            <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-badge t-purple">1</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Escribe:</strong> Haz tu lista normal de texto.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-badge t-green">2</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Transforma:</strong> Inicio > Convertir a SmartArt.</div>
+                            </div>
+                            <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-badge t-slate">3</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Visualiza:</strong> Procesos, ciclos y jerarquías al instante.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <!-- SmartArt Transformation Visualization -->
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                            <!-- Boring List -->
+                            <div style="background: white; border: 1px solid #ccc; padding: 15px; width: 200px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1);">
+                                <ul style="margin-left: 20px; font-size: 0.8rem; color: #555;">
+                                    <li>Paso 1</li>
+                                    <li>Paso 2</li>
+                                    <li>Paso 3</li>
+                                </ul>
+                            </div>
+                            
+                            <span class="material-icons anim-bounce-down" style="color: #666;">keyboard_double_arrow_down</span>
+                            
+                            <!-- SmartArt Result -->
+                            <div style="display: flex; gap: 5px;">
+                                <div class="anim-float" style="width: 80px; height: 60px; background: #583586; color: white; display: flex; justify-content: center; align-items: center; border-radius: 5px; font-size: 0.8rem; font-weight: bold; animation-delay: 0s;">Paso 1</div>
+                                <div style="display: flex; align-items: center; color: #999;">➡</div>
+                                <div class="anim-float" style="width: 80px; height: 60px; background: #76b82a; color: white; display: flex; justify-content: center; align-items: center; border-radius: 5px; font-size: 0.8rem; font-weight: bold; animation-delay: 0.2s;">Paso 2</div>
+                                <div style="display: flex; align-items: center; color: #999;">➡</div>
+                                <div class="anim-float" style="width: 80px; height: 60px; background: #D04423; color: white; display: flex; justify-content: center; align-items: center; border-radius: 5px; font-size: 0.8rem; font-weight: bold; animation-delay: 0.4s;">Paso 3</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Coherencia -->
+        <div class="slide" id="slide-6">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>4. Coherencia Visual</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <h2 style="text-align: center; color: var(--color-purple-main); margin-bottom: 30px;">Evita el Efecto Frankenstein</h2>
+                
+                <div style="display: flex; gap: 40px; justify-content: center; align-items: stretch;">
+                    <!-- Frankenstein Card -->
+                    <div class="bullet-point rule-card warning" data-step="1">
+                        <span class="material-icons rule-icon" style="color: #ff9800;">warning</span>
+                        <div class="rule-title" style="color: #d35400;">Efecto Frankenstein</div>
+                        
+                        <div style="background: #fff3e0; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                            <h3 style="font-family: 'Times New Roman', serif; color: blue; margin: 5px 0;">Diapositiva 1</h3>
+                            <p style="font-family: 'Courier New', monospace; color: red; margin: 5px 0;">Diapositiva 2</p>
+                            <p style="font-family: 'Arial', sans-serif; color: green; font-weight: bold; margin: 5px 0;">Diapositiva 3</p>
+                        </div>
+                        <div style="font-size: 0.9rem; color: #666;">
+                            Mezclar fuentes y colores confunde a la audiencia y se ve amateur.
+                        </div>
+                    </div>
+
+                    <!-- Cinema Card -->
+                    <div class="bullet-point rule-card success" data-step="2">
+                        <span class="material-icons rule-icon" style="color: #2ecc71;">movie</span>
+                        <div class="rule-title" style="color: #27ae60;">Estilo de Cine</div>
+                        
+                        <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                            <div style="display: flex; gap: 5px; justify-content: center; margin-bottom: 10px;">
+                                <div style="width: 20px; height: 20px; background: #583586; border-radius: 50%;"></div>
+                                <div style="width: 20px; height: 20px; background: #76b82a; border-radius: 50%;"></div>
+                                <div style="width: 20px; height: 20px; background: #D04423; border-radius: 50%;"></div>
+                            </div>
+                            <div style="font-family: 'Montserrat', sans-serif; font-weight: 600; color: #333;">Tipografía Unificada</div>
+                        </div>
+                        
+                        <ul style="text-align: left; font-size: 0.9rem; color: #555; padding-left: 20px; margin: 0;">
+                            <li>Misma paleta de colores.</li>
+                            <li>Mismo tipo de letra.</li>
+                            <li>Imágenes consistentes.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: RESUMEN -->
+        <div class="slide" id="slide-7">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>Resumen de la Cápsula</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <h2 style="color: var(--color-purple-main); text-align: center; margin-bottom: 40px;">Tu Caja de Herramientas de Diseño</h2>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <div class="timeline-container">
+                        <div class="timeline-item bullet-point" data-step="1">
+                            <div class="timeline-badge t-purple"><span class="material-icons">image</span></div>
+                            <div class="timeline-line"></div>
+                            <div class="timeline-content"><strong>Imágenes:</strong> Usa "Imágenes de Archivo" para calidad.</div>
+                        </div>
+                        <div class="timeline-item bullet-point" data-step="2">
+                             <div class="timeline-badge t-green" style="background: linear-gradient(135deg, #4285F4 0%, #9B72CB 50%, #D96570 100%); color: white;"><span class="material-icons">auto_awesome</span></div>
+                            <div class="timeline-line"></div>
+                            <div class="timeline-content"><strong>Diseñador:</strong> Deja que la IA organice tu lámina.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-container">
+                        <div class="timeline-item bullet-point" data-step="3">
+                            <div class="timeline-badge t-slate"><span class="material-icons">account_tree</span></div>
+                            <div class="timeline-line"></div>
+                            <div class="timeline-content"><strong>SmartArt:</strong> Transforma listas en diagramas.</div>
+                        </div>
+                        <div class="timeline-item bullet-point" data-step="4">
+                            <div class="timeline-badge t-lime"><span class="material-icons">style</span></div>
+                            <div class="timeline-line"></div>
+                            <div class="timeline-content"><strong>Coherencia:</strong> Mantén un estilo visual unificado.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box bullet-point" data-step="5" style="margin-top: 30px; text-align: center; background: #e8f5e9; border-color: #4caf50;">
+                    <span class="material-icons" style="color: #4caf50; vertical-align: middle;">check_circle</span> <strong>¡Ahora tus presentaciones se ven profesionales!</strong>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: CIERRE -->
+        <div class="slide cover-layout" id="slide-8">
+             <div class="bg-pattern-dots"></div>
+            
+            <div class="logo-wrapper-cover" style="bottom: auto; top: -50px; right: -50px; transform: rotate(20deg);">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+             <div class="section-icon" style="font-size:6rem; margin-bottom:20px;">🎬</div>
+             <h1 class="cover-title">¡Diseño Listo!</h1>
+             <div class="cover-subtitle" style="margin-bottom: 20px;">Pasamos de texto plano a alto impacto visual.</div>
+             <div class="cover-pill" style="background: var(--color-purple-main); color: white;">Próxima Cápsula: Movimiento y Transiciones</div>
+             
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- CONTROLES -->
+        <div class="controls">
+            <button class="nav-btn" onclick="prevSlide()" hidden>❮ Anterior</button>
+            <button class="nav-btn" onclick="nextSlide()" hidden>Siguiente ❯</button>
+        </div>
+        <div class="progress-bar" id="progressBar"></div>
+
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

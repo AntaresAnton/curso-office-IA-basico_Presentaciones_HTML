@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Evaluación Módulo 3: Excel Básico + IA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-purple-main: #583586;
+            --color-purple-mid: #6d4c94;
+            --color-purple-light: #8f6bb3;
+            --color-purple-dark: #4a276b;
+            --color-green-main: #76b82a;
+            --color-green-lime: #9ccb3b;
+            --color-green-slate: #7a9483;
+            --color-neutral-white: #ffffff;
+            --color-neutral-light: #f4f4f4;
+            --color-neutral-gray: #d1d1d1;
+            --color-neutral-dark: #333333;
+            --font-primary: 'Montserrat', sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 0; font-family: var(--font-primary); background-color: #000; color: var(--color-neutral-dark); overflow: hidden; }
+
+        /* Container principal 16:9 */
+        #presentation-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: var(--color-neutral-white);
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        /* Slides */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 60px;
+            z-index: 1;
+        }
+        .slide.active { opacity: 1; visibility: visible; z-index: 2; }
+
+        /* Header Corporativo */
+        .corp-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 10;
+        }
+        .logo-area { font-weight: 700; font-size: 24px; color: var(--color-purple-main); display: flex; align-items: center; gap: 10px; }
+        .logo-img { height: 50px; }
+        .module-tag { background-color: var(--color-green-main); color: white; padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: 600; text-transform: uppercase; }
+
+        /* Footer y Decoración */
+        .deco-strip {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            display: flex;
+            z-index: 10;
+        }
+        .segment { height: 100%; transform: skewX(-40deg); margin-right: 4px; }
+        .seg-fill { flex-grow: 1; background-color: var(--color-purple-main); }
+        .seg-1 { width: 20px; background-color: var(--color-purple-light); }
+        .seg-2 { width: 20px; background-color: var(--color-green-slate); }
+        .seg-3 { width: 40px; background-color: var(--color-green-lime); }
+        .seg-end { width: 20%; background-color: var(--color-green-main); }
+
+        /* Títulos y Textos */
+        h1 { font-size: 48px; color: var(--color-purple-main); margin-bottom: 20px; font-weight: 800; line-height: 1.2; }
+        h2 { font-size: 36px; color: var(--color-green-main); margin-bottom: 30px; font-weight: 700; }
+        p { font-size: 24px; line-height: 1.5; margin-bottom: 20px; color: var(--color-neutral-dark); max-width: 90%; }
+        
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; height: 100%; align-items: center; }
+        .full-center { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; }
+
+        /* Elementos Específicos */
+        .quiz-card {
+            background: white;
+            border-left: 6px solid var(--color-purple-main);
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-radius: 0 8px 8px 0;
+        }
+        .quiz-question { color: var(--color-purple-dark); font-weight: 700; font-size: 20px; margin-bottom: 5px; display: block; }
+        .quiz-answer { color: var(--color-green-main); font-weight: 600; font-size: 18px; display: block; margin-top: 5px; }
+        
+        .activity-list { list-style: none; padding: 0; }
+        .activity-item {
+            background-color: var(--color-neutral-light);
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+        }
+        .activity-icon { margin-right: 15px; font-size: 24px; }
+
+        .section-intro {
+            background-color: var(--color-purple-main);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .section-intro h2 { color: white; margin-bottom: 10px; }
+
+        /* Navegación */
+        .nav-controls {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            display: flex;
+            gap: 20px;
+            z-index: 20;
+        }
+        .nav-btn {
+            background-color: var(--color-purple-main);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .nav-btn:hover { transform: scale(1.1); background-color: var(--color-purple-mid); }
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 5px;
+            background-color: var(--color-green-main);
+            z-index: 30;
+            transition: width 0.3s;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container">
+        <!-- Header Fijo -->
+        <div class="corp-header">
+            <div class="logo-area">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-img">
+                <span>OTEC El Bosque</span>
+            </div>
+            <div class="module-tag">Módulo 3: Excel Básico</div>
+        </div>
+
+        <!-- Slide 1: Título -->
+        <div class="slide active" id="slide1">
+            <div class="full-center">
+                <div style="font-size: 80px; margin-bottom: 20px;">📝</div>
+                <h2>Evaluación y Práctica</h2>
+                <h1>Módulo 3: Excel Básico + IA</h1>
+                <p style="font-size: 28px; color: var(--color-purple-mid);">Reflexión, Quizzes y Proyecto Final</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Reflexión Intro -->
+        <div class="slide" id="slide2">
+            <div class="full-center">
+                <div class="section-intro">
+                    <div style="font-size: 60px;">🤔</div>
+                    <h2>1. Preguntas de Reflexión</h2>
+                    <p style="color: white;">Analicemos lo aprendido en grupo.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Reflexión Bloques 1-2 -->
+        <div class="slide" id="slide3">
+            <div class="content-grid">
+                <div>
+                    <h2>Bloque 1: Introducción</h2>
+                    <ul class="activity-list">
+                        <li class="activity-item">¿Diferencia entre Hoja y Libro?</li>
+                        <li class="activity-item">¿Por qué usar encabezados claros?</li>
+                        <li class="activity-item">¿Cómo ayuda la IA con conceptos básicos?</li>
+                    </ul>
+                </div>
+                <div>
+                    <h2>Bloque 2: Formato</h2>
+                    <ul class="activity-list">
+                        <li class="activity-item">¿Cómo influye el formato en la claridad?</li>
+                        <li class="activity-item">¿Por qué alinear texto izq / números der?</li>
+                        <li class="activity-item">¿Ventajas de la Tabla Inteligente?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Reflexión Bloques 3-4 -->
+        <div class="slide" id="slide4">
+            <div class="content-grid">
+                <div>
+                    <h2>Bloque 3: Fórmulas</h2>
+                    <ul class="activity-list">
+                        <li class="activity-item">¿Fórmula más útil en tu día a día?</li>
+                        <li class="activity-item">¿Diferencia CONTAR vs CONTARA?</li>
+                        <li class="activity-item">¿Cómo ayuda la IA a crear fórmulas?</li>
+                    </ul>
+                </div>
+                <div>
+                    <h2>Bloque 4: Análisis</h2>
+                    <ul class="activity-list">
+                        <li class="activity-item">¿Qué valor aporta filtrar datos?</li>
+                        <li class="activity-item">¿Riesgos de ordenar sin seleccionar todo?</li>
+                        <li class="activity-item">¿Análisis más interesante con IA?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Quizzes Intro -->
+        <div class="slide" id="slide5">
+            <div class="full-center">
+                <div class="section-intro" style="background-color: var(--color-green-main);">
+                    <div style="font-size: 60px;">🎯</div>
+                    <h2>2. Quizzes de Conocimiento</h2>
+                    <p style="color: white;">Demuestra lo que sabes.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Quiz Bloque 1 -->
+        <div class="slide" id="slide6">
+            <h2>Quiz: Estructura Básica</h2>
+            <div class="quiz-card">
+                <span class="quiz-question">1. ¿Qué es una celda en Excel?</span>
+                <span class="quiz-answer">R: Intersección fila/columna</span>
+            </div>
+            <div class="quiz-card">
+                <span class="quiz-question">2. ¿Cuál NO es un tipo de dato en Excel?</span>
+                <span class="quiz-answer">R: Imagen vectorial</span>
+            </div>
+            <div class="quiz-card">
+                <span class="quiz-question">3. Todas las fórmulas comienzan con:</span>
+                <span class="quiz-answer">R: = (Signo igual)</span>
+            </div>
+        </div>
+
+        <!-- Slide 7: Quiz Bloque 2 -->
+        <div class="slide" id="slide7">
+            <h2>Quiz: Formato y Tablas</h2>
+            <div class="quiz-card">
+                <span class="quiz-question">1. ¿Por qué evitar colores muy intensos?</span>
+                <span class="quiz-answer">R: Dificultan la lectura</span>
+            </div>
+            <div class="quiz-card">
+                <span class="quiz-question">2. ¿Qué función tiene convertir una lista en tabla?</span>
+                <span class="quiz-answer">R: Agrega filtros y estilos automáticos</span>
+            </div>
+            <div class="quiz-card">
+                <span class="quiz-question">3. ¿Cómo se ajusta el ancho de columna?</span>
+                <span class="quiz-answer">R: Doble clic entre letras de columna</span>
+            </div>
+        </div>
+
+        <!-- Slide 8: Quiz Bloque 3 -->
+        <div class="slide" id="slide8">
+            <h2>Quiz: Fórmulas</h2>
+            <div class="quiz-card">
+                <span class="quiz-question">1. ¿Qué fórmula suma un rango?</span>
+                <span class="quiz-answer">R: =SUMA()</span>
+            </div>
+            <div class="quiz-card">
+                <span class="quiz-question">2. ¿Qué hace la fórmula CONTARA?</span>
+                <span class="quiz-answer">R: Cuenta celdas NO vacías</span>
+            </div>
+            <div class="quiz-card">
+                <span class="quiz-question">3. ¿Qué fórmula muestra el valor menor?</span>
+                <span class="quiz-answer">R: =MIN()</span>
+            </div>
+        </div>
+
+        <!-- Slide 9: Quiz Bloque 4 -->
+        <div class="slide" id="slide9">
+            <h2>Quiz: Filtros y Análisis</h2>
+            <div class="quiz-card">
+                <span class="quiz-question">1. ¿Qué permite hacer el filtro?</span>
+                <span class="quiz-answer">R: Mostrar solo datos que cumplen una condición</span>
+            </div>
+            <div class="quiz-card">
+                <span class="quiz-question">2. ¿Qué sucede si ordenas sin seleccionar toda la tabla?</span>
+                <span class="quiz-answer">R: Las filas se desalinean (datos corruptos)</span>
+            </div>
+            <div class="quiz-card">
+                <span class="quiz-question">3. ¿Qué es un análisis descriptivo?</span>
+                <span class="quiz-answer">R: Analizar patrones existentes en los datos</span>
+            </div>
+        </div>
+
+        <!-- Slide 10: Quiz Bloque 5 -->
+        <div class="slide" id="slide10">
+            <h2>Quiz: Reporte Final</h2>
+            <div class="quiz-card">
+                <span class="quiz-question">1. ¿Por qué exportar a PDF?</span>
+                <span class="quiz-answer">R: Documento fijo y profesional</span>
+            </div>
+            <div class="quiz-card">
+                <span class="quiz-question">2. ¿Mejor gráfico para evolución temporal?</span>
+                <span class="quiz-answer">R: Línea con marcadores</span>
+            </div>
+            <div class="quiz-card">
+                <span class="quiz-question">3. ¿Aporte principal de la IA en el reporte?</span>
+                <span class="quiz-answer">R: Analizar datos y redactar conclusiones</span>
+            </div>
+        </div>
+
+        <!-- Slide 11: Actividades Prácticas -->
+        <div class="slide" id="slide11">
+            <div class="full-center">
+                <div class="section-intro" style="background-color: var(--color-purple-dark);">
+                    <div style="font-size: 60px;">🧪</div>
+                    <h2>3. Actividades Prácticas</h2>
+                    <p style="color: white;">¡Manos a la obra!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Lista de Actividades -->
+        <div class="slide" id="slide12">
+            <h2>Lista de Tareas</h2>
+            <ul class="activity-list">
+                <li class="activity-item"><span class="activity-icon">🟩</span> 1. Construcción de Hoja Profesional (20 registros)</li>
+                <li class="activity-item"><span class="activity-icon">🟦</span> 2. Análisis de Patrón (Filtros y Orden)</li>
+                <li class="activity-item"><span class="activity-icon">🟨</span> 3. Fórmulas Esenciales (SUMA, PROMEDIO, etc.)</li>
+                <li class="activity-item"><span class="activity-icon">🟪</span> 4. Gráficos (Categoría y Tiempo)</li>
+                <li class="activity-item"><span class="activity-icon">🟥</span> 5. Informe Final con IA (Exportar PDF)</li>
+            </ul>
+        </div>
+
+        <!-- Slide 13: Cierre -->
+        <div class="slide" id="slide13">
+            <div class="full-center">
+                <div style="font-size: 100px;">🏆</div>
+                <h2>¡Evaluación Completada!</h2>
+                <p>Has demostrado tus conocimientos en Excel Básico e IA.</p>
+                <div style="margin-top: 30px; font-size: 20px; color: var(--color-green-slate);">
+                    Próximo paso: Módulo 4 - PowerPoint Básico
+                </div>
+            </div>
+        </div>
+
+        <!-- Decoración Footer -->
+        <div class="deco-strip">
+            <div class="segment seg-fill"></div>
+            <div class="segment seg-1"></div>
+            <div class="segment seg-2"></div>
+            <div class="segment seg-3"></div>
+            <div class="segment seg-end"></div>
+        </div>
+
+        <!-- Controles -->
+        <div class="nav-controls">
+            <button class="nav-btn" onclick="prevSlide()">&#8592;</button>
+            <button class="nav-btn" onclick="nextSlide()">&#8594;</button>
+        </div>
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('progressBar');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+            updateProgress();
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentSlide + 1) / slides.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Inicializar
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guion Técnico - Cápsula 2.1: Introducción a Word + IA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           TOKENS DE DISEÑO (SISTEMA ATÓMICO)
+           ========================================= */
+        :root {
+            --color-purple-main: #583586;
+            --color-purple-mid: #6d4c94;
+            --color-purple-light: #8f6bb3;
+            --color-purple-dark: #4a276b;
+            
+            --color-green-main: #76b82a;
+            --color-green-lime: #9ccb3b;
+            --color-green-slate: #7a9483;
+            
+            --color-neutral-white: #ffffff;
+            --color-neutral-light: #f4f4f4;
+            --color-neutral-gray: #d1d1d1;
+            --color-neutral-dark: #333333;
+
+            --font-primary: 'Montserrat', sans-serif;
+            --skew-angle: -40deg;
+        }
+
+        /* =========================================
+           CONFIGURACIÓN DE PÁGINA (IMPRIMIBLE)
+           ========================================= */
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: #525659;
+            font-family: var(--font-primary);
+            margin: 0;
+            padding: 20px;
+            color: var(--color-neutral-dark);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px auto;
+            padding: 15mm 20mm;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media print {
+            body { background: none; padding: 0; }
+            .page { width: 100%; margin: 0; box-shadow: none; border: none; min-height: auto; page-break-after: always; }
+            .page:last-child { page-break-after: auto; }
+        }
+
+        /* =========================================
+           COMPONENTES
+           ========================================= */
+        
+        /* Header */
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--color-green-main);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .header-info h1 {
+            font-size: 18pt;
+            color: var(--color-purple-main);
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .header-info h2 {
+            font-size: 10pt;
+            color: var(--color-green-slate);
+            margin: 5px 0 0 0;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .logo-simple {
+            width: 100px;
+            height: auto;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+        
+        .deco-strip {
+            display: flex;
+            height: 15px;
+            overflow: hidden;
+            width: 100%;
+        }
+        .deco-strip .segment {
+            height: 100%;
+            transform: skewX(var(--skew-angle));
+            margin-right: 4px;
+        }
+        .deco-strip .seg-fill { flex-grow: 1; }
+        .deco-strip .seg-sm { width: 15px; }
+        .deco-strip .seg-md { width: 30px; }
+        .deco-strip .seg-start { margin-left: -10px; padding-left: 10px; }
+        .deco-strip .seg-end { margin-right: -10px; padding-right: 10px; }
+
+        .footer-text {
+            text-align: right;
+            font-size: 8pt;
+            color: var(--color-green-slate);
+            margin-top: 5px;
+        }
+
+        /* Contenido */
+        .script-meta {
+            background-color: var(--color-neutral-light);
+            border-left: 4px solid var(--color-purple-main);
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 10pt;
+        }
+
+        .script-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 12pt;
+            color: var(--color-purple-main);
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--color-neutral-gray);
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cue-block {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            font-size: 10pt;
+        }
+
+        .cue-tech {
+            flex: 0 0 120px;
+            font-size: 8pt;
+            font-weight: 600;
+            color: var(--color-green-slate);
+            text-transform: uppercase;
+            padding-top: 3px;
+        }
+
+        .cue-tech strong {
+            display: block;
+            color: var(--color-purple-mid);
+            margin-bottom: 2px;
+        }
+
+        .cue-dialogue {
+            flex: 1;
+            line-height: 1.5;
+            color: var(--color-neutral-dark);
+        }
+
+        .cue-dialogue p { margin: 0 0 10px 0; }
+
+        /* Prompt Box */
+        .prompt-box {
+            background-color: #f0f7ff;
+            border: 1px dashed var(--color-purple-light);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 9pt;
+            color: var(--color-purple-dark);
+        }
+        .prompt-label {
+            font-weight: bold;
+            color: var(--color-purple-main);
+            display: block;
+            margin-bottom: 5px;
+            font-family: var(--font-primary);
+            font-size: 8pt;
+            text-transform: uppercase;
+        }
+
+        /* Listas */
+        ul { margin: 0 0 10px 20px; padding: 0; }
+        li { margin-bottom: 4px; }
+
+    </style>
+</head>
+<body>
+
+    <!-- PÁGINA 1 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <div class="script-meta">
+                <h3 style="margin: 0 0 10px 0; color: var(--color-purple-main);">🎥 CÁPSULA 2.1 – Introducción a Word + Borrador con IA</h3>
+                <div><strong>Duración estimada:</strong> 10–12 minutos</div>
+                <div><strong>Herramientas:</strong> Microsoft Word, Copilot Web</div>
+                <div><strong>Objetivo:</strong> Crear borradores profesionales desde cero usando IA.</div>
+            </div>
+
+            <!-- SECCIÓN 0 -->
+            <div class="script-section">
+                <div class="section-title">👋 0. Presentación del Instructor (00:00 – 01:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Plano Medio<br>
+                        Tono Cercano
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>¡Hola a todas y todos! Soy <strong>Patricio Quintanilla</strong>, su profesor en este curso de <strong>Alfabetización Digital: Office Básico con Inteligencia Artificial</strong>.</p>
+                        
+                        <p>Mi trabajo es ayudarles a perder el miedo al computador. Quiero que aprendan a usar Word para escribir cartas, informes o lo que necesiten, de forma fácil y rápida.</p>
+
+                        <p style="color: var(--color-purple-main); font-weight: bold;">[NOTA TÉCNICA: Insertar FOTOGRAFÍA DEL INSTRUCTOR aquí (00:13 - 02:28)]</p>
+                        <p style="color: var(--color-purple-main); font-weight: bold;">[NOTA TÉCNICA: Mostrar breve RESUMEN VISUAL del Módulo 1 (Outlook + IA) para conectar temas]</p>
+                        <p style="color: red; font-weight: bold;">[PRECAUCIÓN: Cuidar el movimiento del mouse para no marear al espectador]</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 1 -->
+            <div class="script-section">
+                <div class="section-title">📘 1. ¿Qué es Word y para qué sirve? (01:30 – 03:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Tono Amable
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Mucha gente usa Word solo para escribir, pero es mucho más que eso. Imaginen que Word es como una imprenta en su casa.</p>
+                        <p>Sirve para hacer de todo: una carta para el municipio, un currículum para buscar trabajo, o un informe para el jefe. Lo importante es que quede ordenado y bonito.</p>
+                        <p>Hoy vamos a aprender a usarlo desde cero. Olvídense del miedo a "apretar algo mal". Aquí nada se rompe.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2 -->
+            <div class="script-section">
+                <div class="section-title">📄 2. Las partes de un documento (03:00 – 05:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Esquema Simple
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Antes de escribir, pensemos en cómo armar nuestro texto. Es como construir una casa, necesitamos un plano:</p>
+                        <ol>
+                            <li><strong>Título:</strong> Es el techo. Tiene que ser grande y claro para que se sepa de qué se trata.</li>
+                            <li><strong>Subtítulos:</strong> Son las habitaciones. Separan los temas para no mezclar todo.</li>
+                            <li><strong>Párrafos:</strong> Son los muebles. Textos cortos y fáciles de leer. Nada de "ladrillos" de texto.</li>
+                            <li><strong>Imágenes:</strong> Son la decoración. Ayudan a que se vea bonito y se entienda mejor.</li>
+                        </ol>
+                        <p>Con esto claro, vamos a pedirle ayuda a nuestra "amiga inteligente" para empezar.</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 1 de 3 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+    <!-- PÁGINA 2 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <!-- SECCIÓN 3 -->
+            <div class="script-section">
+                <div class="section-title">🤖 3. Copilot Web: Tu secretario virtual (05:00 – 06:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Copilot Web
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>A veces nos quedamos mirando la hoja en blanco sin saber qué poner. Para eso usaremos <strong>Copilot</strong>, que es como tener un secretario al lado.</p>
+                        <p>Vamos a abrir internet (Chrome o Edge) y entramos a <strong>copilot.microsoft.com</strong>. Es la misma página que vimos antes.</p>
+                        <p>La idea no es que la máquina haga todo, sino que nos dé un primer borrador. Así no partimos de cero. Nosotros somos los jefes que revisan y arreglan lo que escribe.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 4 -->
+            <div class="script-section">
+                <div class="section-title">✍️ 4. Crear el primer borrador (06:30 – 10:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Escribiendo
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Hagamos un ejercicio. Supongamos que tienen un negocio, por ejemplo, de pastelería, y quieren ofrecer sus servicios. Escribir eso toma tiempo, ¿cierto? Pidámosle ayuda a Copilot.</p>
+                        <p>En la cajita de abajo, donde dice "Pregúntame cualquier cosa", vamos a escribir una instrucción clara. Escriban esto:</p>
+                        <div class="prompt-box">
+                            <span class="prompt-label">🧩 INSTRUCCIÓN: BORRADOR SIMPLE</span>
+                            Hola, necesito escribir una presentación para mi negocio de [Tu Rubro, ej: Pastelería].<br>
+                            Por favor escribe un borrador que tenga:<br>
+                            1. Un título bonito.<br>
+                            2. Un saludo a los vecinos.<br>
+                            3. Una lista de lo que vendo.<br>
+                            4. Un cierre invitando a comprar.<br>
+                            Usa palabras sencillas y amables.
+                        </div>
+                        <p>Presionen la tecla <strong>Enter</strong> y miren. Copilot escribirá el texto por ustedes en segundos. ¡Ya tienen la base lista!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 5 -->
+            <div class="script-section">
+                <div class="section-title">✏️ 5. Cambiar el tono (10:00 – 12:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Ajustes
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Lean lo que escribió. ¿Les gusta? A veces puede sonar muy "tieso", como abogado, o muy relajado.</p>
+                        <p>Si no les convence, pueden conversar con ella. Escriban abajo:</p>
+                        <div class="prompt-box">
+                            <span class="prompt-label">🤝 INSTRUCCIÓN: MÁS CARIÑOSO</span>
+                            Está bueno, pero escríbelo de nuevo con más cariño, como para mis vecinos.
+                        </div>
+                        <p>O al revés:</p>
+                        <div class="prompt-box">
+                            <span class="prompt-label">🎚️ INSTRUCCIÓN: MÁS SERIO</span>
+                            Hazlo más serio, es para enviarlo a una empresa grande.
+                        </div>
+                        <p>Ustedes mandan. Pídanle cambios hasta que quede como ustedes quieren.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 6 -->
+            <div class="script-section">
+                <div class="section-title">📥 6. Llevar el texto a Word (12:00 – 13:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Word
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Ahora que tenemos el texto listo en internet, vamos a pasarlo a Word.</p>
+                        <ol>
+                            <li>Con el mouse, seleccionen el texto que hizo Copilot (clic y arrastren hasta que quede azul).</li>
+                            <li>Hagan clic derecho sobre lo azul y elijan <strong>"Copiar"</strong>.</li>
+                            <li>Abran <strong>Word</strong> y elijan "Documento en blanco".</li>
+                            <li>En la hoja blanca, clic derecho y busquen la letra "A" que dice <strong>"Mantener solo texto"</strong>. Así evitamos que se peguen colores raros.</li>
+                        </ol>
+                        <p>¡Listo! Ya está en Word. Ahora, lo más importante: <strong>Guardar</strong>. Arriba a la izquierda, clic en el disquete. Pónganle un nombre fácil, como "Mi Presentación", y guárdenlo en el Escritorio.</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 2 de 3 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+    <!-- PÁGINA 3 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <!-- SECCIÓN 7 -->
+            <div class="script-section">
+                <div class="section-title">🧭 7. Consejos de Oro (13:30 – 17:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Consejos
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Para terminar, les dejo unos consejos muy importantes al usar la IA:</p>
+                        <ul>
+                            <li><strong>Revisar siempre:</strong> Nunca copien y peguen sin leer. La IA a veces se equivoca o inventa cosas. Ustedes son los responsables.</li>
+                            <li><strong>Ponle de tu cosecha:</strong> Si la IA usa palabras raras que tú nunca dirías, cámbialas. El texto tiene que sonar a ti.</li>
+                            <li><strong>No exagerar:</strong> A veces la IA es muy "florero" y usa palabras como "increíble" o "maravilloso" muchas veces. Bájale el tono si es necesario.</li>
+                            <li><strong>Datos reales:</strong> Revisa que los nombres, teléfonos y direcciones sean los correctos.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 8 -->
+            <div class="script-section">
+                <div class="section-title">🔚 8. Cierre de la Cápsula 2.1 (17:00 – 18:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Cierre
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>¡Excelente trabajo! Ya dimos el primer paso. Ya no tenemos una hoja en blanco, sino un borrador listo para trabajar.</p>
+                        <p>Pero esto es solo el comienzo. Ese texto plano que tenemos ahora necesita vida, necesita verse bonito.</p>
+                        <p>En la próxima clase, vamos a aprender a "vestir" nuestro texto. Aprenderemos a usar los botones mágicos de Word para que se vea profesional. ¡Nos vemos!</p>
+                        <p style="color: var(--color-purple-main); font-weight: bold;">[NOTA TÉCNICA: Finalizar con PPT de Inicio + Logo "Programa Tú Puedes"]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 20px; background: var(--color-green-main); color: white; text-align: center; font-weight: bold; border-radius: 8px;">
+                📦 FIN DEL BLOQUE 1 (MÓDULO 2)
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 3 de 3 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+</body>
+</html>

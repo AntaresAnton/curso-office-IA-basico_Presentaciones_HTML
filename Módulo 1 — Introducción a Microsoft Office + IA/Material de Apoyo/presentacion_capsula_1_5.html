@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Cápsula 2.5 - Seguridad Digital</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Consolas&display=swap" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos Corporativos -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos Específicos para Seguridad (Extensions) */
+        .security-badge { 
+            padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; 
+            text-transform: uppercase; display: inline-block; margin-bottom: 5px;
+            display: inline-flex; align-items: center; gap: 5px;
+        }
+        .sec-risk { background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
+        .sec-safe { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+        
+        .browser-bar { 
+            background: #f1f3f4; padding: 10px; border-radius: 20px; 
+            display: flex; align-items: center; border: 1px solid #ddd;
+            width: 100%; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .url-box { 
+            background: white; border-radius: 15px; padding: 5px 15px; flex-grow: 1; 
+            font-family: 'Consolas', monospace; color: #202124; display: flex; align-items: center;
+        }
+        .lock-icon { color: #1a73e8; margin-right: 8px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div id="presentation-container">
+        <!-- Logo Institucional -->
+        <img src="../../../tu puedes logo.png" class="logo-overlay" alt="Logo Institucional">
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide cover-layout active" id="slide-1">
+            <div class="bg-pattern-dots"></div>
+            <!-- Top Bar -->
+            <div class="deco-strip" style="position: absolute; top: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-pill">Cápsula 2.5</div>
+            <h1 class="cover-title">Alfabetización Digital:<br><span>Office Básico + IA</span></h1>
+            <div class="cover-subtitle">Fundamentos de Seguridad Digital</div>
+            
+            <div style="margin-top: 30px; font-weight: 600; color: var(--color-neutral-dark);">
+                Programa Tú Puedes - 2026
+            </div>
+
+            <div class="logo-wrapper-cover">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: SEPARADOR 1 -->
+        <div class="slide slide-section" id="slide-2">
+            <div class="bg-pattern-dots" style="opacity: 0.1;"></div>
+            <div class="deco-circle"></div>
+             
+             <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 01</span>
+                    <div class="section-title-text">Tus Activos<br>Digitales</div>
+                </div>
+                <div class="section-number-giant">01</div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: QUE PROTEGEMOS -->
+        <div class="slide" id="slide-3">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>¿Qué Protegemos?</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="font-size: 1.3rem; margin-bottom: 30px;">No son "solo datos". Es tu vida.</p>
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple"><span class="material-icons">fingerprint</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Tu Identidad:</strong> Evita la suplantación. Nadie quiere que pidan créditos a su nombre.</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green"><span class="material-icons">work</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Tu Trabajo:</strong> Documentos, proyectos y correos de tu emprendimiento o empleo.</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-slate"><span class="material-icons">account_balance_wallet</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Tu Dinero:</strong> Acceso a cuentas bancarias y billeteras digitales.</div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <span class="material-icons anim-pulse" style="font-size: 10rem; color: var(--color-green-main); filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));">security</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: SEPARADOR 2 -->
+        <div class="slide slide-section" id="slide-4">
+             <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 02</span>
+                    <div class="section-title-text">Contraseñas<br>vs Frases</div>
+                </div>
+                <div class="section-number-giant">02</div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: FRASES DE SEGURIDAD -->
+        <div class="slide" id="slide-5">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Del Caos a la Frase</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <!-- Bad Example -->
+                    <div class="col-media bullet-point">
+                        <div class="app-window" style="width: 100%;">
+                            <div class="app-header" style="background: #ffebee;">
+                                <div class="app-controls"><div class="win-btn close"></div><div class="win-btn min"></div></div>
+                                <div class="app-title" style="color:#c62828;">❌ Contraseña Débil</div>
+                            </div>
+                            <div class="app-body" style="text-align:center;">
+                                <div style="font-size: 2rem; font-family: 'Consolas'; margin-bottom: 10px; color: #c62828;">P@ssw0rd123</div>
+                                <p style="color: #666;">Difícil de recordar,<br>fácil de hackear (segundos).</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="font-size: 3rem; color: #ccc;" class="anim-bounce-right"><span class="material-icons mi-lg">arrow_forward</span></div>
+
+                    <!-- Good Example -->
+                    <div class="col-media bullet-point">
+                         <div class="app-window" style="width: 100%;">
+                            <div class="app-header" style="background: #e8f5e9;">
+                                <div class="app-controls"><div class="win-btn close"></div><div class="win-btn min"></div></div>
+                                <div class="app-title" style="color:#2e7d32;">✅ Frase de Seguridad</div>
+                            </div>
+                            <div class="app-body" style="text-align:center;">
+                                <div style="font-size: 2.5rem; font-family: 'Consolas'; margin-bottom: 10px; color: #2e7d32; font-weight: bold;">Caballo-Batería-Grapa-Correcta</div>
+                                <p style="color: #666;">Fácil de recordar,<br>difícil de hackear (años).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <div class="highlight-box" style="display:inline-block; border-left:none; border-top: 5px solid var(--color-purple-main); box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                        💡 <strong>Tip:</strong> Piensa en una escena absurda o una canción.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: 2FA -->
+        <div class="slide" id="slide-6">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Doble Factor (2FA)</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <h3>¿Por qué activarlo?</h3>
+                        <p style="margin-bottom: 20px;">Si roban tu contraseña, el ladrón sigue bloqueado sin tu teléfono.</p>
+                        <div class="timeline-container">
+                            <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-slate">1</div>
+                                <div class="timeline-content">Ingresas tu contraseña.</div>
+                            </div>
+                            <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green">2</div>
+                                <div class="timeline-content">Tu celular te pregunta: <strong>"¿Eres tú?"</strong></div>
+                            </div>
+                            <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple">3</div>
+                                <div class="timeline-content">Apruebas y entras.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                         <!-- Simulacion Celular Notificacion -->
+                         <div style="background: #333; border-radius: 30px; padding: 15px; width: 280px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); border: 5px solid #111;">
+                            <div style="background: white; border-radius: 20px; height: 450px; overflow: hidden; position: relative;">
+                                <div style="background: #f1f3f4; padding: 20px 15px; border-bottom: 1px solid #ddd;">
+                                    <div style="font-size: 0.8rem; color: #666;">Ahora</div>
+                                </div>
+                                <!-- Notificacion -->
+                                <div style="margin: 20px 10px; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-left: 5px solid #4285f4;">
+                                    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 5px;">
+                                        <i class="fa-brands fa-google" style="font-size: 1.2rem;"></i>
+                                        <strong style="font-size: 0.9rem;">Google</strong>
+                                    </div>
+                                    <div style="font-size: 0.9rem; margin-bottom: 10px;">¿Estás intentando iniciar sesión?</div>
+                                    <div style="display: flex; gap: 10px;">
+                                        <div style="flex: 1; text-align: center; padding: 8px; background: #e8f0fe; color: #1967d2; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">No soy yo</div>
+                                        <div style="flex: 1; text-align: center; padding: 8px; background: #1967d2; color: white; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">Sí, soy yo</div>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: SEPARADOR 3 -->
+        <div class="slide slide-section" id="slide-7">
+             <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 03</span>
+                    <div class="section-title-text">Phishing:<br>El Anzuelo</div>
+                </div>
+                <div class="section-number-giant">03</div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: PHISHING EMAIL -->
+        <div class="slide" id="slide-8">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Detecta las Mentiras</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-media" style="flex: 2;">
+                        <div class="app-window" style="border: 2px solid #d32f2f;">
+                             <div class="app-header" style="background: #ffebee;">
+                                <div class="app-controls"><div class="win-btn close"></div><div class="win-btn min"></div><div class="win-btn max"></div></div>
+                                <div class="app-title" style="color: #d32f2f;">URGENTE: Su cuenta será bloqueada</div>
+                            </div>
+                            <div class="app-body" style="padding: 25px;">
+                                <!-- Header Email -->
+                                <div style="display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                                    <div style="width: 40px; height: 40px; background: #ddd; border-radius: 50%; margin-right: 15px; display:flex; align-items:center; justify-content:center;">
+                                        <span class="material-icons" style="color:#555">account_balance</span>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: bold;">Soporte Banco <span style="color: red; font-size: 0.8em;">(soporte@bancco-seguro.xyz)</span></div>
+                                        <div style="font-size: 0.8rem; color: #666;">Para: Tu</div>
+                                    </div>
+                                </div>
+                                <!-- Body -->
+                                <p style="margin-bottom: 20px;">Estimado cliente <strong><a href="#">[nombre genérico]</a></strong>,</p>
+                                <p>Hemos detectado actividad inusual. Debe confirmar sus datos <strong>INMEDIATAMENTE</strong> o perderá su cuenta en 2h.</p>
+                                <div style="text-align: center; margin: 30px 0;">
+                                    <button style="background: #d32f2f; color: white; border: none; padding: 12px 25px; font-size: 1rem; border-radius: 5px; cursor: pointer;">HAGA CLIC AQUÍ PARA RECUPERAR</button>
+                                </div>
+                                <p style="font-size: 0.8rem; color: #999;">Copyright 2023 Bancco.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-text" style="flex: 1;">
+                         <div class="timeline-container">
+                            <div class="timeline-item bullet-point">
+                                <div class="timeline-badge" style="background: #d32f2f;">1</div>
+                                <div class="timeline-content"><strong>Urgencia Falsa:</strong> "Inmediatamente", "Bloqueada".</div>
+                            </div>
+                            <div class="timeline-item bullet-point">
+                                <div class="timeline-badge" style="background: #d32f2f;">2</div>
+                                <div class="timeline-content"><strong>Remitente Raro:</strong> @bancco-seguro.xyz</div>
+                            </div>
+                            <div class="timeline-item bullet-point">
+                                <div class="timeline-badge" style="background: #d32f2f;">3</div>
+                                <div class="timeline-content"><strong>Enlace Sospechoso:</strong> No te lleva a la web real.</div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: NAVEGACION SEGURA -->
+        <div class="slide" id="slide-9">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Navegación Segura</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p style="font-size: 1.3rem; margin-bottom: 20px;">Antes de ingresar datos, busca el candado.</p>
+                
+                <div class="bullet-point" style="width: 100%;">
+                    <div class="browser-bar">
+                        <div style="display:flex; gap: 5px; margin-right: 15px;">
+                            <div style="width: 10px; height: 10px; border-radius: 50%; background: #ff5f56;"></div>
+                            <div style="width: 10px; height: 10px; border-radius: 50%; background: #ffbd2e;"></div>
+                        </div>
+                        <div style="color: #5f6368; margin-right: 15px;"><span class="material-icons" style="font-size:18px">refresh</span></div>
+                        <div class="url-box">
+                            <span class="material-icons lock-icon" style="color: green;">lock</span>
+                            <span style="color: green;">https://</span>www.bancoestado.cl
+                        </div>
+                        <div style="margin-left: 15px; color: #5f6368;"><span class="material-icons" style="font-size:18px">more_vert</span></div>
+                    </div>
+                    <div class="security-badge sec-safe"><span class="material-icons" style="font-size:16px">verified</span> SITIO SEGURO (HTTPS)</div>
+                </div>
+
+                <div class="bullet-point" style="width: 100%; opacity: 0.5;">
+                    <div class="browser-bar">
+                         <div style="display:flex; gap: 5px; margin-right: 15px;">
+                            <div style="width: 10px; height: 10px; border-radius: 50%; background: #ff5f56;"></div>
+                        </div>
+                        <div style="color: #5f6368; margin-right: 15px;"><span class="material-icons" style="font-size:18px">refresh</span></div>
+                        <div class="url-box">
+                            <span class="material-icons lock-icon" style="color: red;">lock_open</span>
+                            <span style="color: red;">http://</span>www.ganaste-premio.com
+                        </div>
+                    </div>
+                     <div class="security-badge sec-risk"><span class="material-icons" style="font-size:16px">warning</span> NO SEGURO (HTTP)</div>
+                </div>
+
+                <div class="activity-badge">⚡ Actividad: Revisa la URL de esta página</div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: SEPARADOR 4 -->
+        <div class="slide slide-section" id="slide-10">
+             <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 04</span>
+                    <div class="section-title-text">Respaldo<br>y Ayuda IA</div>
+                </div>
+                <div class="section-number-giant">04</div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: COPIAS DE SEGURIDAD -->
+        <div class="slide" id="slide-11">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>La Nube es tu Amiga</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                 <div class="h-timeline">
+                    <div class="h-item bullet-point">
+                        <div class="h-badge"><i class="fa-brands fa-google-drive"></i></div>
+                        <div class="h-line"></div>
+                        <h3>Google Drive</h3>
+                        <p>15GB Gratis. Ideal para documentos personales.</p>
+                    </div>
+                    <div class="h-item bullet-point">
+                        <div class="h-badge"><i class="fa-brands fa-microsoft"></i></div>
+                        <div class="h-line"></div>
+                        <h3>OneDrive</h3>
+                        <p>Integrado en tu PC. Respalda Escritorio y Documentos.</p>
+                    </div>
+                    <div class="h-item bullet-point">
+                        <div class="h-badge"><span class="material-icons">cloud_upload</span></div>
+                        <h3>Automático</h3>
+                        <p>Configúralo una vez y olvídate. Si pierdes el PC, tus datos siguen ahí.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: PROMPT DETECTIVE -->
+        <div class="slide" id="slide-12">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Gemini Detective</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                 <div class="content-row">
+                    <div class="col-text">
+                        <p style="font-size: 1.2rem;">¿Duda de un correo? Pregúntale a la IA.</p>
+                        <div class="highlight-box">
+                            <strong>Nota:</strong> Nunca pegues contraseñas reales ni datos bancarios en el chat. Solo el texto del correo sospechoso.
+                        </div>
+                    </div>
+                    <div class="col-media" style="flex:2.5;">
+                        <div class="app-window app-copilot">
+                             <div class="app-header">
+                                <div class="app-controls">
+                                    <div class="win-btn close"></div>
+                                    <div class="win-btn min"></div>
+                                    <div class="win-btn max"></div>
+                                </div>
+                                <div class="app-title">Chat con Gemini</div>
+                            </div>
+                            <div class="app-body">
+                                <div class="prompt-display" style="border:none; box-shadow:none; margin:0; background:transparent;">
+                                    "Analiza el siguiente texto de un correo que recibí y dime si tiene indicadores de ser phishing o estafa. Explica por qué."<br><br>
+                                    [Pegar texto del correo aquí]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: RESUMEN -->
+        <div class="slide" id="slide-13">
+             <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Resumen de Seguridad</h1></div>
+            </header>
+             <div class="content-body slide-content">
+                 <div class="timeline-container">
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-green"><span class="material-icons">vpn_key</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Usa Frases, no palabras:</strong> Más largas = Más seguras.</div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-purple"><span class="material-icons">smartphone</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Activa 2FA:</strong> Es el candado extra que protege tu cuenta.</div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-slate"><span class="material-icons">phishing</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Desconfía (Phishing):</strong> Si es "Urgente" y pide clics, duda.</div>
+                    </div>
+                     <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-lime"><span class="material-icons">smart_toy</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Consulta a Gemini:</strong> Tu copiloto de ciberseguridad.</div>
+                    </div>
+                 </div>
+             </div>
+        </div>
+
+        <!-- SLIDE 14: CIERRE -->
+         <div class="slide cover-layout" id="slide-14">
+             <div class="bg-pattern-dots"></div>
+             
+             <div class="logo-wrapper-cover" style="bottom: auto; top: -50px; right: -50px; transform: rotate(20deg);">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+             <!-- Content Directo -->
+             <div class="section-icon" style="font-size:6rem; margin-bottom:20px;">🛡️</div>
+             <h1 class="cover-title">¡Estás Protegido!</h1>
+             <div class="cover-subtitle" style="margin-bottom: 20px;"> Tarea: Activa hoy la verificación en dos pasos en tu correo principal.</div>
+             <div class="cover-pill" style="background: var(--color-purple-main); color: white;">Fin de la Cápsula 2.5</div>
+             
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-sm bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="nav-btn" onclick="prevSlide()" hidden>❮ Anterior</button>
+            <button class="nav-btn" onclick="nextSlide()" hidden>Siguiente ❯</button>
+        </div>
+        <div class="progress-bar" id="progressBar"></div>
+
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>

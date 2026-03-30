@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Cápsula 4.1 - Introducción a Excel</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Consolas&display=swap" rel="stylesheet">
+    <!-- Links Corporativos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="presentation-container">
+        
+        <!-- Logo Institucional -->
+        <img src="../../../tu puedes logo.png" class="logo-overlay" alt="Logo Institucional">
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide cover-layout active" id="slide-1">
+            <div class="bg-pattern-dots"></div>
+            <!-- Top Bar -->
+            <div class="deco-strip" style="position: absolute; top: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-pill">Cápsula 4.1</div>
+            <h1 class="cover-title">Alfabetización Digital:<br><span>Excel Básico + IA</span></h1>
+            <div class="cover-subtitle">Introducción a la Hoja de Cálculo</div>
+            
+            <div style="margin-top: 30px; font-weight: 600; color: var(--color-neutral-dark);">
+                Programa Tú Puedes - 2026
+            </div>
+
+            <div class="logo-wrapper-cover">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: SEPARADOR 1 -->
+        <div class="slide slide-section" id="slide-2">
+            <div class="bg-pattern-dots" style="opacity: 0.1;"></div>
+            <div class="deco-circle"></div>
+             <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 01</span>
+                    <div class="section-title-text">El Cuaderno<br>Inteligente</div>
+                    <div style="margin-top: 20px;">
+                        <span class="material-icons mi-lg anim-bounce-right" style="color: var(--color-green-lime);">table_view</span>
+                    </div>
+                </div>
+                <div class="section-number-giant">01</div>
+            </div>
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: INTRODUCCION A EXCEL -->
+        <div class="slide" id="slide-3">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>¿Qué es Excel?</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="margin-bottom: 30px; font-size: 1.3rem;">Olvídate de la calculadora y el lápiz.</p>
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green"><span class="material-icons">list_alt</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Listas Ordenadas:</strong> Compras, invitados, tareas, inventario.</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple"><span class="material-icons">calculate</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Cálculos Automáticos:</strong> Suma tus gastos o presupuestos sin errores.</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-slate"><span class="material-icons">auto_fix_high</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Magia Dinámica:</strong> Si cambias un número, el resultado final se actualiza solo.</div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                         <!-- Simulación Interfaz Excel -->
+                         <div class="app-window app-excel" style="width: 100%; max-width: 450px; transform: rotate(-2deg); box-shadow: -10px 10px 30px rgba(0,0,0,0.2);">
+                            <div class="app-header">
+                                <div class="app-controls"><div class="win-btn close"></div><div class="win-btn min"></div><div class="win-btn max"></div></div>
+                                <div class="app-title">Gastos_Marzo.xlsx - Excel</div>
+                            </div>
+                            <!-- Pestañas simuladas -->
+                            <div class="ribbon-bar">
+                                <span class="ribbon-tab active">Inicio</span>
+                                <span class="ribbon-tab">Insertar</span>
+                                <span class="ribbon-tab">Fórmulas</span>
+                            </div>
+                            <!-- Barra de Fórmulas -->
+                            <div style="background: #f3f2f1; padding: 5px; border-bottom: 1px solid #ddd; font-family: 'Segoe UI', sans-serif; font-size: 0.8rem; display: flex; align-items: center;">
+                                <div style="background: white; border: 1px solid #ccc; padding: 2px 5px; margin-right: 10px; width:40px; text-align:center;">C4</div>
+                                <div style="font-style: italic; color: #666; margin-right: 10px;">fx</div>
+                                <div style="background: white; border: 1px solid #ccc; flex-grow: 1; padding: 2px 5px;">=SUMA(C2:C3)</div>
+                            </div>
+                            <div class="app-body" style="padding: 0; background: white;">
+                                <!-- Cabecera Columnas -->
+                                <div style="display: flex; text-align: center; font-size: 0.8rem; background: #e6e6e6; border-bottom: 1px solid #ccc;">
+                                    <div style="width: 30px; border-right: 1px solid #ccc;"></div>
+                                    <div style="flex:1; border-right: 1px solid #ccc; padding: 5px;">A</div>
+                                    <div style="flex:1; border-right: 1px solid #ccc; padding: 5px;">B</div>
+                                    <div style="flex:1; border-right: 1px solid #ccc; padding: 5px; background: #d3f0e0; color: #217346; font-weight: bold;">C</div>
+                                </div>
+                                <!-- Filas -->
+                                <div style="display: flex; font-size: 0.9rem; border-bottom: 1px solid #eee;">
+                                    <div style="width: 30px; background: #e6e6e6; text-align: center; padding: 5px; border-bottom: 1px solid #ccc; font-size: 0.8rem;">1</div>
+                                    <div style="flex: 1; border-right: 1px solid #eee; padding: 5px; font-weight: bold;">Ítem</div>
+                                    <div style="flex: 1; border-right: 1px solid #eee; padding: 5px; font-weight: bold;">Mes</div>
+                                    <div style="flex: 1; border-right: 1px solid #eee; padding: 5px; font-weight: bold;">Monto</div>
+                                </div>
+                                <div style="display: flex; font-size: 0.9rem; border-bottom: 1px solid #eee;">
+                                    <div style="width: 30px; background: #e6e6e6; text-align: center; padding: 5px; border-bottom: 1px solid #ccc; font-size: 0.8rem;">2</div>
+                                    <div style="flex: 1; border-right: 1px solid #eee; padding: 5px;">Arriendo</div>
+                                    <div style="flex: 1; border-right: 1px solid #eee; padding: 5px;">Marzo</div>
+                                    <div style="flex: 1; border-right: 1px solid #eee; padding: 5px;">300.000</div>
+                                </div>
+                                <div style="display: flex; font-size: 0.9rem; border-bottom: 1px solid #eee;">
+                                    <div style="width: 30px; background: #e6e6e6; text-align: center; padding: 5px; border-bottom: 1px solid #ccc; font-size: 0.8rem;">3</div>
+                                    <div style="flex: 1; border-right: 1px solid #eee; padding: 5px;">Luz</div>
+                                    <div style="flex: 1; border-right: 1px solid #eee; padding: 5px;">Marzo</div>
+                                    <div style="flex: 1; border-right: 1px solid #eee; padding: 5px;">25.000</div>
+                                </div>
+                                 <div style="display: flex; font-size: 0.9rem; border-bottom: 1px solid #eee;">
+                                    <div style="width: 30px; background: #e6e6e6; text-align: center; padding: 5px; border-bottom: 1px solid #ccc; font-size: 0.8rem; color: #217346; font-weight: bold;">4</div>
+                                    <div style="flex: 1; border-right: 1px solid #eee; padding: 5px;"></div>
+                                    <div style="flex: 1; border-right: 1px solid #eee; padding: 5px; text-align: right; font-weight: bold;">Total:</div>
+                                    <div style="flex: 1; border-right: 1px solid #eee; padding: 5px; border: 2px solid #217346; background: #f0fff4;">325.000</div>
+                                </div>
+                                <!-- Sheet Tabs -->
+                                 <div style="background: #f3f3f3; padding: 8px 5px; display: flex; align-items: center; border-top: 1px solid #ccc; margin-top: 10px;">
+                                     <div style="background: white; padding: 3px 15px; font-size: 0.8rem; color: #217346; font-weight: bold; border-bottom: 2px solid #217346;">Hoja 1</div>
+                                     <div style="padding: 0 10px; color: #999;"><span class="material-icons" style="font-size: 16px;">add_circle</span></div>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: ESTRUCTURA -->
+        <div class="slide" id="slide-4">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Conociendo el Terreno</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+                    
+                    <div class="concept-card bullet-point" style="width: 220px;">
+                        <div class="card-top-strip bg-green-main"></div>
+                        <div class="card-body">
+                            <span class="material-icons" style="font-size: 3rem; color: #333;">menu_book</span>
+                            <h3>Libro</h3>
+                            <p>Es el archivo completo. Como un cuaderno físico.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="concept-card bullet-point" style="width: 220px;">
+                        <div class="card-top-strip bg-green-lime"></div>
+                        <div class="card-body">
+                            <span class="material-icons" style="font-size: 3rem; color: #333;">tab</span>
+                            <h3>Hoja</h3>
+                            <p>Las pestañas de abajo (Enero, Febrero, Clientes).</p>
+                        </div>
+                    </div>
+
+                    <div class="concept-card bullet-point" style="width: 220px;">
+                        <div class="card-top-strip bg-purple-main"></div>
+                        <div class="card-body">
+                            <span class="material-icons" style="font-size: 3rem; color: #333;">view_column</span>
+                            <h3>Columna</h3>
+                            <p>Verticales.<br>Tienen LETRAS<br>(A, B, C).</p>
+                        </div>
+                    </div>
+
+                    <div class="concept-card bullet-point" style="width: 220px;">
+                        <div class="card-top-strip bg-purple-light"></div>
+                        <div class="card-body">
+                            <span class="material-icons" style="font-size: 3rem; color: #333;">table_rows</span>
+                            <h3>Fila</h3>
+                            <p>Horizontales.<br>Tienen NÚMEROS<br>(1, 2, 3).</p>
+                        </div>
+                    </div>
+
+                </div>
+                 <div class="highlight-box bullet-point" style="text-align: center; margin-top: 30px;">
+                     <strong>Celda:</strong> El cuadrito donde se cruzan. Ejemplo: <strong>B5</strong>.
+                 </div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: SEPARADOR 2 -->
+        <div class="slide slide-section" id="slide-5">
+            <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 02</span>
+                    <div class="section-title-text">Tu Primera<br>Lista</div>
+                </div>
+                <div class="section-number-giant">02</div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: PASOS LISTA -->
+        <div class="slide" id="slide-6">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Creando una Lista</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="timeline-container">
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-purple">1</div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Nombre de Hoja:</strong> Doble clic en la pestaña inferior. Ponle "Gastos Enero".</div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-green">2</div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Encabezados:</strong> En la fila 1 escribe: Fecha, Producto, Precio. (Ponlos en Negrita).</div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-slate">3</div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Datos:</strong> Escribe debajo. <br><em>Ej: 01/01/24 | Pan | 2000</em></div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-lime"><span class="material-icons">width_full</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Ajustar Ancho:</strong> Doble clic en la línea entre las letras de las columnas (A|B) para que el texto quepa.</div>
+                    </div>
+                </div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: TABLA INTELIGENTE -->
+        <div class="slide" id="slide-7">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>El Truco Pro: "Formato Tabla"</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="margin-bottom: 20px;">Convierte datos sueltos en una herramienta poderosa.</p>
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green"><span class="material-icons">select_all</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Seleccionar:</strong> Sombrea todos tus datos con el mouse.</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple"><span class="material-icons">table_chart</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Insertar Tabla:</strong> Ve a Insertar > Tabla.</div>
+                             </div>
+                        </div>
+                        <div class="highlight-box bullet-point" style="margin-top: 20px;">
+                            <span class="material-icons" style="vertical-align: middle;">check_box</span> <strong>Importante:</strong> Marca la casilla "La tabla tiene encabezados".
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <!-- Simulación Visual Tabla -->
+                        <div style="background: white; border: 1px solid #ccc; width: 300px; border-radius: 5px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                            <div style="background: #217346; color: white; padding: 10px; display:flex; font-weight:bold;">
+                                <div style="flex:1">Fecha ▼</div><div style="flex:1">Ítem ▼</div><div style="flex:1">$$$ ▼</div>
+                            </div>
+                            <div style="background: #e8f5e9; padding: 10px; display:flex; color:#333;">
+                                <div style="flex:1">01/01</div><div style="flex:1">Pan</div><div style="flex:1">2000</div>
+                            </div>
+                            <div style="background: white; padding: 10px; display:flex; color:#333;">
+                                <div style="flex:1">02/01</div><div style="flex:1">Leche</div><div style="flex:1">1500</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: SEPARADOR 3 -->
+        <div class="slide slide-section" id="slide-8">
+            <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 03</span>
+                    <div class="section-title-text">Ayuda con<br>IA</div>
+                </div>
+                <div class="section-number-giant">03</div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: PROMPTS EXCEL -->
+        <div class="slide" id="slide-9">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Tu Profesor Personal</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="font-size: 1.2rem;">¿No sabes cómo empezar? Pregúntale a Gemini.</p>
+                    </div>
+                    <div class="col-media" style="flex: 2;">
+                        <div class="app-window app-gemini">
+                             <div class="app-header">
+                                <div class="app-controls">
+                                    <div class="win-btn close"></div><div class="win-btn min"></div><div class="win-btn max"></div>
+                                </div>
+                                <div class="app-title">Chat con Gemini</div>
+                            </div>
+                            <div class="app-body">
+                                <div class="prompt-display" style="border:none; box-shadow:none; margin:0; background:transparent;">
+                                    "Quiero hacer una lista para controlar la mercadería de mi almacén.<br>
+                                    ¿Qué columnas debería poner en Excel para que quede ordenada y útil?"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: GENERAR DATOS -->
+        <div class="slide" id="slide-10">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Datos de Prueba</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+                <p style="margin-bottom: 20px; font-size: 1.2rem;">Invoca datos mágicos para practicar sin escribir tanto.</p>
+                <div class="prompt-display bullet-point">
+                    "Hazme una lista de 10 gastos de casa inventados para practicar en Excel. <br>
+                    Que tenga: Fecha (año 2024), Qué se compró, Tipo de gasto (Comida, Luz, Agua) y Precio en pesos chilenos.<br>
+                    Y sepáralos con punto y coma (;)."
+                </div>
+                <div class="activity-badge">⚡ Actividad: Genera datos y pégalos en Excel</div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: SEPARADOR 4 -->
+        <div class="slide slide-section" id="slide-11">
+            <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 04</span>
+                    <div class="section-title-text">Buenas<br>Prácticas</div>
+                </div>
+                <div class="section-number-giant">04</div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: REGLAS DE ORO -->
+        <div class="slide" id="slide-12">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Reglas de Oro</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="timeline-container">
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge" style="background: #e91e63;"><span class="material-icons">filter_1</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Solo Números:</strong> No escribas "$5.000 pesos". Escribe <code>5000</code>. Excel pone el signo $ después.</div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge" style="background: #e91e63;"><span class="material-icons">grid_off</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>No Amontonar:</strong> Un dato por celda. No pongas "Pan y Leche" junto.</div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge" style="background: #e91e63;"><span class="material-icons">calendar_today</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Fechas:</strong> Usa formato día/mes/año (01/05/2024) para que Excel lo entienda.</div>
+                    </div>
+                </div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: GUARDAR -->
+        <div class="slide" id="slide-13">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Guardar es Vivir</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                 <div class="h-timeline">
+                    <div class="h-item bullet-point">
+                        <div class="h-badge"><span class="material-icons">save</span></div>
+                        <div class="h-line"></div>
+                        <h3>Guardar Como</h3>
+                        <p>Ponle nombre (ej: "Mis Gastos") y guárdalo en Documentos.</p>
+                    </div>
+                    <div class="h-item bullet-point">
+                        <div class="h-badge"><span class="material-icons">autorenew</span></div>
+                        <div class="h-line"></div>
+                        <h3>Autoguardado</h3>
+                        <p>Mira la esquina superior izquierda. Si está apagado, ¡enciéndelo!</p>
+                    </div>
+                    <div class="h-item bullet-point">
+                        <div class="h-badge"><span class="material-icons">cloud_upload</span></div>
+                        <h3>Nube</h3>
+                        <p>Guarda en OneDrive para no perderlo si falla el PC.</p>
+                    </div>
+                </div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: RESUMEN (NEW) -->
+        <div class="slide" id="slide-14">
+             <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Qué Aprendimos Hoy</h1></div>
+            </header>
+             <div class="content-body slide-content">
+                 <h2 style="text-align:center; color: #555; margin-bottom: 30px;">Resumen de la Cápsula 4.1</h2>
+                 <div class="timeline-container">
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-green"><span class="material-icons">grid_on</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Estructura:</strong> Libro > Hojas > Columnas (Letras) > Filas (Números).</div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-purple"><span class="material-icons">table_view</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Formato Tabla:</strong> Transforma datos aburridos en una base de datos profesional.</div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-slate"><span class="material-icons">123</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Dato Limpio:</strong> Solo números en las celdas de precio.</div>
+                    </div>
+                 </div>
+             </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 15: CIERRE -->
+         <div class="slide cover-layout" id="slide-15">
+             <div class="bg-pattern-dots"></div>
+             
+             <div class="logo-wrapper-cover" style="bottom: auto; top: -50px; right: -50px; transform: rotate(20deg);">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+             <div class="section-icon" style="font-size:6rem; margin-bottom:20px;">📗</div>
+             <h1 class="cover-title">¡Primer Paso Logrado!</h1>
+             <div class="cover-subtitle" style="margin-bottom: 20px;"> Tarea: Crea tu primera lista de 5 ítems y conviértela en Tabla.</div>
+             <div class="cover-pill" style="background: var(--color-purple-main); color: white;">Fin de la Cápsula 4.1</div></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-greenv>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="nav-btn" onclick="prevSlide()" hidden>❮ Anterior</button>
+            <button class="nav-btn" onclick="nextSlide()" hidden>Siguiente ❯</button>
+        </div>
+        <div class="progress-bar" id="progressBar"></div>
+
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Cápsula 4.2 - Formato y Estilo en Excel</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Consolas&display=swap" rel="stylesheet">
+    <!-- Links Corporativos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Custom Animations & Styles */
+        @keyframes pulse-custom {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(118, 184, 42, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(118, 184, 42, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(118, 184, 42, 0); }
+        }
+        .anim-pulse { animation: pulse-custom 2s infinite; }
+        
+        @keyframes bounceRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+        .anim-bounce-right { animation: bounceRight 1.5s infinite; }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .slide-content { animation: fadeInScale 0.8s ease-out; }
+
+        /* Excel Ribbon Mockup */
+        .ribbon-bar {
+            display: flex;
+            background: #f3f2f1;
+            border-bottom: 1px solid #dcdcdc;
+            padding: 5px;
+            gap: 10px;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.8rem;
+            color: #333;
+            margin-bottom: 15px;
+            border-radius: 4px 4px 0 0;
+        }
+        .ribbon-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 1px solid #e0e0e0;
+            padding-right: 10px;
+            min-width: 50px;
+        }
+        .ribbon-icon {
+            font-size: 1.2rem;
+            color: #444;
+            margin-bottom: 2px;
+            padding: 4px;
+            border-radius: 3px;
+        }
+        .ribbon-icon:hover { background: #c5c5c5; }
+        .ribbon-label { font-size: 0.7rem; color: #666; }
+
+        /* Excel Grid Mockup */
+        .excel-grid-container {
+            display: grid;
+            grid-template-columns: 40px repeat(3, 1fr);
+            border: 1px solid #ccc;
+            font-family: 'Calibri', sans-serif;
+            background: white;
+            font-size: 0.9rem;
+        }
+        .grid-header {
+            background: #e6e6e6;
+            text-align: center;
+            padding: 5px;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            font-weight: bold;
+            color: #333;
+        }
+        .grid-cell {
+            padding: 5px 8px;
+            border-right: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            color: #333;
+        }
+        .grid-row-head {
+            background: #e6e6e6;
+            text-align: center;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #eee;
+            color: #333;
+        }
+        .table-style-1 .grid-cell { border-bottom: 1px solid #217346; } /* Faux table style */
+        .table-style-blue .grid-header { background-color: #4472C4; color: white; }
+        .table-style-blue .grid-cell:nth-child(even) { background-color: #D9E1F2; } /* Zebra striping mockup manual */
+        
+        /* Gemini Chat UI */
+        .chat-ui {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            background: linear-gradient(90deg, #E6F0FF 0%, #F5F9FF 100%);
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .chat-body { padding: 15px; }
+        .chat-message {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        .chat-message.user {
+            background: #e3f2fd;
+            color: #1565c0;
+            align-self: flex-end;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="presentation-container">
+        <!-- Logo Institucional -->
+        <img src="../../../tu puedes logo.png" class="logo-overlay" alt="Logo Institucional">
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide cover-layout active" id="slide-1" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <div class="bg-pattern-dots"></div>
+            <!-- Top Bar -->
+            <div class="deco-strip" style="position: absolute; top: 0; left: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-pill">Cápsula 4.2</div>
+            <h1 class="cover-title">Formato Profesional<br><span>Tablas y Filtros</span></h1>
+            <div class="cover-subtitle">Módulo 4: Excel Básico</div>
+            
+            <div style="margin-top: 30px; font-weight: 600; color: var(--color-neutral-dark);">
+                Programa Tú Puedes - 2026
+            </div>
+
+            <div class="logo-wrapper-cover" style="opacity: 0.1;">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: SEPARADOR 1 -->
+        <div class="slide slide-section" id="slide-2">
+            <div class="bg-pattern-dots" style="opacity: 0.1;"></div>
+            <div class="deco-circle"></div>
+             <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 01</span>
+                    <div class="section-title-text">Maquillaje<br>de Datos</div>
+                    <div style="margin-top: 20px;">
+                        <span class="material-icons mi-lg anim-bounce-right" style="color: var(--color-green-lime);">brush</span>
+                    </div>
+                </div>
+                <div class="section-number-giant">01</div>
+            </div>
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: POR QUÉ DAR FORMATO -->
+        <div class="slide" id="slide-3">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>¿Por qué es importante?</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="margin-bottom: 20px; font-size: 1.2rem;">Un informe sucio genera desconfianza.</p>
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-badge t-purple"><span class="material-icons">verified</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Credibilidad:</strong> Proyecta profesionalismo y orden.</div>
+                             </div>
+                             <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-badge t-green"><span class="material-icons">visibility</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Legibilidad:</strong> Ayuda al cerebro a encontrar el dato rápido.</div>
+                             </div>
+                             <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-badge t-slate"><span class="material-icons">shield</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Prevención de Errores:</strong> Alineación correcta evita confusiones.</div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                         <div style="display: flex; gap: 20px; flex-direction:column;">
+                             <div class="app-window" style="width: 250px; opacity: 0.6; transform: scale(0.9);">
+                                 <div class="app-body" style="padding: 10px; font-size: 0.7rem; color: #666; font-family: 'Consolas';">
+                                     item precio cantidad<br>pan 1000 2<br>leche 900 3<br>total 4700
+                                 </div>
+                             </div>
+                             <span class="material-icons anim-bounce-right" style="font-size: 2rem; color: var(--color-green-main); align-self:center; transform: rotate(90deg);">arrow_downward</span>
+                             <div class="app-window app-excel" style="width: 300px; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
+                                 <div class="app-body" style="padding: 0;">
+                                     <div style="background: #217346; color: white; padding: 5px 10px; font-weight: bold; display: flex;">
+                                         <div style="flex:1">Ítem</div><div style="flex:1">Precio</div><div style="flex:1">Cant.</div>
+                                     </div>
+                                     <div style="padding: 5px 10px; display:flex; border-bottom: 1px solid #eee;"><div style="flex:1">Pan</div><div style="flex:1">$1.000</div><div style="flex:1">2</div></div>
+                                     <div style="padding: 5px 10px; display:flex; border-bottom: 2px solid #333;"><div style="flex:1">Leche</div><div style="flex:1">$900</div><div style="flex:1">3</div></div>
+                                     <div style="background: #e8f5e9; padding: 5px 10px; display:flex; font-weight: bold;">
+                                         <div style="flex:2; text-align:right; padding-right: 10px;">TOTAL:</div>
+                                         <div style="flex:1">$4.700</div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: ESPACIO VITAL -->
+        <div class="slide" id="slide-4">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Espacio Vital</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="font-size: 1.2rem; margin-bottom: 20px;">Cuando el texto no cabe, Excel lo oculta o corta. ¿Te ha pasado?</p>
+                        
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-badge t-red"><span class="material-icons">error_outline</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>El Problema:</strong> Ves "######" en números o palabras cortadas como "Costo To...".</div>
+                             </div>
+                             <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-badge t-purple"><span class="material-icons">ads_click</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>La Solución:</strong> Ubica el cursor exactamente en la línea entre las letras de las columnas (ej: A | B).</div>
+                             </div>
+                             <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-badge t-green"><span class="material-icons">fit_screen</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Autoajuste:</strong> Haz <strong>Doble Clic</strong>. Excel ensanchará la columna automáticamente al tamaño perfecto.</div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <div class="app-window app-excel" style="box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+                            <div class="app-header">Reporte_Gastos.xlsx</div>
+                            <div class="app-body" style="background: white; padding: 0; display:flex; height: 180px; font-family:'Segoe UI', sans-serif;">
+                                <!-- Columna A -->
+                                <div style="width: 110px; border-right: 2px solid #ccc; display:flex; flex-direction:column;">
+                                    <div style="background:#f3f3f3; padding:8px; text-align:center; border-bottom:1px solid #ccc; font-weight:bold; position:relative;">
+                                        A
+                                        <!-- Cursor/Hinter -->
+                                        <div class="anim-pulse" style="position:absolute; right:-4px; top:0; bottom:0; width:8px; background:rgba(33, 115, 70, 0.3); cursor: col-resize;"></div>
+                                        <span class="material-icons anim-bounce-right" style="position:absolute; right:-30px; top:5px; color:var(--color-purple-main); font-size:2rem; text-shadow: 1px 1px 2px white; pointer-events:none;">touch_app</span>
+                                    </div>
+                                    <div style="padding:10px; border-bottom:1px solid #eee; white-space:nowrap; overflow:hidden; color:#ea4335;">Presupuesto...</div>
+                                    <div style="padding:10px; border-bottom:1px solid #eee; white-space:nowrap; overflow:hidden;">Gastos Op...</div>
+                                    <div style="padding:10px; border-bottom:1px solid #eee; white-space:nowrap; overflow:hidden;">Diferenci...</div>
+                                </div>
+                                <!-- Columna B -->
+                                <div style="flex:1; display:flex; flex-direction:column; background:#fff;">
+                                    <div style="background:#f3f3f3; padding:8px; text-align:center; border-bottom:1px solid #ccc; font-weight:bold;">B</div>
+                                    <div style="padding:10px; border-bottom:1px solid #eee;">$ 500</div>
+                                    <div style="padding:10px; border-bottom:1px solid #eee;">$ 200</div>
+                                    <div style="padding:10px; border-bottom:1px solid #eee;">$ 300</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin-top: 15px; color: var(--color-neutral-dark); font-size: 0.9rem;">
+                            <span class="material-icons" style="vertical-align: middle; margin-right:5px;">mouse</span>
+                            El cursor cambiará a una cruz con flechas: <strong>⬌</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: PINTANDO Y ORDENANDO -->
+        <div class="slide" id="slide-5">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Pintando y Ordenando</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <!-- Ribbon Visualization -->
+                <div class="ribbon-bar" style="justify-content: center; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                    <div class="ribbon-group">
+                        <span class="material-icons ribbon-icon">format_bold</span>
+                        <span class="ribbon-label">Negrita</span>
+                    </div>
+                    <div class="ribbon-group">
+                        <span class="material-icons ribbon-icon" style="color:var(--color-purple-main);">format_paint</span>
+                        <span class="ribbon-label">Relleno</span>
+                    </div>
+                    <div class="ribbon-group">
+                        <span class="material-icons ribbon-icon">format_align_center</span>
+                        <span class="ribbon-label">Alinear</span>
+                    </div>
+                     <div class="ribbon-group" style="position: relative;">
+                        <span class="material-icons ribbon-icon">attach_money</span>
+                        <div class="anim-pulse" style="position:absolute; top:0; right:0; width:8px; height:8px; background:var(--color-green-lime); border-radius:50%;"></div>
+                        <span class="ribbon-label">Contabilidad</span>
+                    </div>
+                     <div class="ribbon-group">
+                        <span class="ribbon-icon" style="font-family:'Consolas'; font-weight:bold; font-size:1rem;">.00</span>
+                        <span class="ribbon-label">Decimales</span>
+                    </div>
+                </div>
+                <div class="timeline-container">
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-purple"><span class="material-icons">title</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Destaca Títulos:</strong> Usa fondo oscuro con letra blanca y negrita para los encabezados.</div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-slate"><span class="material-icons">format_align_center</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Al Centro:</strong> Centra los títulos para que queden alineados con los datos.</div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-green"><span class="material-icons">attach_money</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content">
+                            <strong>Números con $:</strong> Selecciona los precios y presiona el botón <strong>$</strong>.
+                            <div style="margin-top:5px; font-size: 0.85rem; background: #ffebee; padding: 5px; color: #c62828;">
+                                ⚠ ¡No escribas el signo con el teclado! Usa el botón.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box bullet-point" style="margin-top: 20px; text-align: center;">
+                    <span class="material-icons" style="vertical-align: bottom;">arrow_forward</span> Usa el botón de disminuir decimales (.00) si sobran ceros.
+                </div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: SEPARADOR 2 - TABLAS -->
+        <div class="slide slide-section" id="slide-6">
+            <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 02</span>
+                    <div class="section-title-text">Tablas<br>Inteligentes</div>
+                </div>
+                <div class="section-number-giant">02</div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: TABLAS INTELIGENTES -->
+        <div class="slide" id="slide-7">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Tablas Inteligentes</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="font-size: 1.2rem;">¡Deja de pintar a mano! Convierte tus datos en una familia.</p>
+                        <div class="highlight-box bullet-point" style="display:inline-block; margin: 20px 0; font-size: 2rem;">
+                            Ctrl + T
+                        </div>
+                        <ul style="list-style: none; padding: 0;">
+                            <li class="bullet-point" style="margin-bottom: 15px;"><span class="material-icons" style="color: var(--color-green-main); vertical-align: bottom;">check</span> <strong>Diseño Automático:</strong> Una línea sí, una no.</li>
+                            <li class="bullet-point" style="margin-bottom: 15px;"><span class="material-icons" style="color: var(--color-green-main); vertical-align: bottom;">check</span> <strong>Filtros Incluidos:</strong> Las flechitas aparecen solas.</li>
+                            <li class="bullet-point" style="margin-bottom: 15px;"><span class="material-icons" style="color: var(--color-green-main); vertical-align: bottom;">check</span> <strong>Expansión:</strong> Si escribes abajo, la tabla crece sola.</li>
+                        </ul>
+                    </div>
+                     <div class="col-media" style="display:flex; flex-direction:column; gap:15px; align-items: center;">
+                         <!-- Table Preview -->
+                         <div class="excel-grid-container table-style-blue" style="width: 100%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            <div class="grid-row-head"></div><div class="grid-header">A</div><div class="grid-header">B</div><div class="grid-header">C</div>
+                            <div class="grid-row-head">1</div><div class="grid-header" style="background:#4472C4; color:white; display:flex; justify-content:space-between;">Fecha <span class="material-icons" style="font-size:0.8rem;">arrow_drop_down</span></div><div class="grid-header" style="background:#4472C4; color:white; display:flex; justify-content:space-between;">Vendedor <span class="material-icons" style="font-size:0.8rem;">arrow_drop_down</span></div><div class="grid-header" style="background:#4472C4; color:white; display:flex; justify-content:space-between;">Total <span class="material-icons" style="font-size:0.8rem;">arrow_drop_down</span></div>
+                            <div class="grid-row-head">2</div><div class="grid-cell">01/03</div><div class="grid-cell">Ana</div><div class="grid-cell">$ 15.000</div>
+                            <div class="grid-row-head">3</div><div class="grid-cell" style="background:#D9E1F2;">02/03</div><div class="grid-cell" style="background:#D9E1F2;">Luis</div><div class="grid-cell" style="background:#D9E1F2;">$ 22.500</div>
+                            <div class="grid-row-head">4</div><div class="grid-cell">03/03</div><div class="grid-cell">Ana</div><div class="grid-cell">$ 10.000</div>
+                         </div>
+
+                         <!-- Dialog Box -->
+                         <div class="app-window app-excel" style="width: 80%; transform: scale(0.9); box-shadow: 0 10px 20px rgba(0,0,0,0.2);">
+                             <div class="app-header">Crear Tabla</div>
+                             <div class="app-body" style="background: white; padding: 20px; text-align: center;">
+                                 <div style="border: 2px dashed var(--color-green-main); padding: 10px; margin-bottom: 10px;">
+                                     ¿Dónde están los datos de la tabla?<br>
+                                     <strong>=$A$1:$C$4</strong>
+                                 </div>
+                                 <label style="display:block; margin-bottom:10px; font-size: 0.8rem;"><input type="checkbox" checked> La tabla tiene encabezados</label>
+                                 <button style="background: #e0e0e0; border: 1px solid #999; padding: 5px 15px;">Aceptar</button>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: FILTROS -->
+        <div class="slide" id="slide-8">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>La Lupa Mágica (Filtros)</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="font-size: 1.2rem; margin-bottom: 20px;">Los filtros ocultan el ruido y muestran solo lo importante.</p>
+                        
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point" data-step="1">
+                                <div class="timeline-badge t-purple"><span class="material-icons">filter_list</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Activar:</strong> Haz clic en la flecha <span class="material-icons" style="font-size: 1rem; vertical-align: middle; background:#e0e0e0; border-radius:3px; color:#333;">arrow_drop_down</span> del encabezado.</div>
+                             </div>
+                             <div class="timeline-item bullet-point" data-step="2">
+                                <div class="timeline-badge t-red"><span class="material-icons">check_box_outline_blank</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Limpiar:</strong> Desmarca la casilla <strong>(Seleccionar todo)</strong> para borrar la selección.</div>
+                             </div>
+                             <div class="timeline-item bullet-point" data-step="3">
+                                <div class="timeline-badge t-green"><span class="material-icons">check_box</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Elegir:</strong> Marca solo la opción que buscas (ej: "Comida").</div>
+                             </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-media">
+                        <!-- Excel Filter Simulation -->
+                        <div style="position: relative; width: 300px; font-family: 'Segoe UI', sans-serif;">
+                            <!-- Header Cell -->
+                            <div style="background: #217346; color: white; padding: 10px; display: flex; justify-content: space-between; align-items: center; border-radius: 4px 4px 0 0; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                                <span>Categoría</span>
+                                <div style="background: linear-gradient(to bottom, #f0f0f0, #d4d4d4); border-radius: 3px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; border:1px solid #999;">
+                                    <span class="material-icons" style="color: #333; font-size: 1.2rem;">arrow_drop_down</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Dropdown Menu -->
+                            <div class="app-window" style="position: absolute; top: 45px; left: 0; right: 0; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 10; border-radius: 0 0 4px 4px; border: 1px solid #ccc;">
+                                <div class="app-body" style="padding: 0; font-size: 0.85rem; background: white;">
+                                    <div style="padding: 8px; border-bottom: 1px solid #eee; color: #333;">
+                                        <div style="display:flex; align-items:center; gap:5px; margin-bottom:5px;">
+                                            <span class="material-icons" style="font-size:1rem; color:#666;">sort_by_alpha</span> Ordenar de A a Z
+                                        </div>
+                                    </div>
+                                    <div style="background: #f9f9f9; padding: 8px; border-bottom: 1px solid #ddd;">
+                                        <div style="background: white; border: 1px solid #ccc; padding: 3px 5px; color: #999; display: flex; align-items: center;">
+                                            <span class="material-icons" style="font-size: 1rem; margin-right: 5px;">search</span> Buscar
+                                        </div>
+                                    </div>
+                                    <div style="padding: 5px 0; max-height: 150px; overflow-y: auto;">
+                                        <div style="padding: 5px 10px; display: flex; align-items: center; gap: 8px;">
+                                            <span class="material-icons" style="font-size: 1.1rem; color: #999;">check_box_outline_blank</span> (Seleccionar todo)
+                                        </div>
+                                        <div style="padding: 5px 10px; display: flex; align-items: center; gap: 8px; background: #e3f2fd;">
+                                            <span class="material-icons" style="font-size: 1.1rem; color: #217346;">check_box</span> Comida
+                                        </div>
+                                        <div style="padding: 5px 10px; display: flex; align-items: center; gap: 8px;">
+                                            <span class="material-icons" style="font-size: 1.1rem; color: #999;">check_box_outline_blank</span> Transporte
+                                        </div>
+                                        <div style="padding: 5px 10px; display: flex; align-items: center; gap: 8px;">
+                                            <span class="material-icons" style="font-size: 1.1rem; color: #999;">check_box_outline_blank</span> Arriendo
+                                        </div>
+                                    </div>
+                                    <div style="padding: 8px; border-top: 1px solid #eee; display: flex; justify-content: flex-end; gap: 10px; background: #f0f0f0;">
+                                        <span style="border: 1px solid #ccc; background: white; padding: 4px 12px; border-radius: 3px; font-size: 0.8rem; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Aceptar</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+
+
+        <!-- SLIDE 9: FORMATO CONDICIONAL -->
+        <div class="slide" id="slide-9">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Semáforo de Alerta</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <h2 style="color: var(--color-purple-main);">Formato Condicional</h2>
+                        <p>Excel te avisa visualmente si algo se sale de control.</p>
+                        
+                        <div class="concept-card bullet-point" style="margin-top: 20px; border-left: 5px solid #d32f2f;">
+                            <div class="card-body">
+                                <h3>Regla: "Es Mayor Que..."</h3>
+                                <p>Si el gasto > 50.000 → <span style="background: #ffcdd2; color: #b71c1c; padding: 2px 5px; border-radius: 4px; font-weight: bold;">Relleno Rojo</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <div style="display: grid; grid-template-columns: 1fr; gap: 5px; font-family: 'Consolas'; width: 200px; margin: auto;">
+                            <div style="background: #e0e0e0; padding: 10px;text-align: right;">Precios</div>
+                            <div style="background: white; padding: 10px; text-align: right; border: 1px solid #eee;">$ 5.000</div>
+                            <div class="anim-pulse" style="background: #ffcdd2; color: #b71c1c; padding: 10px; text-align: right; border: 1px solid #e57373; font-weight: bold;">$ 85.000</div>
+                            <div style="background: white; padding: 10px; text-align: right; border: 1px solid #eee;">$ 12.000</div>
+                            <div style="background: white; padding: 10px; text-align: right; border: 1px solid #eee;">$ 3.500</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: SEPARADOR 3 - IA -->
+        <div class="slide slide-section" id="slide-10">
+            <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">SECCIÓN 03</span>
+                    <div class="section-title-text">Diseño con<br>IA</div>
+                </div>
+                <div class="section-number-giant">03</div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: IA -->
+        <div class="slide" id="slide-11">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Tu Decorador Personal</h1></div>
+            </header>            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="margin-bottom: 20px;">No uses colores al azar. Pídele a Gemini una paleta profesional.</p>
+                    </div>
+                    <div class="col-media" style="flex: 2;">
+                        <div class="chat-ui">
+                             <div class="chat-header">
+                                <span class="material-icons" style="color: #4285f4;">auto_awesome</span>
+                                <strong>Chat con Gemini</strong>
+                            </div>
+                            <div class="chat-body">
+                                <div class="chat-message user">
+                                    "Pinta de amarillo los gastos que sean de 'Transporte' y pon en negrita los que sean mayores a 20000."
+                                </div>
+                                <div class="chat-message" style="background: white; border: 1px solid #eee; display:flex; gap:10px; align-items:center;">
+                                    <span class="material-icons" style="color: #34a853;">check_circle</span>
+                                    <span>¡Listo! He aplicado el formato condicional a tu tabla.</span>
+                                </div>
+                                <div class="excel-grid-container" style="margin-top:10px; opacity:0.8; transform:scale(0.95);">
+                                     <div class="grid-header">Item</div><div class="grid-header">Monto</div>
+                                     <div class="grid-cell" style="background:#fff176;">Transporte</div><div class="grid-cell" style="background:#fff176; font-weight:bold;">$ 25.000</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-badge">⚡ Actividad: Colorea tu tabla según la IA</div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: RESUMEN -->
+        <div class="slide" id="slide-12">
+             <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Resumen de Estilo</h1></div>
+            </header>
+             <div class="content-body slide-content">
+                 <h2 style="text-align:center; color: #555; margin-bottom: 30px;">Cápsula 4.2: Puntos Clave</h2>
+                 <div class="timeline-container">
+                    <div class="timeline-item bullet-point" data-step="1">
+                        <div class="timeline-badge t-green"><span class="material-icons">format_paint</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Orden Básico:</strong> Pinta títulos, centra y usa formato $ (sin tipearlo).</div>
+                    </div>
+                    <div class="timeline-item bullet-point" data-step="2">
+                        <div class="timeline-badge t-purple"><span class="material-icons">table_view</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Tablas Inteligentes:</strong> Ctrl + T para diseño y filtros automáticos.</div>
+                    </div>
+                    <div class="timeline-item bullet-point" data-step="3">
+                        <div class="timeline-badge t-red"><span class="material-icons">traffic</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Formato Condicional:</strong> Un semáforo para alertar gastos altos.</div>
+                    </div>
+                 </div>
+             </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: CIERRE -->
+         <div class="slide cover-layout" id="slide-13" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+             <div class="bg-pattern-dots"></div>
+             <!-- Top Bar (Optional mirror of cover) -->
+            <div class="deco-strip" style="position: absolute; top: 0; left: 0; width: 100%; transform: rotate(180deg);">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+             
+             <div class="logo-wrapper-cover" style="bottom: auto; top: 150px; right: 50px; transform: rotate(20deg); opacity: 0.1; width: 400px;">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+             <div class="section-icon" style="font-size:6rem; margin-bottom:20px; z-index: 10;">🎯</div>
+             <h1 class="cover-title" style="z-index: 10;">¡Manos a la Obra!</h1>
+             <div class="cover-subtitle" style="margin-bottom: 20px; z-index: 10;"> Tarea: Crea Tabla, aplica Semáforo y Filtra una categoría.</div>
+             <div class="cover-pill" style="background: var(--color-purple-main); color: white; z-index: 10;">Fin de la Cápsula 4.2</div>
+             
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls" style="left: 50%; transform: translateX(-50%); right: auto;">
+            <button class="nav-btn prev-btn" onclick="prevSlide()" title="Anterior">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <span class="slide-indicator" id="slideIndicator">1 / 13</span>
+            <button class="nav-btn next-btn" onclick="nextSlide()" title="Siguiente">
+                <span class="material-icons">arrow_forward</span>
+            </button>
+            <button class="nav-btn fullscreen-btn" onclick="toggleFullscreen()" title="Pantalla completa">
+                <span class="material-icons">fullscreen</span>
+            </button>
+        </div>
+        <div class="progress-bar" id="progressBar"></div>
+
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guion Técnico - Cápsula 5.4: Office en el Celular</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           TOKENS DE DISEÑO (SISTEMA ATÓMICO)
+           ========================================= */
+        :root {
+            --color-purple-main: #583586;
+            --color-purple-mid: #6d4c94;
+            --color-purple-light: #8f6bb3;
+            --color-purple-dark: #4a276b;
+            
+            --color-green-main: #76b82a;
+            --color-green-lime: #9ccb3b;
+            --color-green-slate: #7a9483;
+            
+            --color-neutral-white: #ffffff;
+            --color-neutral-light: #f4f4f4;
+            --color-neutral-gray: #d1d1d1;
+            --color-neutral-dark: #333333;
+
+            --font-primary: 'Montserrat', sans-serif;
+            --skew-angle: -40deg;
+        }
+
+        /* =========================================
+           CONFIGURACIÓN DE PÁGINA (IMPRIMIBLE)
+           ========================================= */
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: #525659;
+            font-family: var(--font-primary);
+            margin: 0;
+            padding: 20px;
+            color: var(--color-neutral-dark);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px auto;
+            padding: 15mm 20mm;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media print {
+            body { background: none; padding: 0; }
+            .page { width: 100%; margin: 0; box-shadow: none; border: none; min-height: auto; page-break-after: always; }
+            .page:last-child { page-break-after: auto; }
+        }
+
+        /* =========================================
+           COMPONENTES
+           ========================================= */
+        
+        /* Header */
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--color-green-main);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .header-info h1 {
+            font-size: 18pt;
+            color: var(--color-purple-main);
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .header-info h2 {
+            font-size: 10pt;
+            color: var(--color-green-slate);
+            margin: 5px 0 0 0;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .logo-simple {
+            width: 100px;
+            height: auto;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+        
+        .deco-strip {
+            display: flex;
+            height: 15px;
+            overflow: hidden;
+            width: 100%;
+        }
+        .deco-strip .segment {
+            height: 100%;
+            transform: skewX(var(--skew-angle));
+            margin-right: 4px;
+        }
+        .deco-strip .seg-fill { flex-grow: 1; }
+        .deco-strip .seg-sm { width: 15px; }
+        .deco-strip .seg-md { width: 30px; }
+        .deco-strip .seg-start { margin-left: -10px; padding-left: 10px; }
+        .deco-strip .seg-end { margin-right: -10px; padding-right: 10px; }
+
+        .footer-text {
+            text-align: right;
+            font-size: 8pt;
+            color: var(--color-green-slate);
+            margin-top: 5px;
+        }
+
+        /* Contenido */
+        .script-meta {
+            background-color: var(--color-neutral-light);
+            border-left: 4px solid var(--color-purple-main);
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 10pt;
+        }
+
+        .script-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 12pt;
+            color: var(--color-purple-main);
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--color-neutral-gray);
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cue-block {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            font-size: 10pt;
+        }
+
+        .cue-tech {
+            flex: 0 0 120px;
+            font-size: 8pt;
+            font-weight: 600;
+            color: var(--color-green-slate);
+            text-transform: uppercase;
+            padding-top: 3px;
+        }
+
+        .cue-tech strong {
+            display: block;
+            color: var(--color-purple-mid);
+            margin-bottom: 2px;
+        }
+
+        .cue-dialogue {
+            flex: 1;
+            line-height: 1.5;
+            color: var(--color-neutral-dark);
+        }
+
+        .cue-dialogue p { margin: 0 0 10px 0; }
+
+        /* Prompt Box */
+        .prompt-box {
+            background-color: #f0f7ff;
+            border: 1px dashed var(--color-purple-light);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 9pt;
+            color: var(--color-purple-dark);
+        }
+        .prompt-label {
+            font-weight: bold;
+            color: var(--color-purple-main);
+            display: block;
+            margin-bottom: 5px;
+            font-family: var(--font-primary);
+            font-size: 8pt;
+            text-transform: uppercase;
+        }
+
+        /* Listas */
+        ul { margin: 0 0 10px 20px; padding: 0; }
+        li { margin-bottom: 4px; }
+
+    </style>
+</head>
+<body>
+
+    <!-- PÁGINA 1 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <div class="script-meta">
+                <h3 style="margin: 0 0 10px 0; color: var(--color-purple-main);">🎥 CÁPSULA 5.4 – Office en el Celular</h3>
+                <div><strong>Duración estimada:</strong> 10–12 minutos</div>
+                <div><strong>Herramientas:</strong> App Microsoft 365 (Móvil)</div>
+                <div><strong>Objetivo:</strong> Entender las funciones básicas de la aplicación móvil de Microsoft 365 para acceso remoto a documentos.</div>
+            </div>
+
+            <!-- SECCIÓN 0 -->
+            <div class="script-section">
+                <div class="section-title">🎬 0. Bienvenida: La oficina en el bolsillo (00:00 – 01:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Plano Medio
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>¡Hola! Bienvenidos de nuevo. Hoy vamos a explorar cómo llevar la oficina completa en el bolsillo. En un mundo donde la movilidad es esencial, Microsoft ofrece aplicaciones móviles que permiten acceder a todos los documentos y herramientas desde cualquier lugar.</p>
+                        <p>La aplicación Microsoft 365 para móviles transforma el celular en una oficina completa. Con ella, pueden ver, editar y crear documentos sin necesidad de estar frente a un computador. Además, incluye funciones avanzadas como escanear documentos físicos y convertirlos en archivos digitales de alta calidad.</p>
+                        <p>Esta movilidad significa que el trabajo ya no está limitado a un escritorio. Pueden revisar contratos en el transporte público, editar presentaciones durante un viaje o escanear documentos importantes en cualquier momento. Vamos a conocer las capacidades principales de esta herramienta esencial.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 1 -->
+            <div class="script-section">
+                <div class="section-title">📱 1. La App Todo en Uno (01:30 – 04:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Celular
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>La aplicación Microsoft 365 para móviles es una suite completa que integra Word, Excel, PowerPoint y otras herramientas en una sola interfaz. Esta aplicación unificada permite acceder a todos los documentos almacenados en OneDrive o SharePoint desde cualquier dispositivo móvil.</p>
+                        <p>Una de las ventajas principales es la sincronización automática: cualquier cambio realizado en el móvil se refleja inmediatamente en la versión de escritorio y viceversa. Esto garantiza que siempre se trabaje con la versión más actualizada de los documentos.</p>
+                        <p>La interfaz está optimizada para pantallas táctiles, con herramientas de edición intuitivas que permiten realizar modificaciones básicas como cambiar texto, ajustar formatos o actualizar datos en hojas de cálculo. Además, incluye funciones de colaboración que permiten compartir documentos y trabajar en equipo en tiempo real.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2 -->
+            <div class="script-section">
+                <div class="section-title">📸 2. Escanear documentos (04:00 – 07:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Cámara App
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Una función muy útil de la aplicación móvil es el escáner integrado, que permite convertir documentos físicos en archivos digitales de alta calidad. Esta herramienta utiliza la cámara del dispositivo para capturar páginas y convertirlas automáticamente en PDFs profesionales.</p>
+                        <p>El escáner inteligente detecta automáticamente los bordes del documento, corrige la perspectiva para eliminar distorsiones y optimiza la imagen eliminando sombras y mejorando el contraste. Esto resulta en archivos mucho más legibles y profesionales que una simple fotografía.</p>
+                        <p>Es especialmente útil para digitalizar contratos, recibos, notas o cualquier documento físico que necesite ser compartido o archivado. Los archivos escaneados se pueden guardar directamente en OneDrive o enviar por correo electrónico desde la misma aplicación.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3 -->
+            <div class="script-section">
+                <div class="section-title">🎙️ 3. Dictado por voz (07:00 – 09:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Dictado
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>La aplicación móvil incluye funciones de dictado por voz que permiten crear y editar documentos utilizando comandos de voz. Esta característica es especialmente útil para usuarios que prefieren hablar en lugar de escribir, o cuando escribir en un dispositivo móvil resulta incómodo.</p>
+                        <p>El dictado reconoce comandos de puntuación y formato, permitiendo crear documentos estructurados sin necesidad de tocar la pantalla. Es ideal para tomar notas rápidas, redactar borradores o crear contenido mientras se está en movimiento.</p>
+                        <p>Después del dictado, el texto se puede revisar y editar manualmente para corregir cualquier error de reconocimiento. Esta función combina la comodidad del habla con la precisión de la edición posterior.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 4 -->
+            <div class="script-section">
+                <div class="section-title">🔚 4. Cierre (09:30 – 10:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Cierre
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>La aplicación móvil de Microsoft 365 representa una evolución en la forma de trabajar, permitiendo acceso completo a las herramientas de oficina desde cualquier lugar. Con funciones como edición de documentos, escaneo inteligente y dictado por voz, transforma los dispositivos móviles en poderosas estaciones de trabajo.</p>
+                        <p>Esta movilidad significa libertad y flexibilidad, permitiendo continuar el trabajo independientemente de la ubicación. En la próxima cápsula, exploraremos aspectos cruciales de seguridad digital para proteger toda esta información valiosa. ¡Los esperamos!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 20px; background: var(--color-green-main); color: white; text-align: center; font-weight: bold; border-radius: 8px;">
+                📦 FIN DEL BLOQUE 4 (MÓDULO 5)
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 1 de 1 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Cápsula 4.3 - Fórmulas Básicas</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Consolas&display=swap" rel="stylesheet">
+    <!-- Links Corporativos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Custom Animations & Styles */
+        @keyframes pulse-custom {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(118, 184, 42, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(118, 184, 42, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(118, 184, 42, 0); }
+        }
+        .anim-pulse { animation: pulse-custom 2s infinite; }
+        
+        @keyframes bounceRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+        .anim-bounce-right { animation: bounceRight 1.5s infinite; }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 10px 30px rgba(88, 53, 134, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 10px 50px rgba(88, 53, 134, 0.7); transform: scale(1.05); }
+            100% { box-shadow: 0 10px 30px rgba(88, 53, 134, 0.4); transform: scale(1); }
+        }
+
+         @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .slide-content { animation: fadeInScale 0.8s ease-out; }
+
+        /* Estilos específicos para visualizar fórmulas */
+        .formula-box {
+            font-family: 'Consolas', monospace;
+            font-size: 2rem;
+            background: #fff3e0;
+            padding: 15px 30px;
+            border-radius: 8px;
+            border: 2px solid #ffb74d;
+            color: #e65100;
+            display: inline-block;
+            box-shadow: 0 4px 0 #e65100;
+        }
+        .cell-ref {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .ref-a { background: #e3f2fd; color: #1565c0; border: 1px solid #1565c0; }
+        .ref-b { background: #e8f5e9; color: #2e7d32; border: 1px solid #2e7d32; }
+
+        /* Excel Grid Mockup */
+        .excel-grid-container {
+            display: grid;
+            grid-template-columns: 40px repeat(3, 1fr);
+            border: 1px solid #ccc;
+            font-family: 'Calibri', sans-serif;
+            background: white;
+            font-size: 0.9rem;
+        }
+        .grid-header {
+            background: #e6e6e6;
+            text-align: center;
+            padding: 5px;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            font-weight: bold;
+            color: #333;
+        }
+        .grid-cell {
+            padding: 5px 8px;
+            border-right: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            color: #333;
+        }
+        .grid-row-head {
+            background: #e6e6e6;
+            text-align: center;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #eee;
+            color: #333;
+        }
+
+        /* Chat UI */
+        .chat-ui {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            background: linear-gradient(90deg, #E6F0FF 0%, #F5F9FF 100%);
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .chat-body { padding: 15px; }
+        .chat-message {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        .chat-message.user {
+            background: #e3f2fd;
+            color: #1565c0;
+            align-self: flex-end;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="presentation-container">
+        <!-- Logo Institucional -->
+        <img src="../../../tu puedes logo.png" class="logo-overlay" alt="Logo Institucional">
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide cover-layout active" id="slide-1">
+            <div class="bg-pattern-dots"></div>
+            <!-- Top Bar -->
+            <div class="deco-strip" style="position: absolute; top: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-pill">Cápsula 4.3</div>
+            <h1 class="cover-title">Alfabetización Digital:<br><span>Excel Básico + IA</span></h1>
+            <div class="cover-subtitle">Fórmulas que Calculan Solas</div>
+            
+            <div style="margin-top: 30px; font-weight: 600; color: var(--color-neutral-dark);">
+                Programa Tú Puedes - 2026
+            </div>
+
+            <div class="logo-wrapper-cover">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: SEPARADOR 1 -->
+        <div class="slide slide-section" id="slide-2">
+            <div class="bg-pattern-dots" style="opacity: 0.1;"></div>
+            <div class="deco-circle"></div>
+             <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 01</span>
+                    <div class="section-title-text">Matemáticas<br>sin Dolor</div>
+                    <div style="margin-top: 20px;">
+                        <span class="material-icons mi-lg anim-bounce-right" style="color: var(--color-green-lime);">calculate</span>
+                    </div>
+                </div>
+                <div class="section-number-giant">01</div>
+            </div>
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: EL SIGNO MAGICO -->
+        <div class="slide" id="slide-3">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>La Llave Maestra</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="margin-bottom: 30px; font-size: 1.3rem;">Excel es una hoja de papel, hasta que escribes este símbolo.</p>
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green"><span class="material-icons">keyboard</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Sin signo:</strong> Excel cree que escribes texto (Ej: "5+5" se queda escrito como "5+5").</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple"><span class="material-icons">functions</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content"><strong>Con signo (=):</strong> Excel entiende que debe calcular (Ej: "=5+5" se convierte en "10").</div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                         <div style="width: 200px; height: 200px; background: var(--color-purple-main); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 10px 30px rgba(88, 53, 134, 0.4); animation: pulseGlow 2s infinite;">
+                             <span style="font-size: 8rem; font-weight: bold; font-family: 'Consolas';">=</span>
+                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: REFERENCIAS vs ESTATICOS -->
+        <div class="slide" id="slide-4">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>No Sumes Números</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p style="margin-bottom: 10px; text-align: center; font-size: 1.3rem;">Suma las <strong>Cajas (Celdas)</strong> donde están los números.</p>
+                <div style="display: flex; gap: 40px; justify-content: center; align-items: center; margin-top: 30px;">
+                    
+                    <div class="concept-card bullet-point" style="width: 350px; border: 2px solid #d32f2f;">
+                        <div class="card-top-strip" style="background: #d32f2f;"></div>
+                        <div class="card-body">
+                            <span class="material-icons" style="font-size: 3rem; color: #d32f2f; margin-bottom: 20px;">dangerous</span>
+                            <h3>Forma Sólida (Mal)</h3>
+                            <div class="formula-box" style="font-size: 1.5rem; background: #ffebee; border-color: #ef9a9a; color: #c62828;">= 500 + 800</div>
+                            <p style="margin-top: 20px; font-size: 0.9rem;">Si cambias el precio, la fórmula NO se entera. Tienes que borrar y hacerla de nuevo.</p>
+                        </div>
+                    </div>
+
+                    <div style="font-size: 3rem; color: #ccc;" class="anim-bounce-right"><span class="material-icons mi-lg">arrow_forward</span></div>
+
+                    <div class="concept-card bullet-point" style="width: 350px; border: 2px solid #2e7d32;">
+                        <div class="card-top-strip" style="background: #2e7d32;"></div>
+                        <div class="card-body">
+                            <span class="material-icons" style="font-size: 3rem; color: #2e7d32; margin-bottom: 20px;">auto_awesome</span>
+                            <h3>Forma Dinámica (Bien)</h3>
+                            <div class="formula-box" style="font-size: 1.5rem; background: #e8f5e9; border-color: #a5d6a7; color: #2e7d32;">
+                                = <span class="cell-ref ref-a">A2</span> + <span class="cell-ref ref-b">B2</span>
+                            </div>
+                            <p style="margin-top: 20px; font-size: 0.9rem;">Si cambias los números en las celdas, el resultado se actualiza <strong>automáticamente</strong>.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: SEPARADOR 2 -->
+        <div class="slide slide-section" id="slide-5">
+            <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 02</span>
+                    <div class="section-title-text">Funciones<br>Básicas</div>
+                </div>
+                <div class="section-number-giant">02</div>
+            </div>
+             <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: AUTOSUMA (SIGMA) -->
+        <div class="slide" id="slide-6">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>El Botón Mágico: Autosuma</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="margin-bottom: 20px;">¿Tienes una lista de 100 gastos? No sumes uno por uno.</p>
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple">1</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">Párate en la celda vacía <strong>debajo</strong> de todos los números.</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green">2</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">Busca arriba a la derecha el símbolo griego <strong>Sigma (Σ)</strong>.</div>
+                             </div>
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-slate">3</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">Presiona <strong>Enter</strong>. ¡Listo!</div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <div style="background: white; padding: 20px; border-radius: 10px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border:1px solid #eee;">
+                            <!-- Ribbon Button Mockup -->
+                            <div style="background: #f3f3f3; border: 1px solid #dcdcdc; padding: 5px 10px; margin-bottom: 20px; border-radius: 4px; display: flex; flex-direction: column; align-items: center; font-family: 'Segoe UI'; cursor: pointer; border: 2px solid transparent; transition: all 0.3s; width: 80px;" class="anim-pulse">
+                                <span style="font-size: 2rem; color: #333; font-weight: bold; margin-bottom: -5px;">Σ</span>
+                                <span style="font-size: 0.75rem; color: #444;">Autosuma</span>
+                            </div>
+
+                            <!-- Excel Grid for Sum -->
+                            <div class="excel-grid-container" style="width: 200px; grid-template-columns: 30px 1fr;">
+                                <div class="grid-row-head">1</div><div class="grid-cell" style="text-align: right;">1000</div>
+                                <div class="grid-row-head">2</div><div class="grid-cell" style="text-align: right;">2000</div>
+                                <div class="grid-row-head">3</div><div class="grid-cell" style="text-align: right;">500</div>
+                                <div class="grid-row-head">4</div><div class="grid-cell" style="background: #e8f5e9; text-align: right; font-weight: bold; color: var(--color-green-main); border: 2px dashed var(--color-green-main);">=SUMA(..)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: PROMEDIO -->
+        <div class="slide" id="slide-7">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>¿Cuánto gasto normalmente?</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="font-size: 1.2rem;">La función <strong>PROMEDIO</strong> suma todo y lo divide por la cantidad.</p>
+                        <div class="highlight-box bullet-point" style="margin-top: 30px;">
+                            <div style="font-family: 'Consolas'; font-size: 1.5rem; color: var(--color-purple-dark);">
+                                =PROMEDIO( <span style="background: #e3f2fd; padding:0 5px;">A1:A10</span> )
+                            </div>
+                        </div>
+                        <p style="margin-top: 20px; font-size: 0.9rem; color: #666;">Útil para saber si tus gastos son altos o bajos en general.</p>
+                    </div>
+                    <div class="col-media">
+                         <div class="icon-circle" style="background: var(--color-purple-light); color: white; margin: auto;">
+                             <span class="material-icons" style="font-size: 4rem;">analytics</span>
+                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: CONTAR vs CONTARA -->
+        <div class="slide" id="slide-8">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>¿Cuántos Hay?</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple" style="width:40px; height:40px; line-height:40px; font-weight:bold; font-size:0.9rem;">123</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <h3 style="margin:0 0 5px 0; color:var(--color-purple-main); font-family:'Consolas';">=CONTAR( )</h3>
+                                    <p style="font-size:0.95rem;"><strong>Sólo cuenta NÚMEROS.</strong><br>Ignora el texto.</p>
+                                    <p style="font-size:0.85rem; color:#666; margin-top:5px;">Ej: Pagos, Edades.</p>
+                                </div>
+                             </div>
+                             
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green" style="width:40px; height:40px; line-height:40px; font-weight:bold; font-size:0.9rem;">ABC</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <h3 style="margin:0 0 5px 0; color:var(--color-green-main); font-family:'Consolas';">=CONTARA( )</h3>
+                                    <p style="font-size:0.95rem;"><strong>Cuenta TODO.</strong><br>(Números + Letras).</p>
+                                    <p style="font-size:0.85rem; color:#666; margin-top:5px;">Ej: Lista de Participantes.</p>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="col-media">
+                        <!-- Simulated Excel Window -->
+                         <div class="app-window app-excel" style="width: 100%; max-width: 380px; box-shadow: 0 15px 30px rgba(0,0,0,0.15); border-radius: 8px; overflow:hidden; font-family: 'Segoe UI', sans-serif;">
+                            <!-- Window Header -->
+                            <div class="app-header" style="background:#1d6f42; color:white; padding:8px 12px; display:flex; gap:10px; align-items:center;">
+                                <span class="material-icons" style="font-size:16px;">table_chart</span>
+                                <span style="font-size:12px; font-weight:500;">Asistencia.xlsx</span>
+                            </div>
+                           
+                            <!-- Grid -->
+                            <div class="app-body" style="padding:0; background:white;">
+                                <div class="excel-grid-container" style="border:none; width:100%; grid-template-columns: 30px 1fr 1fr;">
+                                    <div class="grid-header"></div><div class="grid-header">A</div><div class="grid-header">B</div>
+                                    
+                                    <div class="grid-row-head">1</div>
+                                    <div class="grid-cell" style="font-weight:bold; background-color:#f8f9fa;">Dato</div>
+                                    <div class="grid-cell" style="font-weight:bold; background-color:#f8f9fa;">Resultado</div>
+
+                                    <div class="grid-row-head">2</div>
+                                    <div class="grid-cell">Juan</div>
+                                    <div class="grid-cell" style="font-family:'Consolas'; font-size:11px; color:#666;">=CONTAR(A2:A4)</div>
+
+                                    <div class="grid-row-head">3</div>
+                                    <div class="grid-cell" style="text-align:right;">5000</div>
+                                    <div class="grid-cell" style="background:#f3e5f5; font-weight:bold; color:var(--color-purple-main); border:2px solid var(--color-purple-main); text-align:center;">
+                                        1
+                                        <span style="display:block; font-size:9px; font-weight:normal;">Solo el 5000</span>
+                                    </div>
+
+                                    <div class="grid-row-head">4</div>
+                                    <div class="grid-cell">Pedro</div>
+                                    <div class="grid-cell" style="font-family:'Consolas'; font-size:11px; color:#666;">=CONTARA(A2:A4)</div>
+
+                                    <div class="grid-row-head">5</div>
+                                    <div class="grid-cell" style="text-align:right;"></div>
+                                    <div class="grid-cell" style="background:#e8f5e9; font-weight:bold; color:var(--color-green-main); border:2px solid var(--color-green-main); text-align:center;">
+                                        3
+                                        <span style="display:block; font-size:9px; font-weight:normal;">Juan, 5000, Pedro</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Status Bar -->
+                            <div style="background:#1d6f42; height: 20px; color:white; font-size:10px; display:flex; align-items:center; justify-content:flex-end; padding-right:10px;">
+                                Listo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: MIN y MAX -->
+        <div class="slide" id="slide-9">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Los Extremos</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green" style="width:45px; height:45px; display:flex; align-items:center; justify-content:center; border-radius:8px;"><span class="material-icons">vertical_align_bottom</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <h3 style="margin:0 0 5px 0; color:var(--color-green-slate); font-family:'Consolas';">=MIN( )</h3>
+                                    <p style="font-size:1rem;">Encuentra el valor más <strong>pequeño</strong>.<br><span style="font-size:0.9rem; color:#666;">Ej: La oferta, el más barato.</span></p>
+                                </div>
+                             </div>
+                             
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-purple" style="width:45px; height:45px; display:flex; align-items:center; justify-content:center; border-radius:8px;"><span class="material-icons">vertical_align_top</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <h3 style="margin:0 0 5px 0; color:var(--color-purple-main); font-family:'Consolas';">=MAX( )</h3>
+                                    <p style="font-size:1rem;">Encuentra el valor más <strong>alto</strong>.<br><span style="font-size:0.9rem; color:#666;">Ej: El gasto mayor, el más caro.</span></p>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="col-media">
+                        <!-- Simulated Excel Window -->
+                        <div class="app-window app-excel" style="width: 100%; max-width: 400px; box-shadow: 0 15px 30px rgba(0,0,0,0.15); border-radius: 8px; overflow:hidden; font-family: 'Segoe UI', sans-serif;">
+                            <!-- Window Header -->
+                            <div class="app-header" style="background:#1d6f42; color:white; padding:8px 12px; display:flex; gap:10px; align-items:center;">
+                                <span class="material-icons" style="font-size:16px;">table_chart</span>
+                                <span style="font-size:12px; font-weight:500;">Lista_Precios.xlsx</span>
+                            </div>
+                            <!-- Formula Bar -->
+                            <div style="background:#f3f2f1; padding:5px; border-bottom:1px solid #e1dfdd; display:flex; gap:10px; align-items:center;">
+                                <div style="background:white; border:1px solid #e1dfdd; padding:2px 8px; font-size:11px; color:#333; width: 30px; text-align:center;">fx</div>
+                                <div style="background:white; border:1px solid #e1dfdd; padding:2px 8px; font-family:'Consolas', monospace; font-size:12px; color:#333; flex:1;">=MAX(B2:B5)</div>
+                            </div>
+                            <!-- Grid -->
+                            <div class="app-body" style="padding:0; background:white;">
+                                <div class="excel-grid-container" style="border:none; width:100%; grid-template-columns: 30px 1fr 1fr;">
+                                    <div class="grid-header"></div><div class="grid-header">A</div><div class="grid-header">B</div>
+                                    
+                                    <div class="grid-row-head">1</div>
+                                    <div class="grid-cell" style="font-weight:bold; background-color:#f8f9fa;">Producto</div>
+                                    <div class="grid-cell" style="font-weight:bold; background-color:#f8f9fa;">Precio</div>
+
+                                    <div class="grid-row-head">2</div>
+                                    <div class="grid-cell">Pan</div>
+                                    <div class="grid-cell" style="text-align:right;">$ 1.500</div>
+
+                                    <div class="grid-row-head">3</div>
+                                    <div class="grid-cell">Carne</div>
+                                    <div class="grid-cell" style="background: #f3e5f5; color: var(--color-purple-main); font-weight: bold; border: 2px solid var(--color-purple-main); position:relative; text-align:right;">
+                                        $ 12.000
+                                        <div style="position:absolute; right: -80px; top: 6px; background: var(--color-purple-main); color: white; padding: 2px 6px; font-size: 0.7rem; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                                            MAX ⬆
+                                        </div>
+                                    </div>
+
+                                    <div class="grid-row-head">4</div>
+                                    <div class="grid-cell">Agua</div>
+                                    <div class="grid-cell" style="background: #e8f5e9; color: var(--color-green-slate); font-weight: bold; border: 2px solid var(--color-green-slate); position:relative; text-align:right;">
+                                        $ 800
+                                        <div style="position:absolute; right: -80px; top: 6px; background: var(--color-green-slate); color: white; padding: 2px 6px; font-size: 0.7rem; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                                            MIN ⬇
+                                        </div>
+                                    </div>
+
+                                    <div class="grid-row-head">5</div>
+                                    <div class="grid-cell">Arroz</div>
+                                    <div class="grid-cell" style="text-align:right;">$ 1.200</div>
+                                </div>
+                            </div>
+                            <!-- Status Bar -->
+                            <div style="background:#1d6f42; height: 20px; color:white; font-size:10px; display:flex; align-items:center; justify-content:flex-end; padding-right:10px;">
+                                Listo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: CONCAT -->
+        <div class="slide" id="slide-10">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Pegando Palabras</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="timeline-container">
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge t-green" style="width:30px; height:30px; line-height:30px; font-size:1.2rem;">=</div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <strong style="color:var(--color-green-main);">La Función CONCAT</strong>
+                                    <p style="margin-top:5px;">Sirve para unir texto de celdas separadas (Nombre + Apellido) en una sola.</p>
+                                    <div style="background:#e8f5e9; padding:8px; border-radius:4px; font-family:'Consolas'; margin-top:5px; border:1px solid #c8e6c9;">
+                                        =CONCAT(A2 ; <span style="color:red; font-weight:bold;">" "</span> ; B2)
+                                    </div>
+                                </div>
+                             </div>
+                             
+                             <div class="timeline-item bullet-point">
+                                <div class="timeline-badge" style="background:#d32f2f; color:white; width:30px; height:30px; display:flex; align-items:center; justify-content:center;"><span class="material-icons" style="font-size:18px;">warning</span></div>
+                                <div class="timeline-line"></div>
+                                <div class="timeline-content">
+                                    <strong style="color:#d32f2f;">¡El Espacio es Clave!</strong>
+                                    <p style="margin-top:5px;">Excel no pone espacios automáticos. Debes agregar <code>" "</code> (comillas-espacio-comillas) manual al medio.</p>
+                                    <p style="font-size:0.85rem; color:#666; margin-top:5px;">❌ Sin espacio: <em>JuanPérez</em><br>✅ Con espacio: <em>Juan Pérez</em></p>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="col-media">
+                        <!-- Simulated Excel Window -->
+                        <div class="app-window app-excel" style="width: 100%; max-width: 450px; box-shadow: 0 15px 30px rgba(0,0,0,0.15); border-radius: 8px; overflow:hidden; font-family: 'Segoe UI', sans-serif;">
+                            <!-- Window Header -->
+                            <div class="app-header" style="background:#1d6f42; color:white; padding:8px 12px; display:flex; gap:10px; align-items:center;">
+                                <span class="material-icons" style="font-size:16px;">table_chart</span>
+                                <span style="font-size:12px; font-weight:500;">Nómina_Empleados.xlsx</span>
+                            </div>
+                            <!-- Formula Bar -->
+                            <div style="background:#f3f2f1; padding:5px; border-bottom:1px solid #e1dfdd; display:flex; gap:10px; align-items:center;">
+                                <div style="background:white; border:1px solid #e1dfdd; padding:2px 8px; font-size:11px; color:#333; width: 30px; text-align:center;">fx</div>
+                                <div style="background:white; border:1px solid #e1dfdd; padding:2px 8px; font-family:'Consolas', monospace; font-size:12px; color:#333; flex:1;">=CONCAT(A2; " "; B2)</div>
+                            </div>
+                            <!-- Grid -->
+                            <div class="app-body" style="padding:0; background:white;">
+                                <div class="excel-grid-container" style="border:none; width:100%; grid-template-columns: 30px 1fr 1fr 1.5fr;">
+                                    <div class="grid-header"></div><div class="grid-header">A</div><div class="grid-header">B</div><div class="grid-header">C</div>
+                                    
+                                    <div class="grid-row-head">1</div>
+                                    <div class="grid-cell" style="font-weight:bold; background-color:#f8f9fa;">Nombre</div>
+                                    <div class="grid-cell" style="font-weight:bold; background-color:#f8f9fa;">Apellido</div>
+                                    <div class="grid-cell" style="font-weight:bold; background-color:#f8f9fa;">Nombre Completo</div>
+
+                                    <div class="grid-row-head">2</div>
+                                    <div class="grid-cell">Juan</div>
+                                    <div class="grid-cell">Pérez</div>
+                                    <div class="grid-cell" style="background:#e8f5e9; font-weight:bold; color: var(--color-green-main); border: 2px solid var(--color-green-main);">
+                                        Juan Pérez
+                                    </div>
+                                    
+                                    <div class="grid-row-head">3</div>
+                                    <div class="grid-cell">Maria</div>
+                                    <div class="grid-cell">Soto</div>
+                                    <div class="grid-cell" style="background:#f8f9fa; color:#666;">Maria Soto</div>
+                                    
+                                    <div class="grid-row-head">4</div>
+                                    <div class="grid-cell">Luis</div>
+                                    <div class="grid-cell">Tapia</div>
+                                    <div class="grid-cell"></div>
+                                </div>
+                            </div>
+                             <!-- Status Bar -->
+                            <div style="background:#1d6f42; height: 20px; color:white; font-size:10px; display:flex; align-items:center; justify-content:flex-end; padding-right:10px;">
+                                Listo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: SEPARADOR 3 -->
+        <div class="slide slide-section" id="slide-11">
+            <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 03</span>
+                    <div class="section-title-text">Ayuda con<br>IA</div>
+                </div>
+                <div class="section-number-giant">03</div>
+            </div>
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: PROMPT ESCRIBIR FORMULA -->
+        <div class="slide" id="slide-12">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Gemini Calculadora</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="margin-bottom: 20px;">¿No sabes cómo calcular algo difícil? Pregúntale a Gemini.</p>
+                    </div>
+                    <div class="col-media" style="flex: 2;">
+                        <div class="chat-ui">
+                             <div class="chat-header">
+                                <span class="material-icons" style="color: #4285f4;">auto_awesome</span>
+                                <strong>Chat con Gemini</strong>
+                            </div>
+                            <div class="chat-body">
+                                <div class="chat-message user">
+                                    "Tengo el precio de costo en <strong>A2</strong> y el de venta en <strong>B2</strong>. Dame la fórmula para la ganancia."
+                                </div>
+                                <div class="chat-message" style="background: white; border: 1px solid #eee;">
+                                    <p style="margin:0 0 10px 0;">Aquí tienes la fórmula. Pega esto en la celda C2:</p>
+                                    <code style="display:block; background:#f5f5f5; padding:8px; border-radius:4px; font-family:'Consolas'; color:#333;">=B2-A2</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-badge">⚡ Actividad: Pide una fórmula compleja</div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+         <!-- SLIDE 13: PROMPT EXPLICAR FORMULA -->
+        <div class="slide" id="slide-13">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Traductor de Excel</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                     <div class="col-text">
+                        <p style="margin-bottom: 20px;">¿Encontraste una hoja ajena y no entiendes nada? Gemini te lo explica en español.</p>
+                     </div>
+                     <div class="col-media" style="flex: 2;">
+                        <div class="chat-ui">
+                             <div class="chat-header">
+                                <span class="material-icons" style="color: #4285f4;">auto_awesome</span>
+                                <strong>Chat con Gemini</strong>
+                            </div>
+                            <div class="chat-body">
+                                <div class="chat-message user">
+                                    "Explícame qué hace esta fórmula: <br><code>=SI(B2>1000; "Caro"; "Barato")</code>"
+                                </div>
+                                <div class="chat-message" style="background: white; border: 1px solid #eee;">
+                                    <p style="margin:0;">Esta fórmula revisa el valor en <strong>B2</strong>:</p>
+                                    <ul style="margin: 5px 0 0 20px; padding:0; font-size:0.9rem;">
+                                        <li>Si es <strong>mayor a 1000</strong>, escribe "Caro".</li>
+                                        <li>Si <strong>no</strong> lo es, escribe "Barato".</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: SEPARADOR 4 -->
+        <div class="slide slide-section" id="slide-14">
+            <div class="section-grid">
+                <div class="section-content">
+                    <span class="section-label">MÓDULO 04</span>
+                    <div class="section-title-text">Errores<br>Comunes</div>
+                </div>
+                <div class="section-number-giant">04</div>
+            </div>
+            <!-- Bottom Bar -->
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 15: ERRORES TIPICOS -->
+        <div class="slide" id="slide-15">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>¿Por qué no funciona?</h1></div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
+                    
+                    <div class="concept-card bullet-point" style="width: 250px;">
+                        <div class="card-top-strip" style="background: #333;"></div>
+                        <div class="card-body">
+                            <h3 style="color: #333;">#####</h3>
+                            <span class="material-icons" style="font-size: 3rem; color: #333; margin: 15px 0;">aspect_ratio</span>
+                            <p style="font-size:0.9rem;"><strong>Columna Muy Estrecha</strong>. El número no cabe.</p>
+                            <p style="font-size:0.8rem; color:#666;">Solución: Agranda la columna.</p>
+                        </div>
+                    </div>
+
+                    <div class="concept-card bullet-point" style="width: 250px;">
+                        <div class="card-top-strip" style="background: #ef5350;"></div>
+                        <div class="card-body">
+                            <h3 style="color: #c62828;">#NOMBRE?</h3>
+                            <span class="material-icons" style="font-size: 3rem; color: #ef5350; margin: 15px 0;">spellcheck</span>
+                            <p style="font-size:0.9rem;"><strong>Mala Ortografía</strong>. Escribiste mal la fórmula.</p>
+                            <p style="font-size:0.8rem; color:#666;">Ej: =SUMAA() en vez de =SUMA()</p>
+                        </div>
+                    </div>
+
+                    <div class="concept-card bullet-point" style="width: 250px;">
+                        <div class="card-top-strip" style="background: #ef5350;"></div>
+                        <div class="card-body">
+                            <h3 style="color: #c62828;">#¡VALOR!</h3>
+                            <span class="material-icons" style="font-size: 3rem; color: #ef5350; margin: 15px 0;">text_fields</span>
+                            <p style="font-size:0.9rem;"><strong>Mezcla Incorrecta</strong>. Sumaste texto con número.</p>
+                            <p style="font-size:0.8rem; color:#666;">Revisa si hay un espacio extra.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 16: RESUMEN -->
+        <div class="slide" id="slide-16">
+             <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main"><h1>Resumen de Fórmulas</h1></div>
+            </header>
+             <div class="content-body slide-content">
+                 <h2 style="text-align:center; color: #555; margin-bottom: 20px;">Cápsula 4.3: Puntos Clave</h2>
+                 <div class="timeline-container" style="gap: 10px;">
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-green">=</div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Siempre empieza con =</strong>. Sin el igual, Excel no calcula.</div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-purple">Σ</div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Autosuma:</strong> Usa el botón Sigma (Σ) para listas largas.</div>
+                    </div>
+                    <div class="timeline-item bullet-point">
+                        <div class="timeline-badge t-slate"><span class="material-icons">function</span></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-content"><strong>Funciones Clave:</strong> PROMEDIO (Media), CONTAR (Números), MIN/MAX (Extremos) y CONCAT (Unir).</div>
+                    </div>
+                 </div>
+             </div>
+            <div class="deco-strip" style="position: absolute; bottom: 0; width: 100%;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 17: CIERRE -->
+         <div class="slide cover-layout" id="slide-17">
+             <div class="bg-pattern-dots"></div>
+             
+             <div class="logo-wrapper-cover" style="bottom: auto; top: -50px; right: -50px; transform: rotate(20deg);">
+                <img src="../../../tu puedes logo.png" alt="Logo Fondo">
+            </div>
+
+             <div class="section-icon" style="font-size:6rem; margin-bottom:20px;">🔢</div>
+             <h1 class="cover-title">¡Calculadora Potenciada!</h1>
+             <div class="cover-subtitle" style="margin-bottom: 20px;">Próxima parada: Formatos (Cómo se ven los datos).</div>
+             <div class="cover-pill" style="background: var(--color-purple-main); color: white;">Fin de la Cápsula 4.3</div>
+             
+            <div class="deco-strip" style="position: absolute; bottom: 0; left: 0;">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-sm bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls" style="left: 50%; transform: translateX(-50%); right: auto;">
+            <button class="nav-btn prev-btn" onclick="prevSlide()" title="Anterior">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <span class="slide-indicator" id="slideIndicator">1 / 17</span>
+            <button class="nav-btn next-btn" onclick="nextSlide()" title="Siguiente">
+                <span class="material-icons">arrow_forward</span>
+            </button>
+            <button class="nav-btn fullscreen-btn" onclick="toggleFullscreen()" title="Pantalla completa">
+                <span class="material-icons">fullscreen</span>
+            </button>
+        </div>
+        <div class="progress-bar" id="progressBar"></div>
+
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>

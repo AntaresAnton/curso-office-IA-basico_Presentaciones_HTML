@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guion Técnico - Cápsula 5.5: Cierre del Curso y Seguridad Digital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           TOKENS DE DISEÑO (SISTEMA ATÓMICO)
+           ========================================= */
+        :root {
+            --color-purple-main: #583586;
+            --color-purple-mid: #6d4c94;
+            --color-purple-light: #8f6bb3;
+            --color-purple-dark: #4a276b;
+            
+            --color-green-main: #76b82a;
+            --color-green-lime: #9ccb3b;
+            --color-green-slate: #7a9483;
+            
+            --color-neutral-white: #ffffff;
+            --color-neutral-light: #f4f4f4;
+            --color-neutral-gray: #d1d1d1;
+            --color-neutral-dark: #333333;
+
+            --font-primary: 'Montserrat', sans-serif;
+            --skew-angle: -40deg;
+        }
+
+        /* =========================================
+           CONFIGURACIÓN DE PÁGINA (IMPRIMIBLE)
+           ========================================= */
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: #525659;
+            font-family: var(--font-primary);
+            margin: 0;
+            padding: 20px;
+            color: var(--color-neutral-dark);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px auto;
+            padding: 15mm 20mm;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media print {
+            body { background: none; padding: 0; }
+            .page { width: 100%; margin: 0; box-shadow: none; border: none; min-height: auto; page-break-after: always; }
+            .page:last-child { page-break-after: auto; }
+        }
+
+        /* =========================================
+           COMPONENTES
+           ========================================= */
+        
+        /* Header */
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--color-green-main);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .header-info h1 {
+            font-size: 18pt;
+            color: var(--color-purple-main);
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .header-info h2 {
+            font-size: 10pt;
+            color: var(--color-green-slate);
+            margin: 5px 0 0 0;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .logo-simple {
+            width: 100px;
+            height: auto;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+        
+        .deco-strip {
+            display: flex;
+            height: 15px;
+            overflow: hidden;
+            width: 100%;
+        }
+        .deco-strip .segment {
+            height: 100%;
+            transform: skewX(var(--skew-angle));
+            margin-right: 4px;
+        }
+        .deco-strip .seg-fill { flex-grow: 1; }
+        .deco-strip .seg-sm { width: 15px; }
+        .deco-strip .seg-md { width: 30px; }
+        .deco-strip .seg-start { margin-left: -10px; padding-left: 10px; }
+        .deco-strip .seg-end { margin-right: -10px; padding-right: 10px; }
+
+        .footer-text {
+            text-align: right;
+            font-size: 8pt;
+            color: var(--color-green-slate);
+            margin-top: 5px;
+        }
+
+        /* Contenido */
+        .script-meta {
+            background-color: var(--color-neutral-light);
+            border-left: 4px solid var(--color-purple-main);
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 10pt;
+        }
+
+        .script-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 12pt;
+            color: var(--color-purple-main);
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--color-neutral-gray);
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cue-block {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            font-size: 10pt;
+        }
+
+        .cue-tech {
+            flex: 0 0 120px;
+            font-size: 8pt;
+            font-weight: 600;
+            color: var(--color-green-slate);
+            text-transform: uppercase;
+            padding-top: 3px;
+        }
+
+        .cue-tech strong {
+            display: block;
+            color: var(--color-purple-mid);
+            margin-bottom: 2px;
+        }
+
+        .cue-dialogue {
+            flex: 1;
+            line-height: 1.5;
+            color: var(--color-neutral-dark);
+        }
+
+        .cue-dialogue p { margin: 0 0 10px 0; }
+
+        /* Prompt Box */
+        .prompt-box {
+            background-color: #f0f7ff;
+            border: 1px dashed var(--color-purple-light);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 9pt;
+            color: var(--color-purple-dark);
+        }
+        .prompt-label {
+            font-weight: bold;
+            color: var(--color-purple-main);
+            display: block;
+            margin-bottom: 5px;
+            font-family: var(--font-primary);
+            font-size: 8pt;
+            text-transform: uppercase;
+        }
+
+        /* Listas */
+        ul { margin: 0 0 10px 20px; padding: 0; }
+        li { margin-bottom: 4px; }
+
+    </style>
+</head>
+<body>
+
+    <!-- PÁGINA 1 -->
+    <div class="page">
+        <header class="doc-header">
+            <div class="header-info">
+                <h1>Guion Técnico</h1>
+                <h2>Programa: Office Básico + IA</h2>
+            </div>
+            <div class="logo-wrapper" style="width: 80px; height: 80px;">
+                <img src="https://www.elbosquedigital.cl/Nuevaintranet/_lib/libraries/grp/Zsamples2/login/img/Logo%20Verde_Mora_Mesa%20de%20trabajo%201.png" alt="Logo" class="logo-simple">
+            </div>
+        </header>
+
+        <main>
+            <div class="script-meta">
+                <h3 style="margin: 0 0 10px 0; color: var(--color-purple-main);">🎥 CÁPSULA 5.5 – Cierre del Curso y Seguridad Digital</h3>
+                <div><strong>Duración estimada:</strong> 10–12 minutos</div>
+                <div><strong>Herramientas:</strong> Conceptos de Seguridad, Resumen General</div>
+                <div><strong>Objetivo:</strong> Repasar lo aprendido, dar consejos de seguridad (contraseñas, phishing) y motivar para el futuro.</div>
+            </div>
+
+            <!-- SECCIÓN 0 -->
+            <div class="script-section">
+                <div class="section-title">🎬 0. Bienvenida: El camino recorrido (00:00 – 02:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Plano Medio<br>
+                        Emotivo
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>¡Hola a todos! Qué emoción llegar a este momento. Esta es nuestra última cápsula juntos. Ha sido un viaje increíble, ¿verdad?</p>
+                        <p>Quiero que se tomen un segundo para recordar cómo empezaron. Quizás tenían miedo de apretar el botón equivocado, o pensaban que Excel era solo para matemáticos. Miren todo lo que han logrado ahora:</p>
+                        <ul>
+                            <li>Ya saben redactar cartas y documentos profesionales en <strong>Word</strong>, usando estilos y formatos elegantes.</li>
+                            <li>Perdieron el miedo a las tablas y fórmulas en <strong>Excel</strong>, y hasta saben hacer gráficos que hablan por sí solos.</li>
+                            <li>Aprendieron a contar historias visuales con <strong>PowerPoint</strong>, usando diseños modernos y transiciones suaves.</li>
+                            <li>Y lo más importante: descubrieron que su oficina no es un lugar físico, sino que vive en la <strong>Nube</strong> y en su bolsillo.</li>
+                        </ul>
+                        <p>Pero, como todo gran poder conlleva una gran responsabilidad, no puedo dejarlos ir sin hablar de lo único que puede poner en riesgo todo su trabajo: la seguridad digital.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 1 -->
+            <div class="script-section">
+                <div class="section-title">🔒 1. La llave de tu casa digital (02:00 – 04:30)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Consejos
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Piensen en su cuenta de Microsoft (su correo y contraseña) como la llave de su casa. Si alguien la consigue, no solo entra a su correo. Entra a sus archivos personales, sus fotos familiares, y quizás hasta a información bancaria.</p>
+                        <p>Por eso, la <strong>Regla de Oro número 1</strong> es: La contraseña. Olvídense de "123456", "password" o el nombre de su mascota. Los hackers tienen programas que adivinan esas claves en segundos.</p>
+                        <p>¿El truco? Usen <strong>frases de contraseña</strong>. Algo largo y fácil de recordar para ustedes, pero difícil para una máquina. Por ejemplo: "MeGustaComerPizzaLosViernes!". Es larga, tiene mayúsculas y signos, y es fácil de recordar.</p>
+                        <p>Y la <strong>Regla de Oro número 2</strong>: Activen la <strong>Verificación en Dos Pasos</strong>. ¿Qué es esto? Es como tener una segunda cerradura. Aunque alguien robe su contraseña, no podrá entrar a menos que tenga su celular para aprobar el ingreso. Es un paso extra, sí, pero les aseguro que dormirán mucho más tranquilos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2 -->
+            <div class="script-section">
+                <div class="section-title">🎣 2. Cuidado con el anzuelo (Phishing) (04:30 – 07:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Pantalla</strong>
+                        Ejemplo Correo Falso
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>En internet, el peligro no siempre viene de un hacker encapuchado rompiendo códigos. A veces, viene disfrazado de un correo amable. Esto se llama <strong>Phishing</strong> (pesca).</p>
+                        <p>Imaginen que reciben un correo que dice: "URGENTE: Su cuenta será bloqueada en 24 horas. Haga clic aquí para evitarlo". Su corazón se acelera y quieren hacer clic. ¡ALTO!</p>
+                        <p>Esa es la trampa. Quieren que entren en pánico. ¿Cómo reconocer la estafa?</p>
+                        <ol>
+                            <li><strong>El remitente:</strong> Si el correo dice ser de "Soporte Microsoft" pero la dirección es "juanito123@gmail.com" o "soporte-microsoft-fake.com", es falso.</li>
+                            <li><strong>La urgencia:</strong> Las empresas serias nunca amenazan con cerrar cuentas de un día para otro.</li>
+                            <li><strong>El enlace:</strong> Si pasan el mouse sobre el enlace (sin hacer clic), verán que la dirección web es extraña.</li>
+                        </ol>
+                        <p>Ante la duda, nunca hagan clic. Borren el correo y sigan con su vida.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3 -->
+            <div class="script-section">
+                <div class="section-title">🚀 3. El futuro es de ustedes (07:00 – 09:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Motivador
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Ya tienen las herramientas y saben cómo protegerlas. ¿Qué sigue ahora? El mundo digital cambia rápido. Mañana saldrá una nueva versión de Office, o una nueva Inteligencia Artificial.</p>
+                        <p>Mi consejo final es: <strong>No pierdan la curiosidad</strong>. La alfabetización digital no es saberse todos los manuales de memoria. Es tener la confianza para decir "No sé cómo se hace esto, pero puedo averiguarlo".</p>
+                        <p>Tienen un superpoder a su lado: la IA. Si se olvidan de una fórmula en Excel, pregúntenle a Copilot. Si no saben cómo cambiar un margen en Word, usen el buscador. La tecnología está ahí para servirlos a ustedes, no al revés.</p>
+                        <p>Sigan practicando. Hagan ese presupuesto familiar, escriban esa carta, organicen las fotos de las vacaciones. La práctica hace al maestro.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 4 -->
+            <div class="script-section">
+                <div class="section-title">👋 4. Despedida Final (09:00 – 10:00)</div>
+                <div class="cue-block">
+                    <div class="cue-tech">
+                        <strong>Cámara</strong>
+                        Cierre
+                    </div>
+                    <div class="cue-dialogue">
+                        <p>Ha sido un verdadero honor ser su instructor en este curso de Office Básico e Inteligencia Artificial. Espero de corazón que estas herramientas les abran nuevas puertas, les ahorren tiempo y les den más seguridad en su vida laboral y personal.</p>
+                        <p>Recuerden que este no es el fin, es solo el comienzo de su vida digital. Sigan aprendiendo, sigan explorando y, sobre todo, disfruten de la tecnología.</p>
+                        <p>Soy Patricio Quintanilla, y en nombre de todo el equipo de OTEC El Bosque, les deseo mucho éxito. ¡Hasta siempre y muchas gracias!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 20px; background: var(--color-green-main); color: white; text-align: center; font-weight: bold; border-radius: 8px;">
+                📦 FIN DEL CURSO COMPLETO
+            </div>
+
+        </main>
+
+        <footer class="doc-footer">
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+            <div class="footer-text">Página 1 de 1 | Guion Técnico - OTEC El Bosque</div>
+        </footer>
+    </div>
+
+</body>
+</html>

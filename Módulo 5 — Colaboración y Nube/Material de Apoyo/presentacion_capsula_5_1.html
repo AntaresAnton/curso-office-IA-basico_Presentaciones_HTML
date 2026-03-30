@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Cápsula 5.1 - Entendiendo la Nube y OneDrive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* =========================================
+           1. VARIABLES & TOKENS (SISTEMA ATÓMICO)
+           ========================================= */
+        :root {
+            --color-purple-main: #583586;
+            --color-purple-mid: #6d4c94;
+            --color-purple-light: #8f6bb3;
+            --color-purple-dark: #4a276b;
+            
+            --color-green-main: #76b82a;
+            --color-green-lime: #9ccb3b;
+            --color-green-slate: #7a9483;
+            
+            --color-neutral-white: #ffffff;
+            --color-neutral-light: #f4f4f4;
+            --color-neutral-gray: #d1d1d1;
+            --color-neutral-dark: #333333;
+
+            --font-primary: 'Montserrat', sans-serif;
+            --skew-angle: -40deg;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: #1a1a1a; /* Fondo oscuro para el "teatro" */
+            color: var(--color-neutral-dark);
+            overflow: hidden; /* Evitar scroll */
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* =========================================
+           2. CONTENEDOR DE SLIDES
+           ========================================= */
+        #presentation-container {
+            width: 1280px; /* Aspect Ratio 16:9 aprox */
+            height: 720px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
+        }
+
+        /* Animaciones de entrada */
+        .slide-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease 0.3s; /* Delay para que entre después del slide */
+        }
+        .slide.active .slide-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================================
+           3. COMPONENTES DE DISEÑO
+           ========================================= */
+        
+        /* Shapes & Decorators */
+        .bg-pattern-dots {
+            background-image: radial-gradient(var(--color-neutral-gray) 1.5px, transparent 1.5px);
+            background-size: 25px 25px;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .deco-strip {
+            display: flex;
+            height: 20px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .deco-strip .segment {
+            height: 100%;
+            transform: skewX(var(--skew-angle));
+            margin-right: 5px;
+        }
+        .deco-strip .seg-fill { flex-grow: 1; }
+        .deco-strip .seg-sm { width: 20px; }
+        .deco-strip .seg-md { width: 40px; }
+        .deco-strip .seg-start { margin-left: -20px; padding-left: 20px; }
+        .deco-strip .seg-end { margin-right: -20px; padding-right: 20px; }
+
+        /* Colores */
+        .bg-purple-main { background-color: var(--color-purple-main); }
+        .bg-purple-light { background-color: var(--color-purple-light); }
+        .bg-green-main { background-color: var(--color-green-main); }
+        .bg-green-lime { background-color: var(--color-green-lime); }
+        .bg-green-slate { background-color: var(--color-green-slate); }
+
+        /* Header Corporativo (Slide Interna) */
+        .corp-header {
+            position: relative;
+            width: 100%;
+            height: 80px;
+            display: flex;
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1));
+            z-index: 20;
+        }
+        .corp-header .ch-start {
+            width: 10%;
+            background-color: var(--color-green-main);
+            clip-path: polygon(0% 0%, calc(100% - 35px) 0%, 100% 50%, calc(100% - 35px) 100%, 0% 100%);
+        }
+        .corp-header .ch-item {
+            width: 80px;
+            margin-left: -30px;
+            clip-path: polygon(0% 0%, calc(100% - 35px) 0%, 100% 50%, calc(100% - 35px) 100%, 0% 100%, 35px 50%);
+        }
+        .corp-header .ch-end {
+            flex-grow: 1;
+            margin-left: -30px;
+            background-color: var(--color-purple-main);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 35px 50%);
+            display: flex;
+            align-items: center;
+            padding-left: 60px;
+        }
+        .corp-header h1 {
+            color: white;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* =========================================
+           4. TIPOS DE SLIDES
+           ========================================= */
+
+        /* --- SLIDE PORTADA --- */
+        .slide-cover {
+            justify-content: space-between;
+        }
+        .cover-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 10;
+            padding: 0 100px;
+        }
+        /* Ajuste para Slide 1 para dar espacio al logo */
+        #slide-1 .cover-content {
+            padding-top: 380px;
+            justify-content: flex-start;
+        }
+
+        .cover-title {
+            font-size: 3.5rem;
+            color: var(--color-purple-main);
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+        .cover-subtitle {
+            font-size: 2rem;
+            color: var(--color-green-slate);
+            font-weight: 500;
+            background: white;
+            padding: 10px 30px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* --- SLIDE SEPARADOR (SECTION) --- */
+        .slide-section {
+            background: linear-gradient(135deg, var(--color-purple-dark) 0%, #2b1640 100%);
+            color: white;
+            justify-content: center;
+            align-items: center;
+        }
+        .section-number {
+            font-size: 8rem;
+            font-weight: 900;
+            color: var(--color-green-lime);
+            opacity: 0.2;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(1.5);
+            z-index: 0;
+        }
+        .section-content-box {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            border-left: 10px solid var(--color-green-main);
+            padding-left: 40px;
+        }
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+        .section-time {
+            font-size: 1.5rem;
+            color: var(--color-green-lime);
+            margin-top: 10px;
+            font-weight: 400;
+        }
+
+        /* --- SLIDE CONTENIDO --- */
+        .content-body {
+            flex-grow: 1;
+            padding: 40px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 10;
+        }
+        .content-row {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+        .col-text { flex: 1; }
+        .col-media { flex: 1; display: flex; justify-content: center; }
+        
+        .bullet-point {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            opacity: 0; /* Para animación */
+            transform: translateX(-20px);
+            transition: all 0.5s ease;
+        }
+        .bullet-point.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .bullet-icon {
+            color: var(--color-green-main);
+            font-size: 1.2em;
+            min-width: 40px;
+            text-align: center;
+            flex-shrink: 0;
+            margin-top: -5px; /* Ajuste fino para alineación con texto */
+        }
+
+        .highlight-box {
+            background-color: #f0f7ff;
+            border-left: 5px solid var(--color-purple-main);
+            padding: 20px;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: var(--color-purple-dark);
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Prompt Box Style */
+        .prompt-display {
+            background: linear-gradient(145deg, #2b2b2b, #1a1a1a);
+            color: #e0e0e0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 25px;
+            border-radius: 15px;
+            font-size: 1.4rem;
+            line-height: 1.5;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3), -5px -5px 15px rgba(255,255,255,0.05);
+            border: 1px solid #333;
+            position: relative;
+            margin: 20px 0;
+        }
+        .prompt-display::before {
+            content: '✨ Copilot Prompt';
+            position: absolute;
+            top: -15px; left: 20px;
+            background: var(--color-purple-main);
+            color: white;
+            padding: 5px 15px;
+            font-family: var(--font-primary);
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Logo Overlay */
+        .logo-overlay {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 100px;
+            z-index: 500;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        /* Logo Centered State (Slide 1) */
+        .logo-overlay.centered {
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.3));
+        }
+
+        /* Activity Badge */
+        .activity-badge {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: #ff9800;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transform: rotate(5deg);
+            z-index: 20;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1) rotate(5deg); }
+            50% { transform: scale(1.05) rotate(5deg); }
+            100% { transform: scale(1) rotate(5deg); }
+        }
+
+        /* --- CONTROLES --- */
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+        .nav-btn {
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        .nav-btn:hover { background: var(--color-purple-main); }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: absolute;
+            bottom: 0; left: 0;
+            height: 5px;
+            background: var(--color-green-main);
+            width: 0%;
+            transition: width 0.5s ease;
+            z-index: 100;
+        }
+
+        /* Icon Animations */
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .col-media i {
+            animation: iconPulse 3s ease-in-out infinite;
+        }
+        .col-media i.fa-cloud {
+            color: var(--color-purple-main);
+        }
+        .col-media i.fa-check-circle {
+            color: var(--color-green-main);
+        }
+
+        /* --- DISEÑO VISUAL PARA SECCIONES --- */
+        :root {
+            --alto-barra: 140px;
+            --profundidad: 45px;
+            --gap: 1rem;
+            --superposicion: calc((var(--profundidad) * -1) + var(--gap));
+        }
+
+        .central-bar {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            height: var(--alto-barra);
+            display: flex;
+            align-items: center;
+            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.4));
+            margin: 0 auto;
+        }
+
+        .shape-start {
+            height: 100%;
+            clip-path: polygon(0% 0%, calc(100% - var(--profundidad)) 0%, 100% 50%, calc(100% - var(--profundidad)) 100%, 0% 100%);
+        }
+
+        .shape-mid {
+            height: 100%;
+            margin-left: var(--superposicion);
+            clip-path: polygon(0% 0%, calc(100% - var(--profundidad)) 0%, 100% 50%, calc(100% - var(--profundidad)) 100%, 0% 100%, var(--profundidad) 50%);
+        }
+
+        .shape-end-arrow {
+            height: 100%;
+            flex-grow: 1;
+            margin-left: var(--superposicion);
+            clip-path: polygon(0% 0%, calc(100% - var(--profundidad)) 0%, 100% 50%, calc(100% - var(--profundidad)) 100%, 0% 100%, var(--profundidad) 50%);
+        }
+
+        .w-1 { width: 16%; min-width: 140px; }
+        .w-2 { width: 110px; }
+        .w-3 { width: 100px; }
+        .w-4 { width: 90px; }
+
+        .bg-v1 { background-color: var(--color-green-main); }
+        .bg-v2 { background-color: var(--color-green-lime); }
+        .bg-gr { background-color: var(--color-green-slate); }
+        .bg-m1 { background-color: var(--color-purple-light); }
+        .bg-m2 { background-color: var(--color-purple-main); }
+
+        .z5 { z-index: 5; } .z4 { z-index: 4; } .z3 { z-index: 3; } .z2 { z-index: 2; } .z1 { z-index: 1; }
+
+        .bottom-area {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            align-items: flex-end;
+            z-index: 20;
+            width: auto;
+        }
+
+        .footer-stripes {
+            display: flex;
+            height: 35px;
+            margin-right: -100px;
+            margin-bottom: 0;
+            z-index: 1;
+            padding-right: 0;
+            align-items: flex-end;
+        }
+
+        .stripe {
+            height: 100%;
+            width: 40px;
+            transform: skewX(-40deg);
+            margin-right: 8px;
+        }
+
+        .stripe-long {
+            height: 100%;
+            width: 300px;
+            background-color: var(--color-green-main);
+            transform: skewX(-40deg);
+            margin-right: -50px;
+            position: relative;
+            left: 15px;
+        }
+
+        .logo-corner {
+            width: 210px;
+            height: 210px;
+            background: white;
+            border-radius: 50%;
+            position: relative;
+            bottom: -85px;
+            right: -55px;
+            border: 12px solid var(--color-green-main);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 35px;
+            padding-right: 45px;
+            z-index: 10;
+            box-shadow: -5px -5px 15px rgba(0,0,0,0.2);
+        }
+
+        .logo-img {
+            width: 110px;
+            height: auto;
+        }
+
+        .section-title-visual {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            z-index: 15;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container">
+        
+        <img src="../../../tu puedes logo.png" class="logo-overlay" alt="Logo Institucional">
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide slide-cover active" id="slide-1">
+            <div class="bg-pattern-dots"></div>
+            
+            <!-- Top Bar -->
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-content slide-content">
+                <h1 class="cover-title">Entendiendo la Nube<br>y OneDrive</h1>
+                <div class="cover-subtitle">Cápsula 5.1: La Nube</div>
+                <div style="margin-top: 40px;">
+                    <span style="background: var(--color-purple-main); color: white; padding: 5px 15px; border-radius: 4px; font-weight: bold;">Programa Tú Puedes</span>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-sm bg-purple-light"></div>
+                <div class="segment seg-sm bg-green-slate"></div>
+                <div class="segment seg-md bg-green-lime"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 1.5: SEPARADOR DE SECCIÓN -->
+        <div class="slide slide-section" id="slide-2">
+            <div class="bg-pattern"></div>
+
+            <div class="central-bar">
+                <div class="shape-start w-1 bg-v1 z5"></div>
+                <div class="shape-mid w-2 bg-v2 z4"></div>
+                <div class="shape-mid w-3 bg-gr z3"></div>
+                <div class="shape-mid w-4 bg-m1 z2"></div>
+                <div class="shape-end-arrow bg-m2 z1"></div>
+            </div>
+
+            <div class="section-title-visual">¿Qué es<br>la Nube?</div>
+
+            <div class="bottom-area">
+                <div class="footer-stripes">
+                    <div class="stripe" style="background-color: var(--color-purple-dark);"></div>
+                    <div class="stripe bg-gr"></div>
+                    <div class="stripe bg-v2"></div>
+                    <div class="stripe-long"></div>
+                </div>
+
+                <div class="logo-corner">
+                    <img src="../../../tu puedes logo.png" alt="Logo Institucional" class="logo-img">
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: ¿Dónde están mis cosas? -->
+        <div class="slide" id="slide-3">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>¿Dónde están mis cosas?</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <div class="content-row">
+                    <div class="col-text">
+                        <p style="font-size: 1.5rem; margin-bottom: 30px;">¿Se te quedó el pendrive? ¿Se rompió el computador?</p>
+                        
+                        <div class="highlight-box bullet-point" data-step="1">
+                            <span class="bullet-icon"><i class="fas fa-cloud"></i></span> <strong>La Nube (OneDrive)</strong> es como una mochila mágica que te sigue a todos lados.
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <div style="font-size: 8rem;"><i class="fas fa-cloud"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="margin-top: auto;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: ¿Cómo se ve la nube? -->
+        <div class="slide" id="slide-4">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>1. ¿Cómo se ve la nube?</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p style="font-size: 1.5rem; margin-bottom: 20px;">Busca la nubecita azul en tu computador.</p>
+                
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="bullet-point" data-step="1"><span class="bullet-icon">📂</span> Es una carpeta normal en tu PC.</div>
+                        <div class="bullet-point" data-step="2"><span class="bullet-icon">⬆️</span> Todo lo que pones ahí se "sube" a internet.</div>
+                        <div class="bullet-point" data-step="3"><span class="bullet-icon">🛡️</span> Si tu PC explota, ¡tus archivos se salvan!</div>
+                    </div>
+                    <div class="col-media">
+                        <div style="font-size: 8rem;">💻</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="margin-top: auto;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Guardar directo en la nube -->
+        <div class="slide" id="slide-5">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>2. Guardar directo en la nube</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p style="font-size: 1.5rem; margin-bottom: 20px;">Desde Word, Excel o PowerPoint.</p>
+                
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="bullet-point" data-step="1"><span class="bullet-icon"><i class="fas fa-save"></i></span> Ve a <strong>Archivo > Guardar como</strong>.</div>
+                        <div class="bullet-point" data-step="2"><span class="bullet-icon">👆</span> Elige <strong>OneDrive</strong> en vez de "Escritorio".</div>
+                        <div class="highlight-box bullet-point" data-step="3">
+                            <span class="bullet-icon">📧</span> ¡Ya no necesitas enviarte correos a ti mismo!
+                        </div>
+                    </div>
+                    <div class="col-media">
+                        <div style="font-size: 8rem;">💾</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="margin-top: auto;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Los semáforos -->
+        <div class="slide" id="slide-6">
+            <header class="corp-header">
+                <div class="ch-start bg-green-main"></div>
+                <div class="ch-item bg-green-lime"></div>
+                <div class="ch-item bg-green-slate"></div>
+                <div class="ch-end bg-purple-main">
+                    <h1>3. Los semáforos de los archivos</h1>
+                </div>
+            </header>
+            
+            <div class="content-body slide-content">
+                <p style="font-size: 1.5rem; margin-bottom: 20px;">¿Qué significan los íconos al lado de tus archivos?</p>
+                
+                <div class="content-row">
+                    <div class="col-text">
+                        <div class="bullet-point" data-step="1"><span class="bullet-icon"><i class="fas fa-cloud"></i></span> <strong>Nube Azul:</strong> El archivo está solo en internet (no ocupa espacio en tu PC).</div>
+                        <div class="bullet-point" data-step="2"><span class="bullet-icon"><i class="fas fa-check-circle"></i></span> <strong>Check Verde:</strong> El archivo está descargado en tu PC y listo para usar sin internet.</div>
+                        
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 30px; font-size: 1rem;">
+                            <thead>
+                                <tr style="background-color: var(--color-purple-main); color: white;">
+                                    <th style="padding: 10px; text-align: left;">Ícono</th>
+                                    <th style="padding: 10px; text-align: left;">Estado</th>
+                                    <th style="padding: 10px; text-align: left;">Significado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #eee;">
+                                    <td style="padding: 10px;"><i class="fas fa-cloud" style="color: #0078d4;"></i></td>
+                                    <td style="padding: 10px; font-weight: bold;">Solo en la nube</td>
+                                    <td style="padding: 10px;">Disponible online, ahorra espacio local.</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #eee;">
+                                    <td style="padding: 10px;"><i class="fas fa-check-circle" style="color: green;"></i></td>
+                                    <td style="padding: 10px; font-weight: bold;">Siempre disponible</td>
+                                    <td style="padding: 10px;">Descargado y accesible offline.</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px;"><i class="fas fa-sync" style="color: orange;"></i></td>
+                                    <td style="padding: 10px; font-weight: bold;">Sincronizando</td>
+                                    <td style="padding: 10px;">Actualizando cambios.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-media">
+                        <div style="font-size: 8rem;"><i class="fas fa-traffic-light"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deco-strip" style="margin-top: auto;">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-end bg-green-main" style="width: 20%;"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: CIERRE -->
+        <div class="slide slide-cover" id="slide-7">
+            <div class="bg-pattern-dots"></div>
+            
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-green-main"></div>
+                <div class="segment seg-fill seg-end bg-purple-main"></div>
+            </div>
+
+            <div class="cover-content slide-content">
+                <h1 class="cover-title" style="font-size: 3rem;">¡Archivos Seguros!</h1>
+                <div class="cover-subtitle" style="margin-bottom: 40px;">Tu información siempre contigo.</div>
+                <p style="font-size: 1.5rem; color: var(--color-purple-main);">Próxima Cápsula: Compartir y Colaborar.</p>
+            </div>
+
+            <div class="deco-strip">
+                <div class="segment seg-fill seg-start bg-purple-main"></div>
+                <div class="segment seg-fill seg-end bg-green-main"></div>
+            </div>
+        </div>
+
+        <!-- CONTROLES -->
+        <div class="controls">
+            <button class="nav-btn" onclick="prevSlide()" hidden>❮ Anterior</button>
+            <button class="nav-btn" onclick="nextSlide()" hidden>Siguiente ❯</button>
+        </div>
+        <div class="progress-bar" id="progressBar"></div>
+
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 7;
+        let currentStep = 0;
+
+        function updateSlide() {
+            document.querySelectorAll('.slide').forEach(s => {
+                s.classList.remove('active');
+            });
+            
+            const activeSlide = document.getElementById(`slide-${currentSlide}`);
+            activeSlide.classList.add('active');
+
+            currentStep = 0;
+            const steps = activeSlide.querySelectorAll('.bullet-point');
+            steps.forEach(step => step.classList.remove('visible'));
+
+            const progress = ((currentSlide - 1) / (totalSlides - 1)) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+
+            const logo = document.querySelector('.logo-overlay');
+            if (currentSlide === 1) {
+                logo.classList.add('centered');
+            } else {
+                logo.classList.remove('centered');
+            }
+        }
+
+        function nextSlide() {
+            const activeSlide = document.getElementById(`slide-${currentSlide}`);
+            const steps = activeSlide.querySelectorAll('.bullet-point');
+            
+            if (currentStep < steps.length) {
+                steps[currentStep].classList.add('visible');
+                currentStep++;
+            } else {
+                if (currentSlide < totalSlides) {
+                    currentSlide++;
+                    updateSlide();
+                }
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        updateSlide();
+    </script>
+</body>
+</html>

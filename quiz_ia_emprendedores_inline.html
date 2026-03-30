@@ -1,0 +1,179 @@
+<!-- 
+=============================================================================
+TRIVIA INTERACTIVA JS - IA PARA EMPRENDEDORES
+Instrucciones: Pegar en modo HTML en una "Página" de Moodle.
+Nota: Este quiz es formativo. No guarda nota en el libro de calificaciones.
+=============================================================================
+-->
+
+<div id="moodle-quiz-wrapper" style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; background-color: #ffffff; color: #333333; max-width: 800px; margin: 0 auto; padding: 0; box-sizing: border-box; border: 1px solid #e0e0e0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+
+    <!-- HEADER / BARRA DE PROGRESO -->
+    <div style="background-color: #583586; padding: 20px; color: white; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <h2 style="margin: 0; font-size: 18px; color: white;">Trivia: IA para Negocios</h2>
+            <div style="font-size: 12px; color: #9ccb3b; margin-top: 5px;">Demuestra lo que aprendiste</div>
+        </div>
+        <div style="text-align: right;">
+            <span id="q-counter" style="font-weight: bold; font-size: 24px;">1</span><span style="font-size: 14px; opacity: 0.8;">/3</span>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR DE PREGUNTAS -->
+    <div id="quiz-content" style="padding: 30px; min-height: 300px;">
+        
+        <!-- PREGUNTA 1 -->
+        <div class="question-slide" id="q1" style="display: block;">
+            <p style="font-size: 18px; font-weight: 600; color: #583586; margin-bottom: 20px;">
+                1. Según la analogía de la lección, ¿cómo deberíamos ver a la Inteligencia Artificial en nuestro emprendimiento?
+            </p>
+            <div onclick="checkAnswer(1, 'a')" style="cursor: pointer; border: 2px solid #eee; padding: 15px; margin-bottom: 10px; border-radius: 8px; transition: 0.2s;" onmouseover="this.style.borderColor='#9ccb3b'" onmouseout="this.style.borderColor='#eee'">
+                <strong style="color: #c62828;">A)</strong> Como un jefe que tomará las decisiones por nosotros.
+            </div>
+            <div onclick="checkAnswer(1, 'b')" style="cursor: pointer; border: 2px solid #eee; padding: 15px; margin-bottom: 10px; border-radius: 8px; transition: 0.2s;" onmouseover="this.style.borderColor='#9ccb3b'" onmouseout="this.style.borderColor='#eee'">
+                <strong style="color: #76b82a;">B)</strong> Como un pasante muy rápido que necesita instrucciones claras.
+            </div>
+            <div onclick="checkAnswer(1, 'c')" style="cursor: pointer; border: 2px solid #eee; padding: 15px; margin-bottom: 10px; border-radius: 8px; transition: 0.2s;" onmouseover="this.style.borderColor='#9ccb3b'" onmouseout="this.style.borderColor='#eee'">
+                <strong style="color: #7a9483;">C)</strong> Como una herramienta mágica que no requiere supervisión.
+            </div>
+        </div>
+
+        <!-- PREGUNTA 2 -->
+        <div class="question-slide" id="q2" style="display: none;">
+            <p style="font-size: 18px; font-weight: 600; color: #583586; margin-bottom: 20px;">
+                2. ¿En qué área NO mencionamos explícitamente que la IA ayuda a los emprendedores?
+            </p>
+            <div onclick="checkAnswer(2, 'a')" style="cursor: pointer; border: 2px solid #eee; padding: 15px; margin-bottom: 10px; border-radius: 8px; transition: 0.2s;" onmouseover="this.style.borderColor='#9ccb3b'" onmouseout="this.style.borderColor='#eee'">
+                <strong style="color: #76b82a;">A)</strong> Redacción y Marketing (Crear posts y correos).
+            </div>
+            <div onclick="checkAnswer(2, 'b')" style="cursor: pointer; border: 2px solid #eee; padding: 15px; margin-bottom: 10px; border-radius: 8px; transition: 0.2s;" onmouseover="this.style.borderColor='#9ccb3b'" onmouseout="this.style.borderColor='#eee'">
+                <strong style="color: #76b82a;">B)</strong> Lluvia de Ideas (Nombres y estrategias).
+            </div>
+            <div onclick="checkAnswer(2, 'c')" style="cursor: pointer; border: 2px solid #eee; padding: 15px; margin-bottom: 10px; border-radius: 8px; transition: 0.2s;" onmouseover="this.style.borderColor='#9ccb3b'" onmouseout="this.style.borderColor='#eee'">
+                <strong style="color: #c62828;">C)</strong> Reemplazo total del personal humano en atención al cliente.
+            </div>
+        </div>
+
+        <!-- PREGUNTA 3 -->
+        <div class="question-slide" id="q3" style="display: none;">
+            <p style="font-size: 18px; font-weight: 600; color: #583586; margin-bottom: 20px;">
+                3. ¿Qué necesitamos aportar nosotros los humanos para que la IA funcione bien?
+            </p>
+            <div onclick="checkAnswer(3, 'a')" style="cursor: pointer; border: 2px solid #eee; padding: 15px; margin-bottom: 10px; border-radius: 8px; transition: 0.2s;" onmouseover="this.style.borderColor='#9ccb3b'" onmouseout="this.style.borderColor='#eee'">
+                <strong style="color: #76b82a;">A)</strong> Experiencia, criterio y conocimiento del cliente.
+            </div>
+            <div onclick="checkAnswer(3, 'b')" style="cursor: pointer; border: 2px solid #eee; padding: 15px; margin-bottom: 10px; border-radius: 8px; transition: 0.2s;" onmouseover="this.style.borderColor='#9ccb3b'" onmouseout="this.style.borderColor='#eee'">
+                <strong style="color: #c62828;">B)</strong> Saber programar en Python avanzado.
+            </div>
+            <div onclick="checkAnswer(3, 'c')" style="cursor: pointer; border: 2px solid #eee; padding: 15px; margin-bottom: 10px; border-radius: 8px; transition: 0.2s;" onmouseover="this.style.borderColor='#9ccb3b'" onmouseout="this.style.borderColor='#eee'">
+                <strong style="color: #7a9483;">C)</strong> Nada, la IA ya lo sabe todo.
+            </div>
+        </div>
+
+        <!-- PANTALLA RESULTADOS -->
+        <div id="result-screen" style="display: none; text-align: center; padding-top: 20px;">
+            <div id="icon-result" style="font-size: 60px; margin-bottom: 10px;"></div>
+            <h3 id="title-result" style="margin: 0 0 10px 0; font-size: 24px;"></h3>
+            <p id="msg-result" style="color: #555; margin-bottom: 30px;"></p>
+            
+            <button id="btn-retry" onclick="resetQuiz()" style="display:none; background-color: #7a9483; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-size: 16px;">Intentar de Nuevo</button>
+            
+            <!-- Este botón simula el "Continuar" -->
+            <button id="btn-continue" onclick="alert('¡Excelente! Ya puedes volver al curso e ir al siguiente módulo.')" style="display:none; background-color: #583586; color: white; border: none; padding: 15px 30px; border-radius: 5px; cursor: pointer; font-size: 18px; font-weight: bold; box-shadow: 0 4px 0 #3a2258;">
+                CONTINUAR AL SIGUIENTE MÓDULO ➔
+            </button>
+        </div>
+
+    </div>
+
+    <!-- FEEDBACK TOAST (Mensaje flotante) -->
+    <div id="feedback-toast" style="display: none; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 10px 20px; border-radius: 30px; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+        Respuesta correcta
+    </div>
+
+    <!-- LOGICA JAVASCRIPT INLINE -->
+    <script>
+        // Configuración de respuestas correctas
+        var answers = {
+            1: 'b', // Pasante
+            2: 'c', // Reemplazo total (Esa es la falsa)
+            3: 'a'  // Experiencia
+        };
+
+        var currentQ = 1;
+        var score = 0;
+        var totalQ = 3;
+
+        function showToast(msg, color) {
+            var t = document.getElementById('feedback-toast');
+            t.innerText = msg;
+            t.style.background = color;
+            t.style.display = 'block';
+            setTimeout(function(){ t.style.display = 'none'; }, 2000);
+        }
+
+        function checkAnswer(qNum, selected) {
+            if (selected === answers[qNum]) {
+                score++;
+                showToast("¡Correcto! ✅", "#76b82a");
+            } else {
+                showToast("Incorrecto ❌", "#c62828");
+            }
+
+            // Pequeña pausa antes de avanzar
+            setTimeout(function() {
+                nextSlide();
+            }, 800);
+        }
+
+        function nextSlide() {
+            // Ocultar actual
+            document.getElementById('q' + currentQ).style.display = 'none';
+            
+            currentQ++;
+            
+            if (currentQ <= totalQ) {
+                // Mostrar siguiente
+                document.getElementById('q' + currentQ).style.display = 'block';
+                document.getElementById('q-counter').innerText = currentQ;
+            } else {
+                // Fin del quiz
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('result-screen').style.display = 'block';
+            var icon = document.getElementById('icon-result');
+            var title = document.getElementById('title-result');
+            var msg = document.getElementById('msg-result');
+            var btnRetry = document.getElementById('btn-retry');
+            var btnCont = document.getElementById('btn-continue');
+
+            // Lógica de aprobación (Requiere 100% para continuar, o puedes ser más flexible)
+            if (score === totalQ) {
+                icon.innerHTML = "🏆";
+                title.innerText = "¡Felicidades!";
+                title.style.color = "#583586";
+                msg.innerText = "Has respondido correctamente todas las preguntas. Estás listo para usar la IA.";
+                btnCont.style.display = "inline-block";
+                btnRetry.style.display = "none";
+            } else {
+                icon.innerHTML = "🧐";
+                title.innerText = "Casi lo tienes...";
+                title.style.color = "#c62828";
+                msg.innerText = "Has acertado " + score + " de " + totalQ + ". Repasa los conceptos y vuelve a intentarlo.";
+                btnCont.style.display = "none";
+                btnRetry.style.display = "inline-block";
+            }
+        }
+
+        function resetQuiz() {
+            currentQ = 1;
+            score = 0;
+            document.getElementById('result-screen').style.display = 'none';
+            document.getElementById('q1').style.display = 'block';
+            document.getElementById('q-counter').innerText = "1";
+        }
+    </script>
+</div>
